@@ -1,0 +1,26 @@
+{
+  "name": "proyecto_oct_0.2",
+  "version": "0.2.0",
+  "description": "Proyecto para la gestion de usuarios de la Oficina de Cultura recreacion y deporte ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/01speed1/ProyectoOCT.git"
+  },
+  "author": "Oscar Guzman / @01speed1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/01speed1/ProyectoOCT/issues"
+  },
+  "homepage": "https://github.com/01speed1/ProyectoOCT#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "glob": "^7.0.0",
+    "hotnode": "0.0.8",
+    "jade": "^1.11.0",
+    "mongoose": "^4.4.5"
+  }
+}
