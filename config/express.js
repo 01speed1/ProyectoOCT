@@ -1,9 +1,16 @@
-var express 	= require("express"),
-	mongoose	= require("mongoose"),
-	glob		=require("glob");	
+var express 		= require("express"),
+	mongoose		= require("mongoose"),
+	glob			= require("glob"),
+	bodyParser 		= require('body-parser'),
+	methodOverride 	= require('method-override');
 
 //exportar configuracion de express a app.js
 module.exports = function (app, config) {
+	//Configuracion basica
+	app.use(methodOverride());
+
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
 
 	//configurar la base datos
 	require("./mongoose.js")(config);
