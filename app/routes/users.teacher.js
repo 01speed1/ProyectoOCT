@@ -2,7 +2,7 @@
 module.exports = function (app) {
 	var userModel = require("../models/user.js");
 	//post
-	app.post("/teachers", function (sol, res) {
+	app.post("/profesores", function (sol, res) {
 		var nuevoTeacher = new userModel({
 			idDocument: 			sol.body.idd,
 			typeUser: 				"Teacher",
@@ -16,7 +16,7 @@ module.exports = function (app) {
 	}); 
 
 	//get all
-	app.get("/teachers", function (sol, res) {
+	app.get("/profesores", function (sol, res) {
 		userModel.find( { typeUser: "Teacher"} , function (err, teachers) {
 			if (!err) {res.send(teachers)}
 			else { console.log(err.message); res.json(err.message);}
@@ -24,7 +24,7 @@ module.exports = function (app) {
 	});
 
 	//get one
-	app.get("/teacher/:id", function (sol, res) {
+	app.get("/profesor/:id", function (sol, res) {
 		var id = sol.params.id;
 		userModel.findById(id, function (err, teacher) {
 			if (!err) { res.send(teacher)}
@@ -33,7 +33,7 @@ module.exports = function (app) {
 	})
 
 	//put
-	app.put("/teacher/:id", function (sol, res) {
+	app.put("/profesor/:id", function (sol, res) {
 		var id = sol.params.id;
 		userModel.findById(id, function (err, teacher) {
 			teacher.idDocument 				= sol.body.idd;
@@ -48,7 +48,7 @@ module.exports = function (app) {
 	}); 
 
 	//delete
-	app.delete("/teacher/:id", function (sol, res) {
+	app.delete("/profesor/:id", function (sol, res) {
 		var id = sol.params.id; 
 		userModel.findById(id, function (err, teacher) {
 			teacher.remove(function (err) {

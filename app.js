@@ -12,3 +12,8 @@ app.get("/",function (sol, res) {
 	//res.render("home");
 	res.send("estas en home"); 
 } ); 
+
+app.get("*", function (sol, res) {
+	//res.render("404") pagina 404
+	res.send("Pagina no encontrada", 404);
+})
