@@ -15,5 +15,5 @@ app.get("/",function (sol, res) {
 
 app.get("*", function (sol, res) {
 	//res.render("404") pagina 404
-	res.send("Pagina no encontrada", 404);
+	res.status(404).send("Pagina no encontrada");
 })

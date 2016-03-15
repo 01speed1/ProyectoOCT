@@ -18,10 +18,12 @@
   "homepage": "https://github.com/01speed1/ProyectoOCT#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "cors": "^2.7.1",
     "express": "^4.13.4",
     "glob": "^7.0.0",
     "hotnode": "0.0.8",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^5.7.0",
     "method-override": "^2.3.5",
     "moment": "^2.12.0",
     "mongoose": "^4.4.5",

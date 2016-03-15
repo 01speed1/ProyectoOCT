@@ -2,15 +2,21 @@ var express 		= require("express"),
 	mongoose		= require("mongoose"),
 	glob			= require("glob"),
 	bodyParser 		= require('body-parser'),
-	methodOverride 	= require('method-override');
+	methodOverride 	= require('method-override'),
+	cors			= require("cors");
 
 //exportar configuracion de express a app.js
 module.exports = function (app, config) {
 	//Configuracion basica
 	app.use(methodOverride());
 
+	app.use(cors()); // aun no se que hace 
+
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
+
+	//configuracion de la capeta public 
+	app.use(express.static("public"));
 
 	//configurar la base datos
 	require("./mongoose.js")(config);
@@ -27,7 +33,7 @@ module.exports = function (app, config) {
 		require(routes)(app);  //parametro "routes es la direccion de las rutas" y app es express 
 	});
 
-	//configurar es puerto
+	//configurar es el puerto
 	app.listen(config.port, function (err) {
 		if (err){
 			console.log("error en el puerto de conexion");
