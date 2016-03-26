@@ -1,0 +1,11 @@
+header 
+	nav.light-green.darken-2.white-text
+		.container
+			.nav-wrapper
+				a.brand-logo(href="#") Titulo del logo
+					ul.nav-mobile.right.hide-on-med-and-down
+						li
+							-if (!user)
+								a(href='/me/login') Inicar sesion 
+							-else 
+								a(href='/me/logout') Cerrar sesion

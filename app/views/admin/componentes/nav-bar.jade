@@ -1,0 +1,32 @@
+header 
+	.navbar-fixed
+		ul#usuariosDropDown.dropdown-content
+			li
+				a(href="") Administradores
+			li
+				a(href="") Profesores
+			li
+				a(href="") Estudiantes
+			li
+				a(href="") Visitantes
+
+		ul#escuelasDropDown.dropdown-content
+			li
+				a(href="") Escuelas
+			li
+				a(href="") Areas
+
+
+		nav
+			.container
+				.nav-wrapper
+					a.brand-logo(href="#") Panel de Control
+					ul.nav-mobile.right.hide-on-med-and-down
+						li 
+							a.dropdown-button(href="!#" data-activates="usuariosDropDown") Perfiles de Usuario
+								i.material-icons.right arrow_drop_down
+						li
+							a.dropdown-button(href="!#" data-activates="escuelasDropDown") Escuelas de Formacion
+								i.material-icons.right arrow_drop_down
+						li
+							a(href="/administrador/logout") Cerrar Sesion

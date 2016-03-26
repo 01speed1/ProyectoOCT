@@ -10,7 +10,7 @@ require("./config/express.js")(app, config);
 //basicamente porner rutas aqui que no lleve CRUD 
 app.get("/",function (sol, res) {
 	//res.render("home");
-	res.send("estas en home"); 
+	res.render("home/"); 
 } ); 
 
 app.get("*", function (sol, res) {

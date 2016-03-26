@@ -1,0 +1,38 @@
+extends ../layout.jade
+
+block contenido
+	include ./componentes/nav-bar.jade
+	main.contenido
+		.container
+			.row
+				.col.s6
+					.card
+						.card-content
+							div.card-title Modificar informacion de perfil
+							form.col.s12
+								.row 
+									.input-field.col.s6
+										input.validate(type="text")
+										label Primer Nombre
+									.input-field.col.s6
+										input.validate(type="text")
+										label Segundo Nombre
+								.row
+									.input-field.col.s6
+										input.validate(type="text")
+										label Primer Apellido
+									.input-field.col.s6
+										input.validate(type="text")
+										label Segundo Apellido
+								.row
+									.input-field.col.s12
+										input.validate(type="email")
+										label Correo Electronico
+						.row
+				.col.s6
+					.card
+						.card-content
+							
+						.row
+
+

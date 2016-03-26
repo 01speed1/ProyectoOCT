@@ -1,0 +1,44 @@
+extends ../layout.jade
+
+block contenido
+	include ./componentes/nav-bar.jade
+	.admin-wall
+		.section
+			.container
+				.row
+					.col.s12
+						.card(style="background-color: rgba(255, 255,255, 0.90);")
+							.card-content
+								p. 
+									Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. 
+									Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, 
+									cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una 
+									galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. 
+									No sólo sobrevivió 500 años, sino que tambien ing
+							.card-action
+								a(href="http://") link
+
+	.container
+		.row
+			.col.s3
+				#AdminProfile.litle-space
+					.main-avatar.z-depth-1.center-align.hoverable.center-block
+
+
+					p.center-align.litle-space #{user.idDocument}
+		
+			.col.s9
+				
+				ul.collection.with-header
+					li 
+						h5.collection-header Ultimos usuarios creados 
+					each adminRow in admins
+						li.collection-item.avatar 
+							i.material-icons.circle perm_identity
+							span.title #{adminRow.idDocument}
+							p Nombre 
+							p #{adminRow.typeUser}
+							a.secondary-content(href="#")
+								i.material-icons grade
+
+			

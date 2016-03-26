@@ -1,0 +1,18 @@
+header
+	ul#drop-profile.dropdown-content
+		li
+			a(href="/me/logout") Cerrar Sesion
+		li
+			a(href="/me/edit") Editar Perfil
+		li
+			a(href="/me") Ver Perfil 
+	nav.light-green.darken-2.white-text
+		.container
+			.nav-wrapper
+				//- if (!user.name){var titleLogo = "Mi perfil"} else {titleLogo = user.name}
+				a.brand-logo(href="#") Mi Perfil
+				ul.nav-mobile.right.hide-on-med-and-down
+					li
+						a.dropdown-button(href="#!", data-activates="drop-profile")
+							span.avatar-nav
+								img.circle.responsive-img(src="/img/default-img-profile.png")

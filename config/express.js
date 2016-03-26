@@ -2,15 +2,20 @@ var express 		= require("express"),
 	mongoose		= require("mongoose"),
 	glob			= require("glob"),
 	bodyParser 		= require('body-parser'),
-	methodOverride 	= require('method-override'),
-	cors			= require("cors");
+	session 		= require('express-session'),
+	methodOverride 	= require('method-override');
 
 //exportar configuracion de express a app.js
 module.exports = function (app, config) {
+	//configuracion de sesiones con express
+	app.use(session({
+		secret: config.secret,
+		resave: false,
+  		saveUninitialized: true
+	}));
+
 	//Configuracion basica
 	app.use(methodOverride());
-
-	app.use(cors()); // aun no se que hace 
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));

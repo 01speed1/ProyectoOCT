@@ -1,0 +1,21 @@
+doctype html
+html(lang="es")
+	head
+		title #{title}
+		meta(charset="utf-8")
+		link(href="../../materialize/css/materialize.min.css" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(href="../../css/main.css" rel="stylesheet")
+		link(href="../../darkroom/darkroom.css" rel="stylesheet")
+
+	body
+		block contenido
+		a.btn(onclick="Materialize.toast('vengo del layout', 4000)") Layout!
+		br
+		a.btn(href="/administrador") Admin panel temporal
+		
+		//Scripts
+		script(src="../../js/jq.js" type="text/javascript" )
+		script(src="../../materialize/js/materialize.min.js" type="text/javascript")
+		script(src="../../js/main.js" type="text/javascript")
+		script(src="../../darkroom/darkroom.js" type="text/javascript")

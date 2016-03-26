@@ -1,0 +1,42 @@
+extends ../layout.jade
+
+block contenido
+	include ./componentes/nav-bar.jade
+	main.contenido
+		.banner
+		.info-user
+			.row.no-margin-bot
+				.section.no-pading-bot
+					.card.semi-trasparent.no-margin-bot
+						.card-content
+							.row.no-margin-bot
+								.col.s12
+									.avatar-profile.center-align
+										img.circle.responsive-img(src="/img/default-img-profile.png")
+										h4 Nombre de usuario
+										div.center-align
+											.row.no-margin-bot
+												.col.s2.offset-s5
+													.col.s4
+														i.small.material-icons perm_identity
+													.col.s4
+														h6 #{user.typeUser}
+											
+											
+											
+			h3 Datos del usuario			
+			.row
+				.col.s6.no-pading-left
+					.card.white
+						.card-content
+							span.card-title Informacion
+							p soy mas informacion
+				.col.s6.no-pading-right
+					.card.white
+						.card-content
+							span.card-title Informacion
+							p soy mas informacion
+			h3 Cursos
+
+					
+										
