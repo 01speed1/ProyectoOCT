@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "cors": "^2.7.1",
+    "cropit": "^0.5.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "glob": "^7.0.0",
