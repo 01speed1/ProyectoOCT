@@ -2,7 +2,10 @@
 var mongoose 	= require("mongoose"),
  	encrypt 	= require('mongoose-encryption'),
  	uniqueValidator = require('mongoose-unique-validator'),
- 	config 		= require("../../config/config.js");
+ 	config 		= require("../../config/config.js"),
+ 	moment 		=require("moment");
+
+ 	moment().locale("es");
 
 //validaciones
 var passValidator = {
@@ -27,10 +30,52 @@ var	userSchema = mongoose.Schema({
 		validate: 	passValidator},
 	typeUser: 	{
 		type: 		String,
-		enum: 		["Admin", "Teacher", "Student", "User"],
-		default: 	"User"
+		enum: 		["Administrador", "Profesor", "Estudiante", "Usuario"],
+		default: 	"Usuario"
 	},
-	creation: { type: Date, default: Date.now}
+	imageAvatar: {
+		type: String,
+		default: "http://res.cloudinary.com/dcdrggs9p/image/upload/v1459184609/default-img-profile_nq0je2.png"
+	},
+	userName:{
+		type: String,
+		unique: true
+	},
+	firstName:{
+		type: String,
+		maxlength: 25
+	},
+	secondName:{
+		type: String,
+		maxlength: 25
+	},
+	lastName:{
+		type: String,
+		maxlength: 25
+	},
+	mail:{
+		type: String,
+		unique: true
+	},
+	born:{
+		type: Date,
+		get: function (formated) {
+			return moment(formated).format();
+			
+		}
+	},
+	gender:{
+		type: String,
+		enum:["M", "F"]
+	},
+	creation: { 
+		type: Date, 
+		default: Date.now
+	},
+	isUpdate:{
+		type: Boolean,
+		default: false
+	}
 });
 
 //virtuales 
@@ -41,6 +86,20 @@ userSchema.virtual("password_confirmation")
 	.set(function (password) {
 		this.cnfirmation = password;
 	});
+
+userSchema.virtual("full_name")
+	.get(function () {
+		return this.firstName+' '+this.secondName+' '+this.lastName;
+	});
+
+userSchema.virtual("edad")
+	.get(function () {
+		return moment(this.born).fromNow(true);
+	})
+userSchema.virtual("my_born")
+	.get(function () {
+		return moment(this.born).format("DD-MM-YYYY");
+	})
 
 
 //plugins

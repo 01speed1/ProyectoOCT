@@ -5,7 +5,7 @@ module.exports = function (app) {
 	app.post("/estudiantes", function (sol, res) {
 		var nuevoTeacher = new userModel({
 			idDocument: 			sol.body.idd,
-			typeUser: 				"Student",
+			typeUser: 				"Estudiante",
 			password: 				sol.body.p,
 			password_confirmation: 	sol.body.pc
 		});
@@ -17,7 +17,7 @@ module.exports = function (app) {
 
 	//get all
 	app.get("/estudiantes", function (sol, res) {
-		userModel.find( { typeUser: "Student"} , function (err, students) {
+		userModel.find( { typeUser: "Estudiante"} , function (err, students) {
 			if (!err) {res.send(students)}
 			else { console.log(err.message); res.json(err.message);}
 		})

@@ -1,34 +1,36 @@
+$(document).ready(function(){
+  
+  //inicializadores de materialize  
+  $('.modal-trigger').leanModal();
+  $(".button-collapse").sideNav();
+  $(".dropdown-button").dropdown();
+  $('select').material_select();
 
-  $(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-    $(".button-collapse").sideNav();
-	 $(".dropdown-button").dropdown();
-        
+  
+	$('.datepicker').pickadate({
+		selectMonths: true, // Creates a dropdown to control month
+    	selectYears: 70, // Creates a dropdown of 15 years to control year
+    	//botones 
+    	today: 'Hoy',
+		clear: 'Borrar',
+		close: 'Aceptar',
+		//meses
+		monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		monthsShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+		weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+		weekdaysShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+		format:'dd-mm-yyyy',
+		showMonthsShort: undefined,
+		showWeekdaysFull: undefined
 
-    //colapsable acodion para sidenav 
-    $('.collapsible').collapsible({
+	});
+
+	 $('.collapsible').collapsible({
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });    
-  });
+    
 
-  $(function() {
-        $('.image-editor').cropit({
-          imageState: {
-            src: 'http://lorempixel.com/500/400/',
-          },
-        });
 
-        $('.rotate-cw').click(function() {
-          $('.image-editor').cropit('rotateCW');
-        });
-        $('.rotate-ccw').click(function() {
-          $('.image-editor').cropit('rotateCCW');
-        });
+}); 
 
-        $('.export').click(function() {
-          var imageData = $('.image-editor').cropit('export');
-          window.open(imageData);
-        });
-      });
-          
+ 

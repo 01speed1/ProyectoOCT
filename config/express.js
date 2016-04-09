@@ -3,7 +3,9 @@ var express 		= require("express"),
 	glob			= require("glob"),
 	bodyParser 		= require('body-parser'),
 	session 		= require('express-session'),
-	methodOverride 	= require('method-override');
+	methodOverride 	= require('method-override'),
+	multer			= require('multer'),
+	cloudinary 		= require('cloudinary');
 
 //exportar configuracion de express a app.js
 module.exports = function (app, config) {
@@ -13,6 +15,16 @@ module.exports = function (app, config) {
 		resave: false,
   		saveUninitialized: true
 	}));
+
+	//configuracion de multer
+	var upload = multer({ dest: '../public/img/uploads/' })
+
+	//configuracion de cloudinary
+	cloudinary.config({ 
+  		cloud_name: 'dcdrggs9p', 
+  		api_key: '822244176372834', 
+  		api_secret: 'MeLcmR9mNtWo2Qo8rLU2pY1Eaa8' 
+	});
 
 	//Configuracion basica
 	app.use(methodOverride());

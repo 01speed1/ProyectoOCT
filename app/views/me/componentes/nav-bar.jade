@@ -1,18 +1,22 @@
 header
 	ul#drop-profile.dropdown-content
 		li
-			a(href="/me/logout") Cerrar Sesion
+			a(href="/me") Ver Perfil
 		li
 			a(href="/me/edit") Editar Perfil
 		li
-			a(href="/me") Ver Perfil 
+			a(href="/me/logout") Cerrar Sesion
 	nav.light-green.darken-2.white-text
 		.container
 			.nav-wrapper
 				//- if (!user.name){var titleLogo = "Mi perfil"} else {titleLogo = user.name}
-				a.brand-logo(href="#") Mi Perfil
+				a.brand-logo(href="/me") Mi Perfil
 				ul.nav-mobile.right.hide-on-med-and-down
 					li
-						a.dropdown-button(href="#!", data-activates="drop-profile")
-							span.avatar-nav
-								img.circle.responsive-img(src="/img/default-img-profile.png")
+						a.dropdown-button(href="#!", data-activates="drop-profile") Menu
+							i(style="margin-left:80px;").material-icons.right menu
+							//
+								span.avatar-nav
+									img.circle.responsive-img(src="#{user.imageAvatar}")*/
+						
+					

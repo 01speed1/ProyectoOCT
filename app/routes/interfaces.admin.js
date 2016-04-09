@@ -6,6 +6,7 @@ var validAdmin	= require("../middlewares/sessionValidAdmin")
 //export a config/express.js
 module.exports = function (app) {
 	var Admin 	= require("../models/user");
+	var School 	= require("../models/school");
 
 
 	var air = express.Router(); //air = admin inteface router
@@ -25,7 +26,7 @@ module.exports = function (app) {
 							res.render("admin/login", {
 								massage: "No se encontro usuario Administrador o no escribiste una cedula"
 							})
-						} else if (admin.typeUser != "Admin" || admin.typeUser == null) {
+						} else if (admin.typeUser != "Administrador" || admin.typeUser == null) {
 							res.render("admin/login", {
 								massage: "No eres un usuario de tipo administrador, no puede acceder a este panel de control"
 							})
@@ -54,6 +55,39 @@ module.exports = function (app) {
 			res.render("admin/home", {admins: admins})
 		}).sort({creation: 'asc', _id: -1 }).limit(5) //to find the last entry or model.findOne().sort({ field: -_id }).limit(1)		
 	})
+
+	//Crear Escuela 
+	air.route("/school")
+		.get(validAdmin, function (sol, res) {
+			School.find(function (err, schools) {
+				res.render("admin/schools", {schools:schools});
+				console.log()
+			}).sort({creation: 'desc', _id: -1});
+
+			
+		})
+		.post(validAdmin, function (sol, res) {
+			//codigo pendiente para la creacion del de la escuela
+			if (sol.body.ns != " " || sol.body.ns != undefined) {
+					var newSchool = new School({
+					nombre: sol.body.ns
+				});
+
+				newSchool.save(function (err) {
+					if (!err) {
+						res.redirect("/administrador/school");
+					} else{
+						res.render("admin/schools", {message: "Puede que ya exista esa escuela"});
+					}
+				})
+			} else {
+				res.send({message: "No puede enviar el campo vacio"});
+
+			}
+			
+		})
+
+
 
 	//logout
 	air.get("/logout", validAdmin, function (sol, res) {

@@ -3,7 +3,7 @@ module.exports = function (app) {
 	userModel = require("../models/user.js");
 	//get
 	app.get("/admins", function (sol, res) {
-		userModel.find({typeUser: "Admin"}, function (err, admins) {
+		userModel.find({typeUser: "Administrador"}, function (err, admins) {
 			if(!err) { res.json(admins) }
 			else {
 				cosole.log("Error al cargar Administradores: "+err); 
@@ -24,7 +24,7 @@ module.exports = function (app) {
 	app.post("/admins", function (sol, res) {
 		var nuevoAdmin = new userModel({
 			idDocument: 			sol.body.idd,
-			typeUser: 				"Admin",
+			typeUser: 				"Administrador",
 			password: 				sol.body.p,
 			password_confirmation: 	sol.body.pc
 		});

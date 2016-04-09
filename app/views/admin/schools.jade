@@ -1,0 +1,39 @@
+extends ../layout.jade
+
+block contenido
+	include ./componentes/nav-bar.jade
+
+	main.contenido
+		.container
+			.row
+				.col.l5.s12
+					.card
+						.card-content
+							.card-title Crear Escuela de formacion
+							span.red-text #{message}
+							form.col.s12(method="POST", action="/administrador/school")
+								.row
+									.input-field.col.s12
+										input.validate(type="text" name="ns")
+										label Nombre de la Escuela
+								.row.right-align
+									button.btn.waves-effect.waves-light.blue.accent-2(type="submit") Crear
+										i.material-icons.right check
+
+
+						//rowCloser 
+						.row
+				.col.l7.s12
+					h4 Todas las Escuelas
+					ul.collapsible(data-collapsible="accordion")
+						each value in schools
+							li
+								.collapsible-header #{value.nombre}
+									i.material-icons class
+								.collapsible-body
+									p #{value.creation}
+
+
+
+						//rowCloser
+						.row
