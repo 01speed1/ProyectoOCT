@@ -1,7 +1,8 @@
 //rutas del Administrador
 var express = require("express");
 var config 	= require("../../config/config");
-var validAdmin	= require("../middlewares/sessionValidAdmin")
+var validAdmin	= require("../middlewares/sessionValidAdmin");
+
 
 //export a config/express.js
 module.exports = function (app) {
