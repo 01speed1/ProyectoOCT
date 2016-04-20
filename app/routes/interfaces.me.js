@@ -108,6 +108,7 @@ module.exports = function (app) {
 					user.password_confirmation = user.password;
 
 					user.save(function (err) {
+						console.log("Guardando..."+user)
 						if (!err) {
 							console.log(user.born)
 							res.render("me/home", {message: "Datos actualizados"},function (html) {
@@ -115,6 +116,7 @@ module.exports = function (app) {
 							});
 							
 						}else{
+							console.log(err)
 							if (err.errors.userName)
 								{res.render("me/edit", {message: "Ese nombre de usuario ya esta registrado"});}
 

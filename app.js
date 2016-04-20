@@ -1,7 +1,9 @@
 var express 	= require("express"), 
 	config		= require("./config/config.js"); 
 
-var app 		= express();
+var app 		= express(),
+	cloudinary 		= require('cloudinary');
+
 
 //importar la configuracion de express que esta en la carpeta config 
 require("./config/express.js")(app, config);
@@ -11,9 +13,10 @@ require("./config/express.js")(app, config);
 app.get("/",function (sol, res) {
 	//res.render("home");
 	res.render("home/"); 
-} ); 
+});
 
 app.get("*", function (sol, res) {
 	//res.render("404") pagina 404
 	res.status(404).send("Pagina no encontrada");
-})
+});
+
