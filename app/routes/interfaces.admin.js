@@ -57,6 +57,12 @@ module.exports = function (app) {
 	})
 
 	//Crear Escuela 
+	air.get("/schools/reload", function (sol, res) {
+		School.find(function (err, schools) {
+			res.send({schools:schools});
+		}).sort({creation: 'desc', _id: -1});
+	})
+
 	air.route("/school")
 		.get(validAdmin, function (sol, res) {
 			School.find(function (err, schools) {
@@ -68,23 +74,28 @@ module.exports = function (app) {
 		})
 		.post(validAdmin, function (sol, res) {
 			//codigo pendiente para la creacion del de la escuela
-			if (sol.body.ns != " " || sol.body.ns != undefined) {
-					var newSchool = new School({
-					nombre: sol.body.ns
+			var ns = sol.body.ns; 
+
+			var newSchool = new School({
+				nombre: ns
+			});
+
+			newSchool.save(function (err) {
+				if (!err) {
+					res.send("Se ha creado "+ns+" como una nueva escuela");
+				}
+			});			
+		})
+
+	//borrar una school
+	air.get("/school/:id", validAdmin, function (sol, res) {
+			var id = sol.params.id; 
+
+			School.findById(id, function (err, school) {
+				school.remove(function () {
+					res.redirect("/administrador/school");
 				});
-
-				newSchool.save(function (err) {
-					if (!err) {
-						res.redirect("/administrador/school");
-					} else{
-						res.render("admin/schools", {message: "Puede que ya exista esa escuela"});
-					}
-				})
-			} else {
-				res.send({message: "No puede enviar el campo vacio"});
-
-			}
-			
+			})
 		})
 
 

@@ -51,6 +51,10 @@
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
+.litle-margin{
+  margin: 5px !important;
+}
+
 span.avatar-nav{
 	margin-top: 10px;
 	margin-left: 100px;
@@ -88,4 +92,13 @@ div.avatar-profile{
 	margin: 0 auto;
 	padding-top: 3rem;
 
+}
+
+/*Boton en la pagina principal de areas*/
+#reloadSchools{
+  padding-top: 15px;
+}
+
+#delscl{
+  padding-bottom: 5px;
 }

@@ -10,28 +10,44 @@ block contenido
 					.card
 						.card-content
 							.card-title Crear Escuela de formacion
-							span.red-text #{message}
-							form.col.s12(method="POST", action="/administrador/school")
+							span.message.red-text
+							form#newSchool.col.s12(method="POST", action="/administrador/school")
 								.row
 									.input-field.col.s12
-										input.validate(type="text" name="ns")
+										input#ns.validate(type="text" name="ns")
 										label Nombre de la Escuela
 								.row.right-align
 									button.btn.waves-effect.waves-light.blue.accent-2(type="submit") Crear
 										i.material-icons.right check
-
+						//rowCloser
+						.row
+					.card
+						.card-content
+							p "las 
+								b Escuelas 
+								| son la categoria principal que comglomerara areas de conocimientos, esto diseñado con el objetivo de organizar las escuelas de formacion y que para el futuro estudiante le sea mas facil encontrar una escuela de formacion de su gusto."
+							p Por ejemplo la Escuela "Deportes" contendra a "Futbol, Boliebol, Backetbol, etc."
 
 						//rowCloser 
 						.row
 				.col.l7.s12
-					h4 Todas las Escuelas
-					ul.collapsible(data-collapsible="accordion")
+					.row
+						.col.s10
+							h4 Todas las Escuelas
+						.col.s2
+							#reloadSchools
+								a.waves-effect.waves-teal.btn-flat(href="#")
+									i.material-icons autorenew
+					ul#collapsible.collapsible(data-collapsible="accordion")
 						each value in schools
 							li
 								.collapsible-header #{value.nombre}
 									i.material-icons class
 								.collapsible-body
 									p #{value.creation}
+									.row.right-align.litle-margin
+										a(href="/administrador/school/#{value._id}").delscl.btn.waves-effect.waves-light.red Borrar esta escuela
+									
 
 
 
