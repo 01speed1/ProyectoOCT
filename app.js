@@ -2,7 +2,7 @@ var express 	= require("express"),
 	config		= require("./config/config.js"); 
 
 var app 		= express(),
-	cloudinary 		= require('cloudinary');
+	cloudinary 	= require('cloudinary');
 
 
 //importar la configuracion de express que esta en la carpeta config 
