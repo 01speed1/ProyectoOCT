@@ -1,6 +1,5 @@
 //modelo de usuario
-var mongoose 	= require("mongoose"),
- 	moment 		=require("moment");
+var mongoose 	= require("mongoose");
 
 //validaciones
 

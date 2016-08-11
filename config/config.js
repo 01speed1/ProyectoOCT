@@ -3,6 +3,7 @@ var path = require('path'), //llama el modulo path para establecer rutas
 
 module.exports = config = { 
 	root: 	rootPath, 
+	hostname: "",
 	app: 	{name: "Proyecto_OCT"},
 	port: 	process.env.PORT || 8080,
 	secret: "YourSecretIsMySecret",
