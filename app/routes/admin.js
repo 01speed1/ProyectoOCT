@@ -2,12 +2,15 @@ var express = require("express");
 
 module.exports = function (app) {
 
-	//route de CRUD
 	var route = express.Router();
 
 	//codigo del CRUD
+	route.route("/")
+		.get(function (sol,res) {
+			res.send("Hola admins");
+		})
 	
 
 	//ruta 
-	app.use("/.model.", route);
+	app.use("/administracion", route);
 };

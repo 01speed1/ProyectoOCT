@@ -6,7 +6,7 @@ var app 		= express();
 require("./config/express.js")(app,express,config);
 
 app.get("/",function (sol, res) {
-	res.render("Home/")	
+	res.render("Home/index");
 });
 
 app.get("*", function (sol, res) {
