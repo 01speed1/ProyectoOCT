@@ -1,1 +1,0 @@
-image_avar.js
