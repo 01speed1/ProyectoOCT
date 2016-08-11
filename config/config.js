@@ -3,12 +3,11 @@ var path = require('path'), //llama el modulo path para establecer rutas
 
 module.exports = config = { 
 	root: 	rootPath, 
-	hostname: "",
+	hostname: "hostname temporal",
 	app: 	{name: "Proyecto_OCT"},
 	port: 	process.env.PORT || 8080,
 	secret: "YourSecretIsMySecret",
 	db: 	"mongodb://localhost/OCT_DB",
 	algorithm: 'aes-256-ctr',
-	cryptoPass: "your_secret_is_my_secret",
-	secret: "why_so_serius"
+	cryptoPass: "your_secret_is_my_secret"
 }

@@ -4,8 +4,8 @@
 //exportar funcion de configuracion de express
 module.exports = function (app, express, config) {
 
-	//seteando hostname
-	app.set('hostname', config.hostname);
+	//seteando hostname para plugins de redes sociales
+	//app.set('hostname', config.hostname);
 
 	//cookieparser
 	var cookieParser = require('cookie-parser');
@@ -34,7 +34,7 @@ module.exports = function (app, express, config) {
 	//configuracion de la capeta public 
 	app.use(express.static("Public"));
 
-	//configurar la base datos
+	//configurar la base datos 
 	require("./mongoose")(config);
 
 	//configurar motor de vistas

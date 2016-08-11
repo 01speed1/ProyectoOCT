@@ -3,12 +3,10 @@ var express 	= require("express"),
 
 var app 		= express();
 
-require("./config/express.js")(app, config);
+require("./config/express.js")(app,express,config);
 
 app.get("/",function (sol, res) {
-	//
-
-	
+	res.render("Home/")	
 });
 
 app.get("*", function (sol, res) {
