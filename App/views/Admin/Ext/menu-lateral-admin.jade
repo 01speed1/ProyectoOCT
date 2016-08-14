@@ -1,0 +1,30 @@
+ul#slide-out.side-nav.fixed
+			//vista para el perfil
+			li
+				.userView
+					img.background(
+					src="http://goo.gl/mnPn0S")
+					a(href="#!user")
+						img.circle(
+						src="https://goo.gl/QYrHyx")
+					a(href="#!name")
+						span.white-text.name Oscar Guzman
+					a(href="#!email")
+						span.white-text.email abc@123.com
+			//lista de enlaces
+			li
+				a(href="#") esto es un enlace
+			li
+				a() esto es otro enlace
+			li.no-padding
+				ul.collapsible.collapsible-accordion
+					li
+						a.collapsible-header Usuarios           
+						.collapsible-body
+							ul
+								li
+									a.waves-effect(href='/admin/administradores') Administradores                 
+								li
+									a.waves-effect(href='#!') Profesores
+								li
+									a.waves-effect(href='#!') Estudiantes

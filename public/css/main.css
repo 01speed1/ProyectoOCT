@@ -1,0 +1,34 @@
+/*Agregando montserrat*/
+@import 'https://fonts.googleapis.com/css?family=Montserrat';
+
+p.descripcion{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1rem;
+	text-align: justify;
+}
+
+/*agrega un poquito de separacion a los botonos */
+.sbt{
+	margin-left: 0.4rem;
+	margin-right: 0.4rem;
+}
+
+
+/*codigo copia de la pagina de materialize*/
+
+header, main, footer {padding-left: 300px;}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {padding-left: 0;}
+}
+
+nav.top-nav {
+    height: 122px;
+    box-shadow: none;
+}
+
+nav.top-nav a.page-title {
+    line-height: 122px;
+    font-size: 48px;
+}
+
