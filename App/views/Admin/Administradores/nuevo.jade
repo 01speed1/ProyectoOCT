@@ -8,5 +8,75 @@ block contenido
 			p.descripcion Aquí puedes agregar un nuevo administrador
 			//formulario
 			.row
-				form#nuevo-admin.col.s12
-					
+				.card-panel.km
+					form#nuevo-admin.col.s12
+						.row
+							.input-field.col.s2
+								select#tipoDocumento(
+									name="tipoDocumento")
+									option(value="CC" selected) CC
+									option(value="TI") TI
+									option(value="CE") CE
+								label(for="tipoDocumento") tipo de documento
+							.input-field.col.s10
+								input#numeroDocumento(
+									name="numeroDocumento"
+									type="text")
+								label(for="numeroDocumento") Numero de documento		
+						.row
+							.input-field.col.s6
+								input#nombres(
+									name="nombres"
+									type="text")
+								label(for="nombres") Nombre(s)
+							.input-field.col.s6
+								input#apellidos(
+									name="apellidos"
+									type="text")
+								label(for="apellidos") apellidos
+						.row
+							.input-field.col.s12
+								input#email.validate(
+									name="email"
+									type="email")
+								label(for="email") Correo Electrónico
+						.row
+							.input-field.col.s6
+								input(
+									id="contraseña"
+									name="contraseña"
+									type="password")
+								label(for="contraseña") Contraseña
+							.input-field.col.s6
+								input(
+									id="contraseña-validar"
+									name="contraseña-validar"
+									type="password")
+								label(for="contraseña-validar") Repita la Contraseña
+						.row
+							.input-field.col.s6
+								input#fechaNacimiento.datepickerborn(
+									name="fechaNacimiento"
+									type="date")
+								label.active(for="fechaNacimiento") Fecha de nacimiento
+							.input-field.col.s6
+								select#genero(
+									name="genero")
+									option(value="" selected disabled) selecione
+									option(value="H") Hombre
+									option(value="M") Mujer
+								label(for="genero") Genero
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-text.darken-4(
+									href="/admin/administradores") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan(
+								type="submit"
+								name="accion") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer

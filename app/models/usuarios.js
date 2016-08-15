@@ -5,11 +5,19 @@ var mongoose 	= require("mongoose");
 
 //definir el schema principal
 var	usuarioSchema = mongoose.Schema({
+	tipoDocumento:{
+		type:String,
+		require:true,
+		enum:["CC","TI","CE"]
+	},
+	numeroDocumento:{
+		type:Number,
+		require:true
+	}
 	nombreUsuario:{
 		type:String,
 		require:true,
 		maxlength: 60
-
 	},
 	nombres:{
 		type: String,
@@ -21,13 +29,23 @@ var	usuarioSchema = mongoose.Schema({
 		require: true,
 		maxlength: 200
 	},
+	email:{
+		type:String,
+		require:true,
+		maxlength: 300
+	},
+	constraseña:{
+		type:String,
+		require:true,
+		minlength: 8
+	}
 	fechaNacimiento:{
 		type:Date
 	},
 	genero:{
 		type: String,
 		require: true,
-		maxlength: 200
+		enum:{"H","M"}
 	},
 	tipo:{
 		type:String,
