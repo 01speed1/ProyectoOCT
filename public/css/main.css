@@ -7,6 +7,11 @@ p.descripcion{
 	text-align: justify;
 }
 
+/*color gris para los iconos*/
+.grey-icons{
+  color: #757575 !important;
+}
+
 /*agrega un poquito de separacion a los botonos */
 .sbt{
 	margin: 0.4rem;
@@ -29,6 +34,19 @@ main{
 }
 
 /*codigo copia de la pagina de materialize*/
+
+/*estilo mensaje error para los input*/
+.input-field div.error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #f44336;
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  transform: translateY(0%);
+}
 
 header, main, footer {padding-left: 300px;}
 

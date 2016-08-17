@@ -2,7 +2,11 @@
 var mongoose 	= require("mongoose");
 
 //validaciones
-
+var passValidator = {
+	validator: function (pass)  {
+		return this.contraseñaValidar == pass
+	}, message : "Las contraseñas no coinciden"
+};
 //definir el schema principal
 var	usuarioSchema = mongoose.Schema({
 	tipoDocumento:{
@@ -13,7 +17,7 @@ var	usuarioSchema = mongoose.Schema({
 	numeroDocumento:{
 		type:Number,
 		require:true
-	}
+	},
 	nombreUsuario:{
 		type:String,
 		require:true,
@@ -37,20 +41,24 @@ var	usuarioSchema = mongoose.Schema({
 	constraseña:{
 		type:String,
 		require:true,
-		minlength: 8
-	}
+		minlength: 8,
+		validate: passValidator
+	},
 	fechaNacimiento:{
 		type:Date
 	},
 	genero:{
 		type: String,
 		require: true,
-		enum:{"H","M"}
+		enum:["H","M"]
+	},
+	telefono:{
+		type:String
 	},
 	tipo:{
 		type:String,
 		require:true,
-		enum:["ADMINISTRADOR","PROFESOR","ESTUDIANTE","USUARIO"]
+		enum:["ADMINISTRADOR","PROFESOR","ESTUDIANTE","USUARIO"],
 		default: "USUARIO"
 	},
 	//imagenes
@@ -64,11 +72,26 @@ var	usuarioSchema = mongoose.Schema({
 	},
 	creacion:{
 		type:Date,
-		default:Date.now();
+		default:Date.now()
+	},
+	estado:{
+		type:String,
+		enum:["NUEVO", "MODIFICADO", "VISTO"],
+		default:"NUEVO"
+	},
+	fechaModificado:{
+		type:Date
 	}
 });
 
-//virtuales 
+//virtuales
+usuarioSchema.virtual("contraseñaValidar")
+	.get(function () {
+		return this.cnfirmation;		
+	})
+	.set(function (constraseña) {
+		this.cnfirmation = constraseña;
+	});
 
 //plugins
 
