@@ -28,7 +28,7 @@
     "hotnode": "0.0.8",
     "jade": "~1.11.0",
     "method-override": "^2.3.5",
-    "moment": "^2.12.0",
+    "moment": "^2.14.1",
     "mongoose": "^4.4.5",
     "morgan": "^1.7.0",
     "mpath": "^0.2.1",

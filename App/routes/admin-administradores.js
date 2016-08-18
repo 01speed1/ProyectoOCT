@@ -15,7 +15,13 @@ module.exports = function (app) {
 			locals={
 				title: "Administradores",
 				page_title: "Panel de administradores"};
-			res.render("Admin/Administradores/index", locals)
+
+			Administrador.find(function (err, admins) {
+				locals.admins = admins;
+				res.render("Admin/Administradores/index", locals)
+			})
+
+			
 		})
 
 	//Agregar un nuevo administrador
@@ -29,17 +35,16 @@ module.exports = function (app) {
 		})
 		.post(function (sol, res) {
 			locals={};
-			
 			var nuevoAdministrador = new Administrador();
 
-			 for(var key in sol.body){
+			for(var key in sol.body){
 				if (typeof key != undefined) {
 					//console.log(key+":"+sol.body[key]);
 				 	nuevoAdministrador[key] = sol.body[key];
-				}
-			}
+				}};
 
 			nuevoAdministrador.fechaNacimiento = sol.body.fechaNacimiento_submit;
+			nuevoAdministrador.tipo = "ADMINISTRADOR";
 
 
 			nuevoAdministrador.save(function (err) {

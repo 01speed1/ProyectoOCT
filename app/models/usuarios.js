@@ -1,5 +1,6 @@
 //modelo de usuario
 var mongoose 	= require("mongoose");
+var moment = require("moment");
 
 //validaciones
 var passValidator = {
@@ -92,6 +93,14 @@ usuarioSchema.virtual("contraseñaValidar")
 	.set(function (constraseña) {
 		this.cnfirmation = constraseña;
 	});
+usuarioSchema.virtual("edad")
+	.get(function () {
+		return moment(this.fechaNacimiento).locale('es').fromNow(true);
+	})
+usuarioSchema.virtual("fechaPretty")
+	.get(function () {
+		return moment(this.fechaNacimiento).locale('es').format("LL");
+	})
 
 //plugins
 

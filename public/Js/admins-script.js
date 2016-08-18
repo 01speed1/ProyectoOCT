@@ -27,10 +27,18 @@ var primera_mayuscula =  function () {
 			var ran = Math.floor(Math.random()*11);
 			var nomaperan = nom[0]+"."+ape[0]+ran;
 			$('#nombreUsuario').val(nomaperan);
-		}
-			
+		}			
 };
 
+//impedir que uno click active todas los demas elementos 
+//mostras mas contenido del adminsitrador
+$(".elemento").click(function () {
+	var thiss = $(this);
+	if (thiss.find(".mas-info").length){
+		var son =  thiss.find(".mas-info");
+		son.toggle("fast");
+	}
+});
 
 
 //validar campos del nuevo administrador
@@ -148,5 +156,7 @@ var primera_mayuscula =  function () {
 	$('#nombres').keyup(auto_username);
 	$('#apellidos').keyup(auto_username);
 	$('#nombres').keyup();
+
+
 //End script
 });

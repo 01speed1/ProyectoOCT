@@ -19,7 +19,7 @@ p.descripcion{
 
 /*quitar margenes*/
 .km{
-	margin: 0rem;
+	margin: 0rem !important;
 }
 
 main{
@@ -31,6 +31,16 @@ main{
 	width: 100%;
 	height: 1.5rem;
 	background-color: #689f38;
+}
+
+.key{
+  color: #212121 !important;
+}
+
+
+/*contiene y muestra mas inforacion y acciones de elemento de una lista*/
+.mas-info{
+  display: none;
 }
 
 /*codigo copia de la pagina de materialize*/
