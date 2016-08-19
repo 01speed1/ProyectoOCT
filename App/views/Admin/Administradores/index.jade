@@ -18,7 +18,7 @@ block contenido
 								p.grey-icons #{admin.nombreUsuario}
 									br
 									|  #{admin.email}
-						.mas-info
+						.mas-info.grey.lighten-4
 							.divider
 							.row.km
 								.col.s3
@@ -37,10 +37,19 @@ block contenido
 									p.key Ultima modificación
 									if admin.fechaModificado == null
 										p.grey-icons.km No se ha modificado	
+									else 
+										p.grey-icons.km hace: #{admin.ultimaModi}
 							.divider
-							a.btn.sbt.cyan ver perfil
-							a.btn.sbt.cyan modificar
-							a.btn.sbt.cyan eliminar
+							.center-align
+								a.btn.sbt.cyan() ver perfil
+								a.btn.sbt.cyan(
+									href="/admin/administradores/editar/#{admin.id}") modificar
+								form(
+									style="display: inline-block;"
+									action="/admin/administradores/editar/#{admin.id}?_method=DELETE"
+									method="POST")
+									button.btn.sbt.red(type="submit") borrar
+										i.material-icons.right delete
 
 
 

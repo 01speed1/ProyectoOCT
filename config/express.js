@@ -7,6 +7,10 @@ module.exports = function (app, express, config) {
 	//seteando hostname para plugins de redes sociales
 	//app.set('hostname', config.hostname);
 
+	//method override
+	var methodOverride = require('method-override')
+	app.use(methodOverride('_method'))
+
 	//cookieparser
 	var cookieParser = require('cookie-parser');
 	app.use(cookieParser());

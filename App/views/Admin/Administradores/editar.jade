@@ -1,0 +1,132 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			p.descripcion Modifica a #{admin.nombres}
+			.row
+				.card-panel.km
+					form#modi-admin.col.s12(
+						method="POST"
+						action="/admin/administradores/editar/#{admin.id}?_method=PUT")
+						.row
+							.input-field.col.s2 
+								select#tipoDocumento(
+									name="tipoDocumento"
+									data-error=".errorTxt1")
+									option(value="CC" selected) CC
+									option(value="TI") TI
+									option(value="CE") CE
+								label(for="tipoDocumento") Tipo de documento
+								.errorTxt1
+							.input-field.col.s10
+								i.material-icons.prefix.grey-icons credit_card
+								input#numeroDocumento(
+									name="numeroDocumento"
+									type="text"
+									data-error=".errorTxt2"
+									value="#{admin.numeroDocumento}")
+								label(for="numeroDocumento") Numero de documento
+								div(class="errorTxt2")
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons face
+								input#nombres(
+									name="nombres"
+									type="text"
+									data-error=".errorTxt3"
+									value="#{admin.nombres}")
+								label(for="nombres") Nombre(s)
+								.errorTxt3
+							.input-field.col.s6
+								input#apellidos(
+									name="apellidos"
+									type="text"
+									data-error=".errorTxt4"
+									value="#{admin.apellidos}")
+								label(for="apellidos") Apellidos
+								.errorTxt4
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons account_box
+								input#nombreUsuario(
+									name="nombreUsuario"
+									type="text"
+									placeholder="Generar Automaticamente"
+									data-error=".errorTxt5"
+									value="#{admin.nombreUsuario}")
+								label(for="nombreUsuario") Nombre de usuario 
+								.errorTxt5
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons phone
+								input#telefono(
+									name="telefono"
+									type="text"
+									data-error=".errorTxt6"
+									value="#{admin.telefono}")
+								label(for="telefono") Teléfono
+								.errorTxt6
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons email
+								input#email(
+									name="email"
+									type="email"
+									data-error=".errorTxt7"
+									value="#{admin.email}")
+								label(for="email") Correo Electrónico
+								.errorTxt7
+						//.row
+							.input-field.col.s6 
+								input(
+									id="contraseña"
+									name="contraseña"
+									type="password"
+									data-error=".errorTxt8")
+								label(for="contraseña") Contraseña
+								.errorTxt8
+							.input-field.col.s6
+								input(
+									id="contraseñaValidar"
+									name="contraseñaValidar"
+									type="password"
+									data-error=".errorTxt9")
+								label(for="contraseña-validar") Repita la Contraseña
+								.errorTxt9
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons date_range
+								input#fechaNacimiento.datepickerborn(
+									name="fechaNacimiento"
+									type="date"
+									value="#{admin.fechaSubmit}")
+								label.active(for="fechaNacimiento") Fecha de nacimiento
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons wc
+								select#genero(
+									name="genero"
+									data-error=".errorTxt11")
+									if admin.genero == "H"
+										option(value="H" selected) Hombre
+										option(value="M") Mujer
+									else
+										option(value="H") Hombre
+										option(value="M" selected) Mujer
+								label(for="genero") Género 
+								.errorTxt11
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/administradores") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan(
+								type="submit"
+								name="estado"
+								value="MODIFICADO") Modificar
+									i.material-icons.right edit
+
+					//row killer card panel 
+					.row.km

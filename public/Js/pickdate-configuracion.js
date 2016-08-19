@@ -4,10 +4,11 @@ $().ready(function () {
         monthsShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
         weekdaysFull: [ 'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado' ],
         weekdaysShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+        firstDay: 0,
         today: 'hoy',
         clear: 'borrar',
         close: 'cerrar',
-        format: 'dddd d !de mmmm !de yyyy',
+        format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
     });
 }) 

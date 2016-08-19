@@ -1,47 +1,47 @@
 $().ready(function () {
 
-//Quitar espacion antes y despues
-var quitar_espacios = function () {
-		var nval = $.trim($(this).val());
-		$(this).val(nval);
-};
+	//Quitar espacion antes y despues
+	var quitar_espacios = function () {
+			var nval = $.trim($(this).val());
+			$(this).val(nval);
+	};
 
-//la primera mayuscula 
-var primera_mayuscula =  function () {
-		var value =$(this).val().split(' ');
-		p_palabra = value[0].charAt(0).toUpperCase()+value[0].slice(1);
-		
-		if (value[1]!=undefined) {
-			s_palabra = value[1].charAt(0).toUpperCase()+value[1].slice(1);
-			$(this).val(p_palabra+" "+s_palabra);
-		} else{
-			$(this).val(p_palabra);
+	//la primera mayuscula 
+	var primera_mayuscula =  function () {
+			var value =$(this).val().split(' ');
+			p_palabra = value[0].charAt(0).toUpperCase()+value[0].slice(1);
+			
+			if (value[1]!=undefined) {
+				s_palabra = value[1].charAt(0).toUpperCase()+value[1].slice(1);
+				$(this).val(p_palabra+" "+s_palabra);
+			} else{
+				$(this).val(p_palabra);
+			}
+	};
+
+	//nombre de usuario aleatorio
+		var auto_username = function () {
+			if ($('#nombres .autoUsername').val() !=""){
+				var nom = $('#nombres').val().split(" ");
+				var ape = $('#apellidos').val().split(" ");
+				var ran = Math.floor(Math.random()*11);
+				var nomaperan = nom[0]+"."+ape[0]+ran;
+				$('#nombreUsuario').val(nomaperan);
+			}			
+	};
+
+	//impedir que uno click active todas los demas elementos 
+	//mostras mas contenido del adminsitrador
+	$(".elemento").click(function () {
+		var thiss = $(this);
+		if (thiss.find(".mas-info").length){
+			var son =  thiss.find(".mas-info");
+			son.toggle("fast");
 		}
-};
-
-//nombre de usuario aleatorio
-	var auto_username = function () {
-		if ($('#nombres').val() !=""){
-			var nom = $('#nombres').val().split(" ");
-			var ape = $('#apellidos').val().split(" ");
-			var ran = Math.floor(Math.random()*11);
-			var nomaperan = nom[0]+"."+ape[0]+ran;
-			$('#nombreUsuario').val(nomaperan);
-		}			
-};
-
-//impedir que uno click active todas los demas elementos 
-//mostras mas contenido del adminsitrador
-$(".elemento").click(function () {
-	var thiss = $(this);
-	if (thiss.find(".mas-info").length){
-		var son =  thiss.find(".mas-info");
-		son.toggle("fast");
-	}
-});
+	});
 
 
-//validar campos del nuevo administrador
+	//validar campos del nuevo administrador
 	var validaciones = {
 		ignore:"#fechaNacimiento",
 		rules:{
@@ -137,26 +137,29 @@ $(".elemento").click(function () {
     }	
 	}
 
+	//validacion del formulario del nuevo admin
 	$('#nuevo-admin').validate(validaciones);
+	//validacion del formulario para editar
+	$('#modi-admin').validate(validaciones);
 
-//formatear campos antes de enviar
-	$('#numeroDocumento').formatter({
-		pattern :"{{9999999999}}",
-		persistent:true
-	});
+	//formatear campos antes de enviar
+		$('#numeroDocumento').formatter({
+			pattern :"{{9999999999}}",
+			persistent:true
+		});
 
-	$('#numeroDocumento').formatter({
-		pattern :"{{9999999999}}",
-		persistent:true
-	});
+		$('#telefono').formatter({
+			pattern :"{{9999999999}}",
+			persistent:true
+		});
 
 	$('input').change(quitar_espacios);
+
 	$('#nombres').keyup(primera_mayuscula);
 	$('#apellidos').keyup(primera_mayuscula);
-	$('#nombres').keyup(auto_username);
-	$('#apellidos').keyup(auto_username);
-	$('#nombres').keyup();
 
+	$('#nombres.autoUsername').keyup(auto_username);
+	$('#apellidos.autoUsername').keyup(auto_username);
 
 //End script
 });

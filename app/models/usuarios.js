@@ -97,9 +97,17 @@ usuarioSchema.virtual("edad")
 	.get(function () {
 		return moment(this.fechaNacimiento).locale('es').fromNow(true);
 	})
+usuarioSchema.virtual("ultimaModi")
+	.get(function () {
+		return moment(this.fechaModificado).locale('es').fromNow(true);
+	})
 usuarioSchema.virtual("fechaPretty")
 	.get(function () {
 		return moment(this.fechaNacimiento).locale('es').format("LL");
+	})
+usuarioSchema.virtual("fechaSubmit")
+	.get(function () {
+		return moment(this.fechaNacimiento).locale('es').format("YYYY-MM-DD");
 	})
 
 //plugins
