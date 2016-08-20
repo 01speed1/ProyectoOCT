@@ -97,7 +97,8 @@ module.exports = function (app) {
 		.delete(function (sol, res) {
 			var promise = Administrador.findOneAndRemove(sol.params.id).exec();
 			promise.then(function () {
-				res.redirect("/admin/administradores");
+				sol.flash('test', "mensaje de prueba");
+				res.send("/admin/administradores");
 			})
 			.catch(function (err) {
 				res.json(err);

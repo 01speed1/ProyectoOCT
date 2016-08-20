@@ -105,6 +105,15 @@ usuarioSchema.virtual("fechaPretty")
 	.get(function () {
 		return moment(this.fechaNacimiento).locale('es').format("LL");
 	})
+usuarioSchema.virtual("creacionPretty")
+	.get(function () {
+		if (this.creacion == null) {
+			return "No se ha modificado"
+		} else {
+			return moment(this.creacion).locale('es').format("LL");
+		}
+		
+	})
 usuarioSchema.virtual("fechaSubmit")
 	.get(function () {
 		return moment(this.fechaNacimiento).locale('es').format("YYYY-MM-DD");

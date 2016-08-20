@@ -1,5 +1,66 @@
 $().ready(function () {
 
+//sweetalerts
+	//confirmar
+ 	var swalConfirmar = function (title, text) {
+		swal({
+			title: title,
+			text: text,
+			type: "success"
+		});
+		redireccionarPOST(hrefDelete);
+	};
+
+	//cancelar
+	var swalCancelar = function (title, text) {
+		swal({
+			title: title,
+			text: text,
+			type: "error"
+		})
+	};
+
+	//swal responder
+	var swalResponder = function (isConfirm) {
+		if (isConfirm) {
+			var title = tipoUsuario+" eliminado!"
+			var text = "El "+tipoUsuario+ "ya no existe"
+			swalConfirmar(title, text);
+			
+		}else{
+			var title = "¡cancelaste!"
+			var text = "El "+tipoUsuario+" esta a salvo"
+			swalCancelar(title, text);		
+		}		
+	};
+
+	var swalPreguntar = function () {
+		swal({
+			title:"Seguro que quieres borrar este "+tipoUsuario,
+			text:"Este "+tipoUsuario+" se perdera permanentemente",
+			type:"warning",
+			showCancelButton: true,
+			cancelButtonText: "Olvidalo",
+			confirmButtonText: "Si!, borralo!",
+			confirmButtonColor:"#f44336",
+		  closeOnConfirm: false,
+		  closeOnCancel: false
+		},
+			swalResponder
+		);
+	}
+	
+
+//funciones
+	//redireccionar a la url que se pase por parametro
+	var redireccionarPOST = function (url) {
+		$.post({
+			url:url,
+			success: function (res) {
+				window.location.assign(res);
+			}
+		})
+	};
 	//Quitar espacion antes y despues
 	var quitar_espacios = function () {
 			var nval = $.trim($(this).val());
@@ -20,7 +81,7 @@ $().ready(function () {
 	};
 
 	//nombre de usuario aleatorio
-		var auto_username = function () {
+	var auto_username = function () {
 			if ($('#nombres .autoUsername').val() !=""){
 				var nom = $('#nombres').val().split(" ");
 				var ape = $('#apellidos').val().split(" ");
@@ -40,7 +101,7 @@ $().ready(function () {
 		}
 	});
 
-
+//data de validacion
 	//validar campos del nuevo administrador
 	var validaciones = {
 		ignore:"#fechaNacimiento",
@@ -137,10 +198,11 @@ $().ready(function () {
     }	
 	}
 
+//ejecutar fuciones
 	//validacion del formulario del nuevo admin
-	$('#nuevo-admin').validate(validaciones);
+		$('#nuevo-admin').validate(validaciones);
 	//validacion del formulario para editar
-	$('#modi-admin').validate(validaciones);
+		$('#modi-admin').validate(validaciones);
 
 	//formatear campos antes de enviar
 		$('#numeroDocumento').formatter({
@@ -152,14 +214,24 @@ $().ready(function () {
 			pattern :"{{9999999999}}",
 			persistent:true
 		});
+	//aplicar 
+		$('input').change(quitar_espacios);
 
-	$('input').change(quitar_espacios);
+		$('#nombres').keyup(primera_mayuscula);
+		$('#apellidos').keyup(primera_mayuscula);
 
-	$('#nombres').keyup(primera_mayuscula);
-	$('#apellidos').keyup(primera_mayuscula);
+		$('#nombres.autoUsername').keyup(auto_username);
+		$('#apellidos.autoUsername').keyup(auto_username);
 
-	$('#nombres.autoUsername').keyup(auto_username);
-	$('#apellidos.autoUsername').keyup(auto_username);
+		var tipoUsuario = "Administrador";
+		var hrefDelete = $("form.btn-borrar").attr("action");
+		$(".prevenirBorarr").click(function (event) {
+			event.preventDefault();
+			swalPreguntar();
+		});
+
+
+
 
 //End script
 });

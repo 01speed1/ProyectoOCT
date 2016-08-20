@@ -5,9 +5,10 @@ block contenido
 	main
 		include ../Ext/page-title.jade
 		.container
+			include ../Ext/tarjetas-mensajes.jade
 			a.waves-effet.waves-light.btn.cyan.sbt(
 				href="/admin/administradores/nuevo") Nuevo
-			ul.collection
+			ul.collection.hoverable
 				each admin in admins
 					.elemento
 						.info
@@ -20,36 +21,46 @@ block contenido
 									|  #{admin.email}
 						.mas-info.grey.lighten-4
 							.divider
-							.row.km
-								.col.s3
-									p.key Edad
-									p.grey-icons.km #{admin.edad}
-								.col.s3
-									p.key Fecha de Nacimiento
-									p.grey-icons.km #{admin.fechaPretty}
-								.col.s3
-									p.key Género
-									if admin.genero == "H"
-										p.grey-icons.km Hombre
-									else
-										p.grey-icons.km Mujer 
-								.col.s3
-									p.key Ultima modificación
-									if admin.fechaModificado == null
-										p.grey-icons.km No se ha modificado	
-									else 
-										p.grey-icons.km hace: #{admin.ultimaModi}
+							table.responsive-table.centered
+								thead
+									tr
+										th(data-field="numeroDocumento") Documento
+										th(data-field="genero") Género
+										th(data-field="fechaPretty") Fecha de Nacimiento
+										th(data-field="edad") Edad
+								tbody
+									tr
+										td #{admin.tipoDocumento}: #{admin.numeroDocumento}
+										if admin.genero == "H"
+											td Hombre
+										else
+											td Mujer
+										td #{admin.fechaPretty}
+										td #{admin.edad}		
+							table.responsive-table.centered
+								thead
+									tr
+										th(data-field="creacion") Fecha de registro
+										th(data-field="fechaModificado") Ultima modificación
+
+								tbody
+									tr
+										td #{admin.creacionPretty}
+										td #{admin.ultimaModi}
 							.divider
-							.center-align
+							.center-align.white
 								a.btn.sbt.cyan() ver perfil
+									i.material-icons.right account_box
 								a.btn.sbt.cyan(
 									href="/admin/administradores/editar/#{admin.id}") modificar
-								form(
+									i.material-icons.right edit
+								form.btn-borrar(
 									style="display: inline-block;"
 									action="/admin/administradores/editar/#{admin.id}?_method=DELETE"
 									method="POST")
-									button.btn.sbt.red(type="submit") borrar
+									button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 										i.material-icons.right delete
+							
 
 
 

@@ -16,10 +16,12 @@ ul#slide-out.side-nav.fixed
 				a(href="#") esto es un enlace
 			li
 				a() esto es otro enlace
-			li.no-padding
+			//usuarios
+			li.no-padding.active
 				ul.collapsible.collapsible-accordion
 					li
-						a.collapsible-header Usuarios           
+						a.collapsible-header Usuarios
+							i.material-icons.left account_circle         
 						.collapsible-body
 							ul
 								li
@@ -27,4 +29,14 @@ ul#slide-out.side-nav.fixed
 								li
 									a.waves-effect(href='#!') Profesores
 								li
-									a.waves-effect(href='#!') Estudiantes
+									a.waves-effect(href='#!') Estudiantes 
+			//Escuelas
+			li.no-padding
+				ul.collapsible.collapsible-accordion
+					li
+						a.collapsible-header Escuelas de formación
+							i.material-icons.left assignment
+						.collapsible-body
+							ul
+								li
+									a.waves-effect(href='/admin/administradores') Escuela
