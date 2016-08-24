@@ -24,7 +24,7 @@ $().ready(function () {
 	var swalResponder = function (isConfirm) {
 		if (isConfirm) {
 			var title = tipoUsuario+" eliminado!"
-			var text = "El "+tipoUsuario+ "ya no existe"
+			var text = "El "+tipoUsuario+" ya no existe"
 			swalConfirmar(title, text);
 			
 		}else{
@@ -50,7 +50,6 @@ $().ready(function () {
 		);
 	}
 	
-
 //funciones
 	//redireccionar a la url que se pase por parametro
 	var redireccionarPOST = function (url) {
@@ -104,14 +103,14 @@ $().ready(function () {
 //data de validacion
 	//validar campos del nuevo administrador
 	var validaciones = {
-		ignore:"#fechaNacimiento",
 		rules:{
 			tipoDocumento:{
 				required:true
 			},
 			numeroDocumento:{
 				required:true,
-				minlength:7
+				minlength:7,
+				maxlength:10
 			},
 			nombres:{
 				required: true,
@@ -129,7 +128,8 @@ $().ready(function () {
 				maxlength: 300
 			},
 			telefono:{
-				minlength:5
+				minlength:5,
+				maxlength:10
 			},
 			email:{
 				required: true, 
@@ -143,6 +143,9 @@ $().ready(function () {
 				required:true,
 				minlength:8,
 				equalTo: "#contraseña"
+			},
+			fechaNacimiento:{
+				required:true
 			},
 			genero:"required"
 		},
@@ -185,6 +188,9 @@ $().ready(function () {
 				minlength:"La contraseña es muy corta, debe de 8 o más caracteres.",
 				equalTo: "Las contraseñas no coinciden."
 			},
+			fechaNacimiento:{
+				required:  "La fecha de nacimiento es obligatoria."
+			},
 			genero:"Debes seleccionar un género."
 		},
 		errorElement : 'div',
@@ -206,15 +212,13 @@ $().ready(function () {
 
 	//formatear campos antes de enviar
 		$('#numeroDocumento').formatter({
-			pattern :"{{9999999999}}",
-			persistent:true
+			pattern :"{{9999999999}}"
 		});
 
 		$('#telefono').formatter({
-			pattern :"{{9999999999}}",
-			persistent:true
+			pattern :"{{9999999999}}"
 		});
-	//aplicar 
+	//aplicar funciones
 		$('input').change(quitar_espacios);
 
 		$('#nombres').keyup(primera_mayuscula);
@@ -223,6 +227,7 @@ $().ready(function () {
 		$('#nombres.autoUsername').keyup(auto_username);
 		$('#apellidos.autoUsername').keyup(auto_username);
 
+	// despliega mensaje antes de borrar 
 		var tipoUsuario = "Administrador";
 		var hrefDelete = $("form.btn-borrar").attr("action");
 		$(".prevenirBorarr").click(function (event) {
@@ -230,6 +235,15 @@ $().ready(function () {
 			swalPreguntar();
 		});
 
+	//validar si el numero de usuario ya existe
+		url = "/admin/administradores/validarCc";
+		$('#numeroDocumento').change(function (url) {
+			var numeroDocumento = $(this).val(); 
+			var data = {numeroDocumento:numeroDocumento}
+
+			$.post(url,data, );
+			.done()
+		})
 
 
 

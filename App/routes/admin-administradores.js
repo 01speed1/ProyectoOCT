@@ -97,7 +97,7 @@ module.exports = function (app) {
 		.delete(function (sol, res) {
 			var promise = Administrador.findOneAndRemove(sol.params.id).exec();
 			promise.then(function () {
-				sol.flash('test', "mensaje de prueba");
+				sol.flash('success', "Administrador eliminado exitosamente");
 				res.send("/admin/administradores");
 			})
 			.catch(function (err) {
@@ -105,7 +105,13 @@ module.exports = function (app) {
 			});
 		})
 
-	//eliminar administrador
+//solicitudes Ajax
+	//verificar el registro de la cedula
+		router.route("/validarCc")
+			.post(function (sol, res) {
+				console.log(sol.body)
+				//var promise = Administrador.findOne({numeroDocumento:sol.body})
+			}) 
 
 		
 	app.use("/admin/administradores", router);

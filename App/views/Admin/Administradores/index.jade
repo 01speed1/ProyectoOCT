@@ -13,7 +13,9 @@ block contenido
 					.elemento
 						.info
 							li.collection-item.avatar
-								span.new.badge.cyan
+								if admin.estado == "NUEVO"
+									span.new.badge.cyan(
+									data-badge-caption="Nuevo")
 								img.circle(src="#{admin.avatar}")
 								span.title #{admin.nombres} #{admin.apellidos}
 								p.grey-icons #{admin.nombreUsuario}
