@@ -109,8 +109,16 @@ module.exports = function (app) {
 	//verificar el registro de la cedula
 		router.route("/validarCc")
 			.post(function (sol, res) {
-				console.log(sol.body)
-				//var promise = Administrador.findOne({numeroDocumento:sol.body})
+				//console.log(sol.body.numeroDocumento);
+				var promise = Administrador.find({numeroDocumento:sol.body.numeroDocumento}).exec();
+				promise
+				.then(function (admin) {
+					console.log(admin);
+					res.send("Este numero de documento se encuentra registrado");
+				})
+				.catch(function (err) {
+					res.json(err);
+				})
 			}) 
 
 		

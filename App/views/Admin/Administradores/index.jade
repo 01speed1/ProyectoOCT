@@ -8,6 +8,8 @@ block contenido
 			include ../Ext/tarjetas-mensajes.jade
 			a.waves-effet.waves-light.btn.cyan.sbt(
 				href="/admin/administradores/nuevo") Nuevo
+			if admins.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
 			ul.collection.hoverable
 				each admin in admins
 					.elemento

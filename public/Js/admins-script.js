@@ -211,13 +211,10 @@ $().ready(function () {
 		$('#modi-admin').validate(validaciones);
 
 	//formatear campos antes de enviar
-		$('#numeroDocumento').formatter({
+		$('.formater').formatter({
 			pattern :"{{9999999999}}"
 		});
-
-		$('#telefono').formatter({
-			pattern :"{{9999999999}}"
-		});
+		
 	//aplicar funciones
 		$('input').change(quitar_espacios);
 
@@ -236,16 +233,22 @@ $().ready(function () {
 		});
 
 	//validar si el numero de usuario ya existe
-		url = "/admin/administradores/validarCc";
-		$('#numeroDocumento').change(function (url) {
+		/*$('input#numeroDocumento').change(function () {
+			alert("this change");
 			var numeroDocumento = $(this).val(); 
-			var data = {numeroDocumento:numeroDocumento}
+			var data = {numeroDocumento:numeroDocumento};
 
-			$.post(url,data, );
-			.done()
-		})
+			$.post("/admin/administradores/validarCc",data,function (res) {
+				if(res){
+					swalCancelar("Ups!", res);
+					$(this).val("");
+				}
+			});
+		})*/
 
-
+	$('input#telefono').change(function () {
+		alert($(this).val());
+	});
 
 //End script
 });
