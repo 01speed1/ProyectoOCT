@@ -15,14 +15,19 @@ module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
 			locals={
+				tipoDeUsuairo: "Administrador",
 				title: "Administradores",
 				page_title: "Panel de administradores"};
 
-			Administrador.find(function (err, admins) {
-				locals.admins = admins;
-				res.render("Admin/Administradores/index", locals)
+			var promise =  Administrador.find({tipo:"ADMINISTRADOR"}).exec();
+			promise
+			.then(function (admins) {
+				locals.admins=admins;
+				res.render("Admin/Administradores/index",locals)
 			})
-
+			.catch(function (err) {
+				res.json(err);
+			})
 			
 		})
 
@@ -109,18 +114,32 @@ module.exports = function (app) {
 	//verificar el registro de la cedula
 		router.route("/validarCc")
 			.post(function (sol, res) {
-				//console.log(sol.body.numeroDocumento);
-				var promise = Administrador.find({numeroDocumento:sol.body.numeroDocumento}).exec();
+				var promise = Administrador.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
-					console.log(admin);
-					res.send("Este numero de documento se encuentra registrado");
+					if(admin!=null && admin.numeroDocumento == sol.body.value){
+						res.send("Este numero de documento se encuentra registrado");
+					}
 				})
 				.catch(function (err) {
 					res.json(err);
 				})
 			}) 
 
+	//verficar el registro del correo electronico
+		router.route("/validarEmail")
+			.post(function (sol, res) {
+				var promise = Administrador.findOne({email:sol.body.value}).exec();
+				promise
+					.then(function (admin) {
+						if(admin!=null && admin.email == sol.body.value){
+						res.send("Este correo electronico ya se encuentra registrado");
+					}
+					})
+					.catch(function (err) {
+						
+					})
+			})
 		
 	app.use("/admin/administradores", router);
 };

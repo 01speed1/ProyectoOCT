@@ -51,6 +51,16 @@ $().ready(function () {
 	}
 	
 //funciones
+	//verificar si un valor unico ya esta registrado
+	var verificar_dato = function (elemento, url) {
+			var data = {value:elemento.val()};
+			$.post(url,data,function (res) {
+				if(res){
+					swalCancelar("Ups!", res);
+				elemento.val("");
+				}
+			});
+		}
 	//redireccionar a la url que se pase por parametro
 	var redireccionarPOST = function (url) {
 		$.post({
@@ -209,11 +219,6 @@ $().ready(function () {
 		$('#nuevo-admin').validate(validaciones);
 	//validacion del formulario para editar
 		$('#modi-admin').validate(validaciones);
-
-	//formatear campos antes de enviar
-		$('.formater').formatter({
-			pattern :"{{9999999999}}"
-		});
 		
 	//aplicar funciones
 		$('input').change(quitar_espacios);
@@ -233,22 +238,23 @@ $().ready(function () {
 		});
 
 	//validar si el numero de usuario ya existe
-		/*$('input#numeroDocumento').change(function () {
-			alert("this change");
-			var numeroDocumento = $(this).val(); 
-			var data = {numeroDocumento:numeroDocumento};
+		$('input#numeroDocumento').change(function () {
+			verificar_dato($(this),"/admin/administradores/validarCc")
+		});
 
-			$.post("/admin/administradores/validarCc",data,function (res) {
-				if(res){
-					swalCancelar("Ups!", res);
-					$(this).val("");
-				}
-			});
-		})*/
-
-	$('input#telefono').change(function () {
-		alert($(this).val());
+		$('input#email').change(function () {
+		verificar_dato($(this),"/admin/administradores/validarEmail")
 	});
+
+
+
+	//impide que se ingresen mas de 10 caracteres al input
+		$(".formater").keyup(function () {
+			$(this).numeric();
+			if ($(this).val().length > 10) {
+				$(this).val($(this).val().substr(0,10));
+			}
+		})
 
 //End script
 });

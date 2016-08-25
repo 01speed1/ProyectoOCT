@@ -82,6 +82,10 @@ var	usuarioSchema = mongoose.Schema({
 	},
 	fechaModificado:{
 		type:Date
+	},
+	superAdmin:{
+		type: Boolean,
+		default:false
 	}
 });
 

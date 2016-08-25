@@ -7,24 +7,24 @@ block contenido
 		.container
 			include ../Ext/tarjetas-mensajes.jade
 			a.waves-effet.waves-light.btn.cyan.sbt(
-				href="/admin/administradores/nuevo") Nuevo
-			if admins.length == 0 
+				href="/admin/profesores/nuevo") Nuevo
+			if profes.length == 0 
 				include ../Ext/mensaje-no-hay-elementos.jade
 					a.waves-effet.waves-light.btn.cyan.sbt(
-				href="/admin/administradores/nuevo") Nuevo
+				href="/admin/profesores/nuevo") Nuevo
 			ul.collection.hoverable
-				each admin in admins
+				each profe in profes
 					.elemento
 						.info
 							li.collection-item.avatar
-								if admin.estado == "NUEVO"
+								if profe.estado == "NUEVO"
 									span.new.badge.cyan(
 									data-badge-caption="Nuevo")
-								img.circle(src="#{admin.avatar}")
-								span.title #{admin.nombres} #{admin.apellidos}
-								p.grey-icons #{admin.nombreUsuario}
+								img.circle(src="#{profe.avatar}")
+								span.title #{profe.nombres} #{profe.apellidos}
+								p.grey-icons #{profe.nombreUsuario}
 									br
-									|  #{admin.email}
+									|  #{profe.email}
 						.mas-info.grey.lighten-4
 							.divider
 							table.responsive-table.centered
@@ -36,13 +36,13 @@ block contenido
 										th(data-field="edad") Edad
 								tbody
 									tr
-										td #{admin.tipoDocumento}: #{admin.numeroDocumento}
-										if admin.genero == "H"
+										td #{profe.tipoDocumento}: #{profe.numeroDocumento}
+										if profe.genero == "H"
 											td Hombre
 										else
 											td Mujer
-										td #{admin.fechaPretty}
-										td #{admin.edad}		
+										td #{profe.fechaPretty}
+										td #{profe.edad}		
 							table.responsive-table.centered
 								thead
 									tr
@@ -51,18 +51,18 @@ block contenido
 
 								tbody
 									tr
-										td #{admin.creacionPretty}
-										td #{admin.ultimaModi}
+										td #{profe.creacionPretty}
+										td #{profe.ultimaModi}
 							.divider
 							.center-align.white
 								a.btn.sbt.cyan() ver perfil
 									i.material-icons.right account_box
 								a.btn.sbt.cyan(
-									href="/admin/administradores/editar/#{admin.id}") modificar
+									href="/admin/profesores/editar/#{profe.id}") modificar
 									i.material-icons.right edit
 								form.btn-borrar(
 									style="display: inline-block;"
-									action="/admin/administradores/editar/#{admin.id}?_method=DELETE"
+									action="/admin/profesores/editar/#{profe.id}?_method=DELETE"
 									method="POST")
 									button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 										i.material-icons.right delete
