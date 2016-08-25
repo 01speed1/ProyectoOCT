@@ -7,6 +7,15 @@ module.exports = function (app, express, config) {
 	//seteando hostname para plugins de redes sociales
 	//app.set('hostname', config.hostname);
 
+	//express paginate
+	var paginate = require('express-paginate');
+	app.use(paginate.middleware(10, 50));
+	app.all(function(sol, res, next) {
+	  // set default or minimum is 10 (as it was prior to v0.2.0)
+	  if (sol.query.limit <= 10) sol.query.limit = 10;
+	  next();
+	});
+
 	//method override
 	var methodOverride = require('method-override')
 	app.use(methodOverride('_method'))

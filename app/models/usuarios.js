@@ -124,6 +124,7 @@ usuarioSchema.virtual("fechaSubmit")
 	})
 
 //plugins
+usuarioSchema.plugin(require('mongoose-paginate'));
 
 //export el schema como modelo
 module.exports = mongoose.model('Usuario', usuarioSchema);
