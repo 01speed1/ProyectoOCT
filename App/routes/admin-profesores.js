@@ -1,7 +1,6 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
-
 var router = express.Router();
 
 
@@ -13,7 +12,7 @@ var Profesor = require("../models/usuarios");
 //routes Profesores
 module.exports = function (app) {
 
-	//ver todos los administradores
+	//ver todos los Profesores
 	router.route("/")
 		.get(function (sol, res, next) {
 			locals={
@@ -21,18 +20,31 @@ module.exports = function (app) {
 				title: "Profesores",
 				page_title: "Panel de Profesores"};
 
-			//codigo con paginacion
-			Profesor.paginate({tipo:"PROFESOR"}, {page: sol.query.page, limit: sol.query.limit}).then(function (profes) {
-				locals.profes = profes.docs;
-				//locals.pageCount =  pageCount;
-				//locals.itemCount = itemCount;
-				//locals.page = paginate.getArrayPages(sol)(3, pageCount, sol.query.page)
-				res.render("Admin/Profesores/index", locals);
-				console.log(locals);
-			}).catch(function (err) {
-				//res.json(err);
-				if (err) return next(err);
+			var paginate_option = {
+				page: sol.query.page, 
+				limit: 10,
+				offset: (sol.query.page-1)*10,
+				sort: {nombres:1}
+				}
+
+			var promise = Profesor.paginate({tipo:"PROFESOR"},paginate_option);
+			promise
+			.then(function (profes) {
+				console.log(profes);
+				locals.profes=profes.docs;
+				locals.page = sol.query.page;
+				locals.limit = profes.limit;
+				locals.total = profes.total;
+			  locals.limit = profes.limit;
+			  locals.offset= profes.offset;
+			  locals.pages = parseInt((profes.total/profes.limit)+1);
+				res.render("Admin/Profesores/index",locals)
+
 			})
+			.catch(function (err) {
+				res.json(err);
+			})
+
 
 			/*Profesor.paginate({tipo:"PROFESOR"}, {page: sol.query.page, limit: sol.query.limit}, function (err, profes, pageCount, itemCount) {
 				if (err) return next(err);

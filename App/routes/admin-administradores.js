@@ -1,5 +1,6 @@
 var express = require("express");
 var moment = require("moment");
+var paginate = require('express-paginate');
 var router = express.Router();
 
 
@@ -19,7 +20,32 @@ module.exports = function (app) {
 				title: "Administradores",
 				page_title: "Panel de administradores"};
 
-			var promise =  Administrador.find({tipo:"ADMINISTRADOR"}).exec();
+			var paginate_option = {
+				page: sol.query.page, 
+				limit: 10,
+				offset: (sol.query.page-1)*10,
+				sort: {nombres:1}
+				}
+
+			var promise = Administrador.paginate({tipo:"ADMINISTRADOR"},paginate_option);
+			promise
+			.then(function (admins) {
+				console.log(admins);
+				locals.admins=admins.docs;
+				locals.page = sol.query.page;
+				locals.limit = admins.limit;
+				locals.total = admins.total;
+			  locals.limit = admins.limit;
+			  locals.offset= admins.offset;
+			  locals.pages = parseInt((admins.total/admins.limit)+1);
+				res.render("Admin/Administradores/index",locals)
+
+			})
+			.catch(function (err) {
+				res.json(err);
+			})
+
+			/*var promise =  Administrador.find({tipo:"ADMINISTRADOR"}).exec();
 			promise
 			.then(function (admins) {
 				locals.admins=admins;
@@ -27,8 +53,8 @@ module.exports = function (app) {
 			})
 			.catch(function (err) {
 				res.json(err);
-			})
-			
+			})*/
+
 		})
 
 	//Agregar un nuevo administrador
