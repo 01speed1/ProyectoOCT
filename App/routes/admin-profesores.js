@@ -107,7 +107,7 @@ module.exports = function (app) {
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
 		.get(function (sol, res) {
-			Administrador.findById(sol.params.id, function (err, admin) {
+			Profesor.findById(sol.params.id, function (err, admin) {
 				locals={
 					admin:admin,
 					page_title:"Modificar administrador",
@@ -117,7 +117,7 @@ module.exports = function (app) {
 			})
 		})
 		.put(function (sol, res) {
-			var promise = Administrador.findById(sol.params.id).exec();
+			var promise = Profesor.findById(sol.params.id).exec();
 
 			promise.then(function (admin) {
 				for(var key in sol.body){
@@ -138,10 +138,10 @@ module.exports = function (app) {
 			});
 		})
 		.delete(function (sol, res) {
-			var promise = Administrador.findOneAndRemove(sol.params.id).exec();
+			var promise = Profesor.findOneAndRemove(sol.params.id).exec();
 			promise.then(function () {
-				sol.flash('success', "Administrador eliminado exitosamente");
-				res.send("/admin/administradores");
+				sol.flash('success', "Profesor eliminado exitosamente");
+				res.send("/admin/profesores");
 			})
 			.catch(function (err) {
 				res.json(err);

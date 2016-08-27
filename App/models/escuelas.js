@@ -15,10 +15,17 @@ var	escuelaSchema = mongoose.Schema({
 		require:true,
 		maxlength: 60
 	},
+	descripcion:{
+		tpye: String
+	},
 	//imagenes
 	background:{
 		type:String,
-		default:"https://goo.gl/XIEAys"
+		default:"http://res.cloudinary.com/dcdrggs9p/image/upload/v1465666229/default_image.jpg"
+	},
+	background_id:{
+		type:String,
+		default:"default_image"
 	},
 	creacion:{
 		type:Date,
@@ -58,4 +65,4 @@ escuelaSchema.virtual("creacionPretty")
 escuelaSchema.plugin(require('mongoose-paginate'));
 
 //export el schema como modelo
-module.exports = mongoose.model('Usuario', escuelaSchema);
+module.exports = mongoose.model('Escuela', escuelaSchema);

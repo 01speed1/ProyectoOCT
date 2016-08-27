@@ -1,0 +1,73 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			include ../Ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/Escuelas/nuevo") Nuevo
+			if escuelas.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/Escuelas/nuevo") Nuevo
+			else
+				include ../Ext/paginate.jade
+				ul.collection.hoverable
+					each admin in escuelas
+						.elemento
+							.info
+								li.collection-item.avatar
+									if admin.estado == "NUEVO"
+										span.new.badge.cyan(
+										data-badge-caption="Nuevo")
+									img.circle(src="#{admin.avatar}")
+									span.title #{admin.nombres} #{admin.apellidos}
+									p.grey-icons #{admin.nombreUsuario}
+										br
+										|  #{admin.email}
+							.mas-info.grey.lighten-4
+								.divider
+								table.responsive-table.centered
+									thead
+										tr
+											th(data-field="numeroDocumento") Documento
+											th(data-field="genero") Género
+											th(data-field="fechaPretty") Fecha de Nacimiento
+											th(data-field="edad") Edad
+									tbody
+										tr
+											td #{admin.tipoDocumento}: #{admin.numeroDocumento}
+											if admin.genero == "H"
+												td Hombre
+											else
+												td Mujer
+											td #{admin.fechaPretty}
+											td #{admin.edad}		
+								table.responsive-table.centered
+									thead
+										tr
+											th(data-field="creacion") Fecha de registro
+											th(data-field="fechaModificado") Ultima modificación
+
+									tbody
+										tr
+											td #{admin.creacionPretty}
+											td #{admin.ultimaModi}
+								.divider
+								.center-align.white
+									a.btn.sbt.cyan() ver perfil
+										i.material-icons.right account_box
+									a.btn.sbt.cyan(
+										href="/admin/Escuelas/editar/#{admin.id}") modificar
+										i.material-icons.right edit
+									form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/Escuelas/editar/#{admin.id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+											i.material-icons.right delete
+				include ../Ext/paginate.jade			
+
+block footer

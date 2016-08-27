@@ -30,7 +30,6 @@ module.exports = function (app) {
 			var promise = Administrador.paginate({tipo:"ADMINISTRADOR"},paginate_option);
 			promise
 			.then(function (admins) {
-				console.log(admins);
 				locals.admins=admins.docs;
 				locals.page = sol.query.page;
 				locals.limit = admins.limit;
@@ -44,17 +43,6 @@ module.exports = function (app) {
 			.catch(function (err) {
 				res.json(err);
 			})
-
-			/*var promise =  Administrador.find({tipo:"ADMINISTRADOR"}).exec();
-			promise
-			.then(function (admins) {
-				locals.admins=admins;
-				res.render("Admin/Administradores/index",locals)
-			})
-			.catch(function (err) {
-				res.json(err);
-			})*/
-
 		})
 
 	//Agregar un nuevo administrador
@@ -126,7 +114,10 @@ module.exports = function (app) {
 			});
 		})
 		.delete(function (sol, res) {
-			var promise = Administrador.findOneAndRemove(sol.params.id).exec();
+			var promise = Administrador.findById(sol.params.id).exec();
+			promise.then(function (admin) {
+				admin.remove();
+			})
 			promise.then(function () {
 				sol.flash('success', "Administrador eliminado exitosamente");
 				res.send("/admin/administradores");

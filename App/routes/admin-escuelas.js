@@ -7,18 +7,20 @@ var router = express.Router();
 var locals={};
 
 //modelos DB
-var Escuela = require("../models/usuarios");
+var Escuela = require("../models/escuelas");
+//middlewere para cargar imagenes
+var uploader = require("../../config/multer.js");
 
 //routes Administradores
 module.exports = function (app) {
 
-	//ver todos los administradores
+	//ver todas las escuelas
 	router.route("/")
 		.get(function (sol, res) {
 			locals={
-				tipoDeUsuairo: "Administrador",
-				title: "Administradores",
-				page_title: "Panel de administradores"};
+				tipoDeUsuairo: "Escuela",
+				title: "Escuelas",
+				page_title: "Panel de escuelas"};
 
 			var paginate_option = {
 				page: sol.query.page, 
@@ -27,68 +29,58 @@ module.exports = function (app) {
 				sort: {nombres:1}
 				}
 
-			var promise = Administrador.paginate({tipo:"ADMINISTRADOR"},paginate_option);
+			var promise = Escuela.paginate({}, paginate_option);
 			promise
-			.then(function (admins) {
-				console.log(admins);
-				locals.admins=admins.docs;
+			.then(function (escuelas) {
+				console.log(escuelas);
+				locals.escuelas=escuelas.docs;
 				locals.page = sol.query.page;
-				locals.limit = admins.limit;
-				locals.total = admins.total;
-			  locals.limit = admins.limit;
-			  locals.offset= admins.offset;
-			  locals.pages = parseInt((admins.total/admins.limit)+1);
-				res.render("Admin/Administradores/index",locals)
-
+				locals.limit = escuelas.limit;
+				locals.total = escuelas.total;
+			  locals.limit = escuelas.limit;
+			  locals.offset= escuelas.offset;
+			  locals.pages = parseInt((escuelas.total/escuelas.limit)+1);
+				res.render("Admin/Escuelas/index",locals)
 			})
 			.catch(function (err) {
+				console.log(err);
 				res.json(err);
 			})
-
-			/*var promise =  Administrador.find({tipo:"ADMINISTRADOR"}).exec();
-			promise
-			.then(function (admins) {
-				locals.admins=admins;
-				res.render("Admin/Administradores/index",locals)
-			})
-			.catch(function (err) {
-				res.json(err);
-			})*/
-
 		})
 
 	//Agregar un nuevo administrador
 	router.route("/nuevo")
 		.get(function (sol, res) {
 			locals={
-				title: "Nuevo administrador",
-				page_title: "Crear administrador"
+				title: "Nueva Escuela",
+				page_title: "Crear Escuela"
 			}
-			res.render("Admin/Administradores/nuevo", locals);
+			res.render("Admin/Escuelas/nuevo", locals);
 		})
-		.post(function (sol, res) {
+		.post(uploader.single("foto"),function (sol, res) {
 			locals={};
-			var nuevoAdministrador = new Administrador();
+			var nuevoEscuela = new Escuela();
 
-			for(var key in sol.body){
+			/*nuevoEscuela.nombre = sol.body.nombre; 
+			nuevoEscuela.descripcion  = sol.body.descripcion;*/
+
+			console.log(sol.body);
+			console.log(sol.file);
+
+			/*for(var key in sol.body){
 				if (typeof key != undefined) {
 					//console.log(key+":"+sol.body[key]);
 				 	nuevoAdministrador[key] = sol.body[key];
-				}};
-
-			//informacion fuera del sol.body
-			nuevoAdministrador.fechaNacimiento = moment(sol.body.fechaNacimiento_submit);
-			nuevoAdministrador.tipo = "ADMINISTRADOR";
+				}};*/
 
 
-			nuevoAdministrador.save(function (err) {
+			/*nuevoAdministrador.save(function (err) {
 				if (!err) {
 					res.redirect("/admin/administradores");
 				} else {
 					res.json(err);
-				}
-				
-			});
+				}				
+			});*/
 
 		});
 
@@ -167,5 +159,5 @@ module.exports = function (app) {
 					})
 			})
 		
-	app.use("/admin/administradores", router);
+	app.use("/admin/escuelas", router);
 };

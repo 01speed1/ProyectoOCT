@@ -1,0 +1,55 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			p.descripcion Aquí puedes agregar un nuevo administrador
+			//formulario
+			.row
+				.card-panel.km
+					form#nueva-escuela.col.s12(
+						method="POST"
+						action="/admin/escuelas/nuevo")
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons class
+								input#nombre(
+									class="autoUsername"
+									name="nombres"
+									type="text"
+									data-error=".errorTxt1")
+								label(for="nombre") Nombre de la escuela
+								.errorTxt1
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons reorder
+								textarea#descripcion.materialize-textarea(
+									name="descripcion"
+									data-error=".errorTxt2")
+								label(for="descripcion") Descripción
+								.errorTxt2 
+						.row
+							label(for="background") Selecciona una imagen 
+							.file-field.input-field
+								.btn.waves-effect-waves-light.cyan
+										span Agregar imagen
+										input#background(type="file")
+								.file-path-wrapper
+									input.file-path(type="text")
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/escuelas") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan(
+								type="submit"
+								name="estado"
+								value="NUEVO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer
