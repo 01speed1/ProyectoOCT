@@ -1,17 +1,21 @@
+div.toast.hide #{messages.toast}
+	
+
+
 //configuracion en el material init
-if messages.success
-	span#card-alert
-		.card.grey.darken-4
-			.card-content.white-text
-				p #{messages.success}
-					i.material-icons.left done
-				a.white.right.btn-floating.closeCard
-					i.material-icons.black-text close
-if messages.error
-	span#card-alert
-		.card.grey.darken-4
-			.card-content.white-text
-				p #{messages.error}
-					i.material-icons.left error_outline
-				a.white.right.btn-floating.closeCard.white-text
-					i.material-icons.black-text close
+	if messages.success
+		span#card-alert
+			.card.grey.darken-4
+				.card-content.white-text
+					p #{messages.success}
+						i.material-icons.left done
+					a.white.right.btn-floating.closeCard
+						i.material-icons.black-text close
+	if messages.error
+		span#card-alert
+			.card.grey.darken-4
+				.card-content.white-text
+					p #{messages.error}
+						i.material-icons.left error_outline
+					a.white.right.btn-floating.closeCard.white-text
+						i.material-icons.black-text close

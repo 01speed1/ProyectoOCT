@@ -5,7 +5,7 @@ ul.pagination
 				i.material-icons chevron_left
 	else
 		li.waves-effect
-			a(href="/admin/profesores?page=#{page-1}")
+			a(href="/admin/#{paginate}?page=#{page-1}")
 				i.material-icons chevron_left
 	- for(var x = 1; x <= pages; x++){
 		- if (page == x) {
@@ -13,7 +13,7 @@ ul.pagination
 				a(href="#!") #{x}
 		-}else{
 			li.waves-effect
-				a(href="/admin/profesores?page=#{x}") #{x}
+				a(href="/admin/#{paginate}?page=#{x}") #{x}
 		-}				
 	-}
 	if page == pages
@@ -22,5 +22,5 @@ ul.pagination
 				i.material-icons chevron_right
 	else
 		li.waves-effect
-			a(href="/admin/profesores?page=#{page+1}")
+			a(href="/admin/#{paginate}?page=#{page+1}")
 				i.material-icons chevron_right

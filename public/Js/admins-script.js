@@ -246,8 +246,6 @@ $().ready(function () {
 		verificar_dato($(this),"/admin/administradores/validarEmail")
 	});
 
-
-
 	//impide que se ingresen mas de 10 caracteres al input
 		$(".formater").keyup(function () {
 			$(this).numeric();
@@ -255,6 +253,14 @@ $().ready(function () {
 				$(this).val($(this).val().substr(0,10));
 			}
 		})
+
+
+	//lanzar toast
+	var msn = $("div.toast.hide").val();
+	if (msn){
+		alert(msn);
+		Materialize.toast(msn, 4000);
+	}
 
 //End script
 });
