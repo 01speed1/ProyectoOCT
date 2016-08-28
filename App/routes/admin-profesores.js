@@ -17,6 +17,7 @@ module.exports = function (app) {
 		.get(function (sol, res, next) {
 			locals={
 				tipoDeUsuairo: "Profesor",
+				paginate: "profesores",
 				title: "Profesores",
 				page_title: "Panel de Profesores"};
 
@@ -30,46 +31,28 @@ module.exports = function (app) {
 			var promise = Profesor.paginate({tipo:"PROFESOR"},paginate_option);
 			promise
 			.then(function (profes) {
-				console.log(profes);
 				locals.profes=profes.docs;
 				locals.page = sol.query.page;
 				locals.limit = profes.limit;
 				locals.total = profes.total;
 			  locals.limit = profes.limit;
 			  locals.offset= profes.offset;
-			  locals.pages = parseInt((profes.total/profes.limit)+1);
-				res.render("Admin/Profesores/index",locals)
-
+			  var i = (profes.total/profes.limit);
+			  if(profes.total%profes.limit == 0){locals.pages = parseInt(i);}else{locals.pages = parseInt(i)+1;}
+			})
+			.then(function () {
+				if (sol.query.page > locals.pages){
+			  	res.redirect("/admin/profesores?page="+locals.pages)
+			  }else{
+			  	res.render("Admin/profesores/index",locals)
+			  }
 			})
 			.catch(function (err) {
 				res.json(err);
 			})
-
-
-			/*Profesor.paginate({tipo:"PROFESOR"}, {page: sol.query.page, limit: sol.query.limit}, function (err, profes, pageCount, itemCount) {
-				if (err) return next(err);
-				locals.profes = profes.docs;
-				locals.pageCount =  pageCount;
-				locals.itemCount = itemCount;
-				locals.page = paginate.getArrayPages(sol)(3, pageCount, sol.query.page)
-				res.render("Admin/Profesores/index", locals);
-				console.log(locals);
-
-			});*/
-
-			//codigo funcional sin paginacion
-			/*var promise =  Profesor.find({tipo:"PROFESOR"}).exec();
-			promise
-			.then(function (profes) {
-				locals.profes=profes;
-				res.render("Admin/Profesores/index",locals)
-			})
-			.catch(function (err) {
-				res.json(err);
-			})*/
 		})
 
-	//Agregar un nuevo administrador
+	//Agregar un nuevo Profesor
 	router.route("/nuevo")
 		.get(function (sol, res) {
 			locals={
@@ -95,6 +78,7 @@ module.exports = function (app) {
 
 			nuevoProfesor.save(function (err) {
 				if (!err) {
+					sol.flash("toast","Se registro a "+sol.body.nombres+" "+sol.body.apellidos+" como profesor")
 					res.redirect("/admin/profesores");
 				} else {
 					res.json(err);
@@ -107,30 +91,31 @@ module.exports = function (app) {
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
 		.get(function (sol, res) {
-			Profesor.findById(sol.params.id, function (err, admin) {
+			Profesor.findById(sol.params.id, function (err, profe) {
 				locals={
-					admin:admin,
-					page_title:"Modificar administrador",
-					title: "Modificar administrador"
+					profe:profe,
+					page_title:"Modificar profesor",
+					title: "Modificar Profesor"
 				}
-				res.render("Admin/Administradores/editar", locals);
+				res.render("Admin/Profesores/editar", locals);
 			})
 		})
 		.put(function (sol, res) {
 			var promise = Profesor.findById(sol.params.id).exec();
 
-			promise.then(function (admin) {
+			promise.then(function (profe) {
 				for(var key in sol.body){
 					if (typeof key != undefined) {
 						//console.log(key+":"+sol.body[key]);
-				 		admin[key] = sol.body[key];
+				 		profe[key] = sol.body[key];
 				}};
 
-				admin.fechaModificado = moment();
+				profe.fechaModificado = moment();
 
-				return admin.save();
+				return profe.save();
 			})
-			.then(function (admin) {
+			.then(function (profe) {
+				sol.flash("toast", "Profesor modificado");
 				res.redirect("/admin/administradores");
 			})
 			.catch(function (err) {
@@ -140,7 +125,7 @@ module.exports = function (app) {
 		.delete(function (sol, res) {
 			var promise = Profesor.findOneAndRemove(sol.params.id).exec();
 			promise.then(function () {
-				sol.flash('success', "Profesor eliminado exitosamente");
+				sol.flash('toast', "Profesor eliminado");
 				res.send("/admin/profesores");
 			})
 			.catch(function (err) {
@@ -152,7 +137,7 @@ module.exports = function (app) {
 	//verificar el registro de la cedula
 		router.route("/validarCc")
 			.post(function (sol, res) {
-				var promise = Administrador.findOne({numeroDocumento:sol.body.value}).exec();
+				var promise = Profesor.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
 					if(admin!=null && admin.numeroDocumento == sol.body.value){
@@ -167,7 +152,7 @@ module.exports = function (app) {
 	//verficar el registro del correo electronico
 		router.route("/validarEmail")
 			.post(function (sol, res) {
-				var promise = Administrador.findOne({email:sol.body.value}).exec();
+				var promise = Profesor.findOne({email:sol.body.value}).exec();
 				promise
 					.then(function (admin) {
 						if(admin!=null && admin.email == sol.body.value){

@@ -39,15 +39,13 @@ module.exports = function (app) {
 			  locals.offset= admins.offset;
 			  var i = (admins.total/admins.limit);
 			  if(admins.total%admins.limit == 0){locals.pages = parseInt(i);}else{locals.pages = parseInt(i)+1;}
-
-			  if (sol.query.page > locals.pages){
+			})
+			.then(function (argument) {
+				if (sol.query.page > locals.pages){
 			  	res.redirect("/admin/administradores?page="+locals.pages)
 			  }else{
 			  	res.render("Admin/Administradores/index",locals)
 			  }
-
-				
-
 			})
 			.catch(function (err) {
 				res.json(err);
@@ -80,7 +78,7 @@ module.exports = function (app) {
 
 			nuevoAdministrador.save(function (err) {
 				if (!err) {
-					sol.flash("toast", "Se registro a "+sol.body.nombres+" "+sol.body.apellidos);
+					sol.flash("toast", "Se registro a "+sol.body.nombres+" "+sol.body.apellidos+" como administrador");
 					res.redirect("/admin/administradores");
 				} else {
 					res.json(err);
@@ -117,6 +115,7 @@ module.exports = function (app) {
 				return admin.save();
 			})
 			.then(function (admin) {
+				sol.flash("toast", "Administrador modificado");
 				res.redirect("/admin/administradores");
 			})
 			.catch(function (err) {

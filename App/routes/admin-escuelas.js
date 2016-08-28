@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var gestorImagenes = require("../../config/gestorImagenes");
 var router = express.Router();
 
 
@@ -9,7 +10,8 @@ var locals={};
 //modelos DB
 var Escuela = require("../models/escuelas");
 //middlewere para cargar imagenes
-var uploader = require("../../config/multer.js");
+var uploader = require("../../config/gestorImagenes");
+
 
 //routes Administradores
 module.exports = function (app) {
@@ -18,10 +20,12 @@ module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
 			locals={
-				tipoDeUsuairo: "Escuela",
+				tipoDeUsuairo: "Escuelas",
+				paginate: "escuelas",
 				title: "Escuelas",
 				page_title: "Panel de escuelas"};
 
+			//!!! FALTA ACTUALIZAR LA PAGINACION 
 			var paginate_option = {
 				page: sol.query.page, 
 				limit: 10,
@@ -32,7 +36,6 @@ module.exports = function (app) {
 			var promise = Escuela.paginate({}, paginate_option);
 			promise
 			.then(function (escuelas) {
-				console.log(escuelas);
 				locals.escuelas=escuelas.docs;
 				locals.page = sol.query.page;
 				locals.limit = escuelas.limit;
@@ -57,30 +60,28 @@ module.exports = function (app) {
 			}
 			res.render("Admin/Escuelas/nuevo", locals);
 		})
-		.post(uploader.single("foto"),function (sol, res) {
-			locals={};
-			var nuevoEscuela = new Escuela();
+		.post(uploader.cargarBackground, function (sol, res) {
 
-			/*nuevoEscuela.nombre = sol.body.nombre; 
-			nuevoEscuela.descripcion  = sol.body.descripcion;*/
+			var data = {
+				nombre: sol.body.nombre,
+				descripcion: sol.body.descripcion,
+				estado: sol.body.estado
+			}
 
-			console.log(sol.body);
-			console.log(sol.file);
+			if (res.locals.cloudinary) {
+				data.background = res.locals.cloudinary.url,
+				data.background_id = res.locals.cloudinary.id
+			}
 
-			/*for(var key in sol.body){
-				if (typeof key != undefined) {
-					//console.log(key+":"+sol.body[key]);
-				 	nuevoAdministrador[key] = sol.body[key];
-				}};*/
+			var nuevaEscuela = new Escuela(data); 
+			nuevaEscuela.fechaModificado = moment();
 
-
-			/*nuevoAdministrador.save(function (err) {
+			nuevaEscuela.save(function (err) {
 				if (!err) {
-					res.redirect("/admin/administradores");
-				} else {
-					res.json(err);
-				}				
-			});*/
+					sol.flash("toast", "Escuela creada");
+					res.redirect("/admin/escuelas");
+				}
+			});
 
 		});
 

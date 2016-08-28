@@ -11,7 +11,8 @@ block contenido
 				.card-panel.km
 					form#nueva-escuela.col.s12(
 						method="POST"
-						action="/admin/escuelas/nuevo")
+						action="/admin/escuelas/nuevo"
+						enctype="multipart/form-data")
 						.row
 							.input-field.col.s12
 								i.material-icons.prefix.grey-icons class
@@ -35,7 +36,9 @@ block contenido
 							.file-field.input-field
 								.btn.waves-effect-waves-light.cyan
 										span Agregar imagen
-										input#background(type="file")
+										input#background(
+										type="file"
+										name="background")
 								.file-path-wrapper
 									input.file-path(type="text")
 						.divider

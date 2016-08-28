@@ -6,9 +6,10 @@ $().ready(function () {
 		swal({
 			title: title,
 			text: text,
-			type: "success"
-		});
-		redireccionarPOST(hrefDelete);
+			type: "success",
+			 closeOnConfirm: false
+		},redireccionarPOST(hrefDelete));
+		
 	};
 
 	//cancelar
@@ -36,8 +37,8 @@ $().ready(function () {
 
 	var swalPreguntar = function () {
 		swal({
-			title:"Seguro que quieres borrar este "+tipoUsuario,
-			text:"Este "+tipoUsuario+" se perdera permanentemente",
+			title:"¿Seguro que quieres borrar este "+tipoUsuario+"?",
+			text:"Este "+tipoUsuario+" se perdera permanentemente.",
 			type:"warning",
 			showCancelButton: true,
 			cancelButtonText: "Olvidalo",
@@ -226,11 +227,12 @@ $().ready(function () {
 		$('#nombres').keyup(primera_mayuscula);
 		$('#apellidos').keyup(primera_mayuscula);
 
-		$('#nombres.autoUsername').keyup(auto_username);
-		$('#apellidos.autoUsername').keyup(auto_username);
+		//$('#nombres.autoUsername').keyup(auto_username);
+		//$('#apellidos.autoUsername').keyup(auto_username);
+		$('.autoUsername').keyup(auto_username);
 
 	// despliega mensaje antes de borrar 
-		var tipoUsuario = "Administrador";
+		var tipoUsuario = $("div.tipoUsuario.hide").text();
 		var hrefDelete = $("form.btn-borrar").attr("action");
 		$(".prevenirBorarr").click(function (event) {
 			event.preventDefault();
@@ -256,11 +258,10 @@ $().ready(function () {
 
 
 	//lanzar toast
-	var msn = $("div.toast.hide").val();
-	if (msn){
-		alert(msn);
-		Materialize.toast(msn, 4000);
-	}
+		var msn = $("div.toast").text();
+		if (msn){
+			Materialize.toast(msn, 4000);
+		}
 
 //End script
 });

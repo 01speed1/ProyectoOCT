@@ -7,6 +7,12 @@ module.exports = function (app, express, config) {
 	//seteando hostname para plugins de redes sociales
 	//app.set('hostname', config.hostname);
 
+	//express formidable
+	var formidable = require("express-formidable");
+	app.use(formidable.parse({
+		keepExtensions : true
+	}))
+
 	//express paginate
 	var paginate = require('express-paginate');
 	app.use(paginate.middleware(10, 50));
