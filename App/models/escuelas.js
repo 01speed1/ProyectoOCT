@@ -16,7 +16,8 @@ var	escuelaSchema = mongoose.Schema({
 		maxlength: 60
 	},
 	descripcion:{
-		tpye: String
+		type: String,
+		require:true
 	},
 	//imagenes
 	background:{

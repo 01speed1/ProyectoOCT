@@ -1,5 +1,8 @@
 extends ../../layout
 block contenido
+	script(
+	src="/Js/admins-y-profes-script.js"
+	type="text/javascript")
 	header
 		include ../Ext/menu-lateral-admin.jade
 	main
@@ -127,6 +130,5 @@ block contenido
 								name="estado"
 								value="MODIFICADO") Modificar
 									i.material-icons.right edit
-
 					//row killer card panel 
 					.row.km

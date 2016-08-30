@@ -1,3 +1,9 @@
+script(
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"
+	)
+	script(
+	src="/Js/escuelas-script.js"
+	type="text/javascript")
 extends ../../layout
 block contenido
 	header
@@ -5,7 +11,7 @@ block contenido
 	main
 		include ../Ext/page-title.jade
 		.container
-			p.descripcion Aquí puedes agregar un nuevo administrador
+			p.descripcion Aquí puedes agregar un nuevo Escuela
 			//formulario
 			.row
 				.card-panel.km
@@ -17,8 +23,7 @@ block contenido
 							.input-field.col.s12
 								i.material-icons.prefix.grey-icons class
 								input#nombre(
-									class="autoUsername"
-									name="nombres"
+									name="nombre"
 									type="text"
 									data-error=".errorTxt1")
 								label(for="nombre") Nombre de la escuela
@@ -38,9 +43,11 @@ block contenido
 										span Agregar imagen
 										input#background(
 										type="file"
-										name="background")
+										name="background"
+										data-error=".errorTxt3")
 								.file-path-wrapper
 									input.file-path(type="text")
+								.errorTxt3
 						.divider
 						.row
 							.col.s12.center-align

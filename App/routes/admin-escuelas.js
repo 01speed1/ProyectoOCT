@@ -64,7 +64,7 @@ module.exports = function (app) {
 
 			var data = {
 				nombre: sol.body.nombre,
-				descripcion: sol.body.descripcion,
+				descripcion : sol.body.descripcion,
 				estado: sol.body.estado
 			}
 
@@ -73,7 +73,7 @@ module.exports = function (app) {
 				data.background_id = res.locals.cloudinary.id
 			}
 
-			var nuevaEscuela = new Escuela(data); 
+			var nuevaEscuela = new Escuela(data);
 			nuevaEscuela.fechaModificado = moment();
 
 			nuevaEscuela.save(function (err) {
@@ -88,41 +88,54 @@ module.exports = function (app) {
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
 		.get(function (sol, res) {
-			Administrador.findById(sol.params.id, function (err, admin) {
+			Escuela.findById(sol.params.id, function (err, escuela) {
 				locals={
-					admin:admin,
-					page_title:"Modificar administrador",
-					title: "Modificar administrador"
+					escuela:escuela,
+					page_title:"Modificar Escuela "+escuela.nombre,
+					title: "Modificar Escuela"
 				}
-				res.render("Admin/Administradores/editar", locals);
+				res.render("Admin/Escuelas/editar", locals);
 			})
 		})
-		.put(function (sol, res) {
-			var promise = Administrador.findById(sol.params.id).exec();
+		.put(uploader.cargarBackground, function (sol, res) {
+			var promise = Escuela.findById(sol.params.id).exec();
 
-			promise.then(function (admin) {
-				for(var key in sol.body){
-					if (typeof key != undefined) {
-						//console.log(key+":"+sol.body[key]);
-				 		admin[key] = sol.body[key];
-				}};
+			promise.then(function (escuela) {
+			
+			var data = {
+				nombre: sol.body.nombre,
+				descripcion : sol.body.descripcion,
+				estado: sol.body.estado
+			}
 
-				admin.fechaModificado = moment();
+			if (res.locals.cloudinary) {
+				data.background = res.locals.cloudinary.url,
+				data.background_id = res.locals.cloudinary.id
+			}
 
-				return admin.save();
+			escuela.fechaModificado = moment();
+
+				return escuela.save();
 			})
-			.then(function (admin) {
-				res.redirect("/admin/administradores");
+			.then(function (escuela) {
+				sol.flash("toast", "Escuela "+escuela.nombre+" modificada")
+				res.redirect("/admin/escuelas");
 			})
 			.catch(function (err) {
 				res.json(err);
 			});
 		})
 		.delete(function (sol, res) {
-			var promise = Administrador.findOneAndRemove(sol.params.id).exec();
-			promise.then(function () {
-				sol.flash('success', "Administrador eliminado exitosamente");
-				res.send("/admin/administradores");
+			var promise = Escuela.findById(sol.params.id).exec();
+			promise.then(function (escuela) {
+				uploader.borrarImagen(escuela.background_id);
+				return escuela.remove();
+				console.log('borrando escuela')
+			})
+			.then(function () {
+				sol.flash('toast', "Escuela eliminado");
+				res.send("/admin/escuelas");
+				console.log('se debio enviar admin/escuela')
 			})
 			.catch(function (err) {
 				res.json(err);
@@ -131,13 +144,13 @@ module.exports = function (app) {
 
 //solicitudes Ajax
 	//verificar el registro de la cedula
-		router.route("/validarCc")
+		router.route("/validarNombre")
 			.post(function (sol, res) {
-				var promise = Administrador.findOne({numeroDocumento:sol.body.value}).exec();
+				var promise = Escuela.findOne({nombre:sol.body.value}).exec();
 				promise
-				.then(function (admin) {
-					if(admin!=null && admin.numeroDocumento == sol.body.value){
-						res.send("Este numero de documento se encuentra registrado");
+				.then(function (escuela) {
+					if(escuela!=null && escuela.nombre == sol.body.value){
+						res.send("El nombre "+sol.body.value+" ya lo usa otra escuela.");
 					}
 				})
 				.catch(function (err) {
@@ -145,20 +158,6 @@ module.exports = function (app) {
 				})
 			}) 
 
-	//verficar el registro del correo electronico
-		router.route("/validarEmail")
-			.post(function (sol, res) {
-				var promise = Administrador.findOne({email:sol.body.value}).exec();
-				promise
-					.then(function (admin) {
-						if(admin!=null && admin.email == sol.body.value){
-						res.send("Este correo electronico ya se encuentra registrado");
-					}
-					})
-					.catch(function (err) {
-						
-					})
-			})
 		
 	app.use("/admin/escuelas", router);
 };

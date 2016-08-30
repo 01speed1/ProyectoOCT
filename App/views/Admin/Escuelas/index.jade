@@ -1,3 +1,6 @@
+script(
+	src="/Js/escuelas-script.js"
+	type="text/javascript")
 extends ../../layout
 block contenido
 	header
@@ -14,21 +17,6 @@ block contenido
 				href="/admin/Escuelas/nuevo") Nuevo
 			else
 				include ../Ext/paginate.jade
-				//codigo que esta dentro de tarjeta elemento
-				h3 card de prueba
-				.row
-					.col.s6
-						.card.medium
-							.card-image
-								img(
-								src="http://goo.gl/mnPn0S")
-								span.card-title titulo de la escuela
-							.card-content
-								p 
-								|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								|tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-							.card-action
-								a(href="#!") enlace
 				- var count = 0;
 				- var n = 0;
 				-var j = 0;
@@ -39,33 +27,46 @@ block contenido
 				- for (var i = 0; i < arrayEscuelas.length; i++) {
 					.row 
 						.col.s6
-							.card.medium
+							.card.large
 								.card-image
 									img(
 									src="#{arrayEscuelas[i].background}")
-									span.card-title #{arrayEscuelas[i].nombre}
+									span.card-title.stroke #{arrayEscuelas[i].nombre}
 								.card-content
-									p #{arrayEscuelas[i].descripcion}
+									p.descripcion #{arrayEscuelas[i].descripcion}
 								.card-action
-									a(href="#!") #{i}
+									a.btn.sbt.cyan(
+									href="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}") modificar
+										i.material-icons.right edit
+									form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.borrarEscuela(type="submit") borrar
+											i.material-icons.right delete
 						-j=i+1;
 						-if (j < arrayEscuelas.length) {
 							.col.s6
-								.card.medium
+								.card.large
 									.card-image
 										img(
 										src="#{arrayEscuelas[j].background}")
-										span.card-title #{arrayEscuelas[j].nombre}
+										span.card-title.stroke #{arrayEscuelas[j].nombre}
 									.card-content
-										p #{arrayEscuelas[j].descripcion}
+										p.descripcion #{arrayEscuelas[j].descripcion} texto
 									.card-action
-										a(href="#!") #{j}			
+										a.btn.sbt.cyan(
+										href="/admin/paginate}/editar/arrayEscuelas[j].id}") modificar
+											i.material-icons.right edit
+										form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.borrarEscuela(type="submit") borrar
+											i.material-icons.right delete			
 						- }
 						-i=i+1;						
-				-}	
-
-					
-				
+				-}
 				include ../Ext/paginate.jade			
 
 block footer

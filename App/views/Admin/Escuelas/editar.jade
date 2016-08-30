@@ -1,0 +1,76 @@
+extends ../../layout
+block contenido
+	script(
+	src="/Js/escuelas-script.js"
+	type="text/javascript")
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			p.descripcion Modifica a #{escuela.nombre}
+			.row
+				.card-panel.km
+					form#nueva-escuela.col.s12(
+						method="POST"
+						action="/admin/escuelas//editar/#{escuela.id}?_method=PUT"
+						enctype="multipart/form-data")
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons class
+								input#nombre(
+									name="nombre"
+									type="text"
+									value ="#{escuela.nombre}"
+									data-error=".errorTxt1")
+								label(for="nombre") Nombre de la escuela
+								.errorTxt1
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons reorder
+								textarea#descripcion.materialize-textarea(
+									name="descripcion"
+									data-error=".errorTxt2") #{escuela.descripcion}
+								label(for="descripcion") Descripción
+								.errorTxt2 
+						.row
+							label.active(for="background") Selecciona una imagen 
+							.file-field.input-field
+								.btn.waves-effect-waves-light.cyan
+										span Agregar imagen
+										input#background(
+										type="file"
+										name="background"
+										data-error=".errorTxt3")
+								.file-path-wrapper
+									input#backgroundPath.file-path(type="text")
+								.errorTxt3
+						.row
+							.col.s6
+								.card
+									.card-image
+										img(src="#{escuela.background}")
+										span.card-title.stroke Imagen actual
+							.col.s6
+								.card
+									.card-image
+										img#imagenDestino(
+										name="imagenDestino"
+										src="http://res.cloudinary.com/dcdrggs9p/image/upload/v1465666229/default_image.jpg")
+										span.card-title.stroke nueva imagen
+						.row
+							input(type="hidden" value="#{escuela}" name="background_id");
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/escuelas") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan(
+								type="submit"
+								name="estado"
+								value="MODIFICADO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km

@@ -3,6 +3,13 @@ var cloudinary = require("cloudinary");
 
 
 var cargar = module.exports.cargarBackground = function (sol, res, next) {
+
+	if (sol.body.background_id!="default_image") {
+		cloudinary.uploader.destroy(sol.body.background_id, function () {
+			return false;
+		})
+	}
+
 	if (sol.body.background.size > 0) {
 		var imagen = sol.body.background;
 
@@ -20,11 +27,16 @@ var cargar = module.exports.cargarBackground = function (sol, res, next) {
 		width: 945, 
 		height: 330, 
 		crop: "limit" });
-
-
 	} else {
 		console.log("no se cargo background en esta peticion");
 		next();
+	}	
+}
+
+module.exports.borrarImagen = function (id) {
+	if (sol.body.background_id!="default_image") {
+		cloudinary.uploader.destroy(sol.body.background_id, function () {
+			return false;
+		})
 	}
-	
-} 
+}
