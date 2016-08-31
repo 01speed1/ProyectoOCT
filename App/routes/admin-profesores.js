@@ -14,7 +14,7 @@ module.exports = function (app) {
 
 	//ver todos los Profesores
 	router.route("/")
-		.get(function (sol, res, next) {
+		.get(function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Profesor",
 				paginate: "profesores",
@@ -38,16 +38,20 @@ module.exports = function (app) {
 			  locals.limit = profes.limit;
 			  locals.offset= profes.offset;
 			  var i = (profes.total/profes.limit);
-			  if(profes.total%profes.limit == 0){locals.pages = parseInt(i);}else{locals.pages = parseInt(i)+1;}
+			  if(admins.total%admins.limit == 0){
+			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+			  }
+			  else{locals.pages = parseInt(i)+1;}
+
 			})
 			.then(function () {
-				if (sol.query.page > locals.pages){
+				if (sol.query.page > locals.pages || sol.query.page <=0){
 			  	res.redirect("/admin/profesores?page="+locals.pages)
 			  }else{
 			  	res.render("Admin/profesores/index",locals)
 			  }
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			})
 		})
@@ -123,9 +127,14 @@ module.exports = function (app) {
 			});
 		})
 		.delete(function (sol, res) {
-			var promise = Profesor.findOneAndRemove(sol.params.id).exec();
-			promise.then(function () {
-				sol.flash('toast', "Profesor eliminado");
+			var promise = Profesor.findById(sol.params.id).exec();
+			promise
+			.then(function (profe) {
+				res.locals.nombre = admin.nombres+" "+admin.apellidos;
+				return admin.remove();
+			})
+			.then(function () {
+				sol.flash('toast', "Profesor "+res.locals.nombre+" eliminado");
 				res.send("/admin/profesores");
 			})
 			.catch(function (err) {

@@ -1,8 +1,5 @@
 extends ../../layout
 block contenido
-	script(
-	src="/Js/admins-y-profes-script.js"
-	type="text/javascript")
 	header
 		include ../Ext/menu-lateral-admin.jade
 	main
@@ -107,13 +104,14 @@ block contenido
 							.input-field.col.s6
 								i.material-icons.prefix.grey-icons wc
 								select#genero(
+									required
 									name="genero"
 									data-error=".errorTxt11")
-									option(value="" selected disabled) selecione
 									option(value="H") Hombre
 									option(value="M") Mujer
-								label(for="genero") Género 
-								.errorTxt11
+								label(for="genero") Género
+								.input-field 
+									.errorTxt11
 						.divider
 						.row
 							.col.s12.center-align

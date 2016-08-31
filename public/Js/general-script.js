@@ -52,6 +52,45 @@
 	
 //funciones
 
+	//funciones 2.0 prevenir borrar
+	var preguntarAntesDeBorrar = function (argumentos) {
+
+			var config = {}
+
+			/*args={
+				tipoUsuario:tipoUsuario,
+				hrefDelete: hrefDelete
+			}*/
+
+			if (argumentos) {
+				$.extend(config,argumentos)
+			}
+			else {
+				console.log("No se configuraron argumentos");
+			}
+
+			//ejecutar primer swal	
+			swal({
+				title:"¿Seguro que quieres borrar este registro de tipo: "+config.tipoUsuario+"?",
+				text:"Este registro se perdera permanentemente y no se podra recuperar.",
+				type:"warning",
+				showCancelButton: true,
+				cancelButtonText: "NO! aún no",
+				confirmButtonText: "Si!, borralo!",
+				confirmButtonColor:"#f44336",
+			  closeOnConfirm: false,
+			  closeOnCancel: true
+			},
+			function (isConfirm) {
+				if (isConfirm) {
+					redireccionarPOST(config.hrefDelete);
+				}
+				else{
+
+				}
+			})
+		}
+
 	// DEPRESED previsualizar imagenes
 		/*var mostrarImagen =  function (input, destino) {
 		 if (input.files && input.files[0]) {

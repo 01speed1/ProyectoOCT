@@ -51,7 +51,7 @@ module.exports = function (app) {
 			})
 		})
 
-	//Agregar un nuevo administrador
+	//Agregar un nueva escuela
 	router.route("/nuevo")
 		.get(function (sol, res) {
 			locals={
@@ -60,7 +60,7 @@ module.exports = function (app) {
 			}
 			res.render("Admin/Escuelas/nuevo", locals);
 		})
-		.post(uploader.cargarBackground, function (sol, res) {
+		.post(uploader.cargarNuevoBackground, function (sol, res) {
 
 			var data = {
 				nombre: sol.body.nombre,
@@ -85,7 +85,7 @@ module.exports = function (app) {
 
 		});
 
-	//modificar y eliminar administrador
+	//modificar y eliminar escuela
 	router.route("/editar/:id")
 		.get(function (sol, res) {
 			Escuela.findById(sol.params.id, function (err, escuela) {
@@ -97,50 +97,51 @@ module.exports = function (app) {
 				res.render("Admin/Escuelas/editar", locals);
 			})
 		})
-		.put(uploader.cargarBackground, function (sol, res) {
+		.put(uploader.cargarNuevoBackground, function (sol, res, next) {
 			var promise = Escuela.findById(sol.params.id).exec();
+			promise
+			.then(function (escuela) {	
+					escuela.nombre = sol.body.nombre,
+					escuela.descripcion = sol.body.descripcion,
+					escuela.estado = sol.body.estado
+					escuela.fechaModificado = moment();
+				
+				if (res.locals.cloudinary) {
+					escuela.background = res.locals.cloudinary.url,
+					escuela.background_id = res.locals.cloudinary.id
+				}
 
-			promise.then(function (escuela) {
-			
-			var data = {
-				nombre: sol.body.nombre,
-				descripcion : sol.body.descripcion,
-				estado: sol.body.estado
-			}
+				if (sol.body.background_id!=escuela.background_id) {
+					res.locals.bid = sol.body.background_id
+				}
 
-			if (res.locals.cloudinary) {
-				data.background = res.locals.cloudinary.url,
-				data.background_id = res.locals.cloudinary.id
-			}
-
-			escuela.fechaModificado = moment();
-
+				console.log("escuela actualizada");
 				return escuela.save();
 			})
 			.then(function (escuela) {
-				sol.flash("toast", "Escuela "+escuela.nombre+" modificada")
-				res.redirect("/admin/escuelas");
+				res.locals.send = "/admin/escuelas";
+				res.locals.msToast = "Escuela "+escuela.nombre+" modificada.";
+				next();
 			})
 			.catch(function (err) {
 				res.json(err);
 			});
-		})
+		},uploader.borrarBackground)
 		.delete(function (sol, res) {
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise.then(function (escuela) {
-				uploader.borrarImagen(escuela.background_id);
+				res.locals.bid = escuela.background_id;
 				return escuela.remove();
-				console.log('borrando escuela')
 			})
 			.then(function () {
-				sol.flash('toast', "Escuela eliminado");
-				res.send("/admin/escuelas");
-				console.log('se debio enviar admin/escuela')
+				res.locals.msToast = "Escuela Borrada";
+				res.locals.send = "/admin/escuelas"
+				next();
 			})
 			.catch(function (err) {
 				res.json(err);
 			});
-		})
+		},uploader.borrarBackground)
 
 //solicitudes Ajax
 	//verificar el registro de la cedula
@@ -159,5 +160,5 @@ module.exports = function (app) {
 			}) 
 
 		
-	app.use("/admin/escuelas", router);
+app.use("/admin/escuelas", router);
 };

@@ -38,16 +38,20 @@ module.exports = function (app) {
 			  locals.limit = admins.limit;
 			  locals.offset= admins.offset;
 			  var i = (admins.total/admins.limit);
-			  if(admins.total%admins.limit == 0){locals.pages = parseInt(i);}else{locals.pages = parseInt(i)+1;}
+			  if(admins.total%admins.limit == 0){
+			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+			  }
+			  else{locals.pages = parseInt(i)+1;}
+
 			})
-			.then(function (argument) {
-				if (sol.query.page > locals.pages){
+			.then(function () {
+				if (sol.query.page > locals.pages || sol.query.page <=0 ){
 			  	res.redirect("/admin/administradores?page="+locals.pages)
 			  }else{
 			  	res.render("Admin/Administradores/index",locals)
-			  }
+			  }			  
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			})
 		})
@@ -125,13 +129,14 @@ module.exports = function (app) {
 		.delete(function (sol, res) {
 			var promise = Administrador.findById(sol.params.id).exec();
 			promise.then(function (admin) {
-				admin.remove();
+				res.locals.nombre = admin.nombres+" "+admin.apellidos;
+				return admin.remove();
 			})
-			promise.then(function () {
-				sol.flash('toast', "Administrador eliminado");
+			.then(function () {
+				sol.flash('toast', "Administrador "+res.locals.nombre+" eliminado(a).");
 				res.send("/admin/administradores");
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			});
 		})

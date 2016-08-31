@@ -1,8 +1,5 @@
 extends ../../layout
 block contenido
-	script(
-	src="/Js/escuelas-script.js"
-	type="text/javascript")
 	header
 		include ../Ext/menu-lateral-admin.jade
 	main
@@ -59,7 +56,7 @@ block contenido
 										src="http://res.cloudinary.com/dcdrggs9p/image/upload/v1465666229/default_image.jpg")
 										span.card-title.stroke nueva imagen
 						.row
-							input(type="hidden" value="#{escuela}" name="background_id");
+							input#background_id(type="hidden" value="#{escuela.background_id}" name="background_id")
 						.divider
 						.row
 							.col.s12.center-align

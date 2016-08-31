@@ -2,13 +2,7 @@
 var cloudinary = require("cloudinary");
 
 
-var cargar = module.exports.cargarBackground = function (sol, res, next) {
-
-	if (sol.body.background_id!="default_image") {
-		cloudinary.uploader.destroy(sol.body.background_id, function () {
-			return false;
-		})
-	}
+module.exports.cargarNuevoBackground = function (sol, res, next) {
 
 	if (sol.body.background.size > 0) {
 		var imagen = sol.body.background;
@@ -18,10 +12,8 @@ var cargar = module.exports.cargarBackground = function (sol, res, next) {
 				url: result.url,
 				id : result.public_id
 			}
-
 			res.locals.cloudinary = cloudinary;
-
-		next();
+			next();
 	},
 	{ 
 		width: 945, 
@@ -33,10 +25,32 @@ var cargar = module.exports.cargarBackground = function (sol, res, next) {
 	}	
 }
 
-module.exports.borrarImagen = function (id) {
-	if (sol.body.background_id!="default_image") {
-		cloudinary.uploader.destroy(sol.body.background_id, function () {
-			return false;
-		})
-	}
+module.exports.borrarBackground = function (sol, res) {
+		if (res.locals.bid) {
+			if (res.locals.bid!="default_image") {
+				cloudinary.uploader.destroy(res.locals.bid, function (result) {
+					console.log("se borro la imagen anterior?");
+					console.log(result);
+					sol.flash("toast", res.locals.msToast)
+					if (res.locals.send) {
+						res.send(res.locals.send);
+					}
+					if (res.locals.redirect) {
+						res.redirect(res.locals.redirect);
+					}
+					
+				})
+			} 
+			if (res.locals.bid=="default_image") {
+				sol.flash("toast", res.locals.msToast);
+				if (res.locals.send) {
+						res.send(res.locals.send);
+				}
+				if (res.locals.redirect) {
+					res.redirect(res.locals.redirect);
+				}
+			}
+		} 
 }
+
+
