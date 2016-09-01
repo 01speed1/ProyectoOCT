@@ -2,19 +2,27 @@ $().ready(function () {
 
 // desplegar el mesaje de borrado de escuela
 	$(".borrarEscuela").click(function (event) {
-		event.preventDefault();
+			event.preventDefault();
+			var tipoUsuario = $("div.tipoUsuario.hide").text();
+			var hrefDelete = $(this).parent().attr("action");
 
+			var args = {
+				tipoUsuario:tipoUsuario,
+				hrefDelete:hrefDelete
+			}
+			preguntarAntesDeBorrar(args);
+		});
+
+//deplegar mensaje espera creando y actualizando escuela
+	$(".creando").click(function (event) {
+		MensajeDeEspera("creando", "escuela" );
+		
+	})
+
+	$(".modificando").click(function () {
 		var tipoUsuario = $("div.tipoUsuario.hide").text();
-		var hrefDelete = $("form.btn-borrar").attr("action");
-
-		var args = {
-			tipoUsuario:tipoUsuario,
-			hrefDelete:hrefDelete
-		}
-
-		preguntarAntesDeBorrar(args);
-	});
-
+		MensajeDeEspera("modificando", "escuela");
+	})
 
 
 //validar campos del nuevo administrador
@@ -59,7 +67,7 @@ $().ready(function () {
 			var url = "/admin/escuelas/validarNombre";
 			verificar_dato($("#nombre"),url);
 		},
-		keyup: primera_mayuscula
+		change: primera_mayuscula_2
 	});
 
 	$("#descripcion").on({

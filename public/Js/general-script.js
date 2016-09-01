@@ -1,4 +1,17 @@
 //sweetalerts
+	
+	//espere
+	var MensajeDeEspera = function (procesoTexto, tipoUsuario) {
+		swal({
+			title: "Por favor Espere",
+			text: "Se esta "+procesoTexto+" "+tipoUsuario,
+			type:"info",
+			closeOnConfirm: false,
+			allowEscapeKey:false,
+			showConfirmButton: false
+		})
+	}
+
 	//confirmar
 	 	var swalConfirmar = function (title, text, hrefDelete) {
 			swal({
@@ -51,6 +64,19 @@
 		}
 	
 //funciones
+
+	//mensaje prevenir borrar ""solo copy"" no funcional
+		/*var prevenirBorrar = function (event) {
+			event.preventDefault();
+			var tipoUsuario = $("div.tipoUsuario.hide").text();
+			var hrefDelete = $(this).parent().attr("action");
+
+			var args = {
+				tipoUsuario:tipoUsuario,
+				hrefDelete:hrefDelete
+			}
+			preguntarAntesDeBorrar(args);
+		}*/
 
 	//funciones 2.0 prevenir borrar
 	var preguntarAntesDeBorrar = function (argumentos) {
@@ -140,6 +166,25 @@
 				} else{
 					$(this).val(p_palabra);
 				}
+		};
+
+		var primera_mayuscula_2 =  function () {
+				var value =$(this).val().split(' ');
+				var finalText = "";
+				var aux = "";
+				for (var i = 0; i < value.length; i++) {
+					var palabra = value[i].charAt(0).toUpperCase()+value[i].slice(1);
+					if (value[i]!=undefined) {
+						if (value.length===0) {
+							finalText = palabra
+						}
+						else{
+							aux = finalText+" "+palabra
+							finalText = $.trim(aux)}	
+					}
+					
+				}
+				$(this).val(finalText);			
 		};
 
 	//nombre de usuario aleatorio

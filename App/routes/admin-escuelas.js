@@ -127,18 +127,19 @@ module.exports = function (app) {
 				res.json(err);
 			});
 		},uploader.borrarBackground)
-		.delete(function (sol, res) {
+		.delete(function (sol, res, next) {
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise.then(function (escuela) {
+				res.locals.nombre = escuela.nombre;
 				res.locals.bid = escuela.background_id;
 				return escuela.remove();
 			})
 			.then(function () {
-				res.locals.msToast = "Escuela Borrada";
+				res.locals.msToast = "Escuela "+res.locals.nombre+" Borrada";
 				res.locals.send = "/admin/escuelas"
 				next();
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			});
 		},uploader.borrarBackground)

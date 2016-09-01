@@ -5,6 +5,7 @@ var cloudinary = require("cloudinary");
 module.exports.cargarNuevoBackground = function (sol, res, next) {
 
 	if (sol.body.background.size > 0) {
+		console.log("se cargara un background");
 		var imagen = sol.body.background;
 
 		var x = cloudinary.uploader.upload(imagen.path, function (result) {
@@ -27,6 +28,7 @@ module.exports.cargarNuevoBackground = function (sol, res, next) {
 
 module.exports.borrarBackground = function (sol, res) {
 		if (res.locals.bid) {
+			console.log("se borrara un background");
 			if (res.locals.bid!="default_image") {
 				cloudinary.uploader.destroy(res.locals.bid, function (result) {
 					console.log("se borro la imagen anterior?");
