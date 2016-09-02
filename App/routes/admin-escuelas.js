@@ -25,11 +25,10 @@ module.exports = function (app) {
 				title: "Escuelas",
 				page_title: "Panel de escuelas"};
 
-			//!!! FALTA ACTUALIZAR LA PAGINACION 
 			var paginate_option = {
 				page: sol.query.page, 
-				limit: 10,
-				offset: (sol.query.page-1)*10,
+				limit: 6,
+				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
 				}
 
@@ -42,7 +41,12 @@ module.exports = function (app) {
 				locals.total = escuelas.total;
 			  locals.limit = escuelas.limit;
 			  locals.offset= escuelas.offset;
-			  locals.pages = parseInt((escuelas.total/escuelas.limit)+1);
+			  var i = (escuelas.total/escuelas.limit);
+			  if(escuelas.total%escuelas.limit == 0){
+			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+			  }
+			  else{locals.pages = parseInt(i)+1;}
+
 				res.render("Admin/Escuelas/index",locals)
 			})
 			.catch(function (err) {

@@ -1,0 +1,69 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			include ../Ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/areas/nuevo") Nuevo
+			if areas.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/areas/nuevo") Nuevo
+			else
+				include ../Ext/paginate.jade
+				- var count = 0;
+				- var n = 0;
+				-var j = 0;
+				- var arrayAreas = new Array();
+				each area in areas
+					- arrayAreas[n]= area;
+					- n++;
+				- for (var i = 0; i < arrayAreas.length; i++) {
+					.row 
+						.col.s6
+							.card.large
+								.card-image
+									img(
+									src="#{arrayAreas[i].background}")
+									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela} 
+								.card-content
+									p.descripcion #{arrayAreas[i].descripcion} 
+								.card-action
+									a.btn.sbt.cyan(
+									href="/admin/#{paginate}/editar/#{arrayAreas[i].id}") modificar
+										i.material-icons.right edit
+									form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayAreas[i].id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.borrarEscuela(type="submit") borrar
+											i.material-icons.right delete
+						-j=i+1;
+						-if (j < arrayAreas.length) {
+							.col.s6
+								.card.large
+									.card-image
+										img(
+										src="#{arrayAreas[j].background}")
+										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[i].escuela} 
+									.card-content
+										p.descripcion #{arrayAreas[j].descripcion}
+									.card-action
+										a.btn.sbt.cyan(
+										href="/admin/#{paginate}/editar/#{arrayAreas[j].id}") modificar
+											i.material-icons.right edit
+										form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayAreas[j].id}?_method=DELETE"
+										method="POST")
+											button.btn.sbt.red.borrarEscuela(type="submit") borrar
+												i.material-icons.right delete			
+						- }
+						-i=i+1;						
+				-}
+				include ../Ext/paginate.jade			
+
+block footer

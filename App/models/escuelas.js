@@ -19,7 +19,7 @@ var	escuelaSchema = mongoose.Schema({
 		type: String,
 		require:true
 	},
-	//imagenes
+	//campos de creacion
 	background:{
 		type:String,
 		default:"http://res.cloudinary.com/dcdrggs9p/image/upload/v1465666229/default_image.jpg"

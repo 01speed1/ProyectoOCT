@@ -38,7 +38,7 @@ module.exports = function (app) {
 			  locals.limit = profes.limit;
 			  locals.offset= profes.offset;
 			  var i = (profes.total/profes.limit);
-			  if(admins.total%admins.limit == 0){
+			  if(profes.total%profes.limit == 0){
 			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
 			  }
 			  else{locals.pages = parseInt(i)+1;}
