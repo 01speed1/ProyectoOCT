@@ -35,9 +35,11 @@ module.exports.borrarBackground = function (sol, res) {
 					console.log(result);
 					sol.flash("toast", res.locals.msToast)
 					if (res.locals.send) {
+						console.log("se detecto send: "+res.locals.send)
 						res.send(res.locals.send);
 					}
 					if (res.locals.redirect) {
+						console.log("se detecto redirect: "+res.locals.redirect)
 						res.redirect(res.locals.redirect);
 					}
 					
@@ -46,9 +48,11 @@ module.exports.borrarBackground = function (sol, res) {
 			if (res.locals.bid=="default_image") {
 				sol.flash("toast", res.locals.msToast);
 				if (res.locals.send) {
-						res.send(res.locals.send);
+					console.log("se detecto send: "+res.locals.send)
+					res.send(res.locals.send);
 				}
 				if (res.locals.redirect) {
+					console.log("se detecto redirect: "+res.locals.redirect)
 					res.redirect(res.locals.redirect);
 				}
 			}

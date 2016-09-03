@@ -26,7 +26,7 @@ module.exports = function (app) {
 				page_title: "Panel de Areas"};
 
 			var paginate_option = {
-				populate: [	"escuela", 'nombre'],
+				populate: "escuela",
 				page: sol.query.page, 
 				limit: 10,
 				offset: (sol.query.page-1)*10,
@@ -35,7 +35,6 @@ module.exports = function (app) {
 			var promise = Area.paginate({}, paginate_option);
 			promise
 			.then(function (areas) {
-				console.log(areas);
 				locals.areas=areas.docs;
 				locals.page = sol.query.page;
 				locals.limit = areas.limit;
@@ -56,14 +55,14 @@ module.exports = function (app) {
 			})
 		})
 
-	//Agregar un nueva escuela
+	//Agregar un nueva area
 	router.route("/nuevo")
 		.get(function (sol, res) {
-			
 			locals={
 				title: "Nueva Area",
 				page_title: "Crear Area"
 			}
+			//cargar nombre de escuelas
 			var promise = Escuela.find({}).exec()
 			promise
 				.then(function (escuelas) {
@@ -86,7 +85,7 @@ module.exports = function (app) {
 		})
 		.post(uploader.cargarNuevoBackground, function (sol, res) {
 			//res.json(sol.body);
-	
+			console.log(sol.body);
 			var data = {
 				nombre: sol.body.nombre,
 				descripcion : sol.body.descripcion,
@@ -110,48 +109,71 @@ module.exports = function (app) {
 			});
 		});
 
-	//modificar y eliminar escuela
+	//modificar y eliminar area
 	router.route("/editar/:id")
 		.get(function (sol, res) {
-			Escuela.findById(sol.params.id, function (err, escuela) {
-				locals={
-					escuela:escuela,
-					page_title:"Modificar Escuela "+escuela.nombre,
-					title: "Modificar Escuela"
-				}
-				res.render("Admin/Escuelas/editar", locals);
-			})
+			var promise2 = Escuela.find({}).exec();
+			promise2
+				.then(function (escuelas) {
+					var listaEscuela = {};
+					var arrayEscuelas = [];
+					for (var i = escuelas.length - 1; i >= 0; i--) {
+						listaEscuela = {
+							id: escuelas[i].id,
+							nombre: escuelas[i].nombre,
+							background: escuelas[i].background
+						} 
+						arrayEscuelas.push(listaEscuela);
+					}
+					return arrayEscuelas;
+				})
+				.then(function (arrayEscuelas) {
+					
+					var promise = Area.findById(sol.params.id).populate('escuela').exec();
+					promise
+						.then(function (area) {
+							locals={
+								area:area,
+								page_title:"Modificar Escuela "+area.nombre,
+								title: "Modificar Escuela",
+								arrayEscuelas:arrayEscuelas
+							}
+							res.render("Admin/Areas/editar", locals);
+						})
+				})
 		})
 		.put(uploader.cargarNuevoBackground, function (sol, res, next) {
-			var promise = Escuela.findById(sol.params.id).exec();
+			var promise = Area.findById(sol.params.id).exec();
 			promise
-			.then(function (escuela) {	
-					escuela.nombre = sol.body.nombre,
-					escuela.descripcion = sol.body.descripcion,
-					escuela.estado = sol.body.estado
-					escuela.fechaModificado = moment();
+			.then(function (area) {
+					area.nombre = sol.body.nombre
+					area.descripcion = sol.body.descripcion 
+					area.escuela = sol.body.escuela
+					area.estado = sol.body.estado
+					area.fechaModificado = moment();
 				
 				if (res.locals.cloudinary) {
-					escuela.background = res.locals.cloudinary.url,
-					escuela.background_id = res.locals.cloudinary.id
+					area.background = res.locals.cloudinary.url,
+					area.background_id = res.locals.cloudinary.id
 				}
 
-				if (sol.body.background_id!=escuela.background_id) {
+				res.locals.bid = "default_image"
+				if (sol.body.background_id!=area.background_id) {
 					res.locals.bid = sol.body.background_id
 				}
 
-				console.log("escuela actualizada");
-				return escuela.save();
+				console.log("area actualizada");
+				return area.save();
 			})
-			.then(function (escuela) {
-				res.locals.send = "/admin/escuelas";
-				res.locals.msToast = "Escuela "+escuela.nombre+" modificada.";
+			.then(function (area) {
+				res.locals.redirect = "/admin/areas";
+				res.locals.msToast = "Area "+sol.body.nombre+" modificada.";
 				next();
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			});
-		},uploader.borrarBackground)
+		}, uploader.borrarBackground)
 		.delete(function (sol, res, next) {
 			var promise = Area.findById(sol.params.id).exec();
 			promise.then(function (escuela) {

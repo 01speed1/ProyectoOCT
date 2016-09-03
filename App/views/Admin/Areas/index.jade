@@ -24,11 +24,11 @@ block contenido
 				- for (var i = 0; i < arrayAreas.length; i++) {
 					.row 
 						.col.s6
-							.card.large
+							.card.medium
 								.card-image
 									img(
 									src="#{arrayAreas[i].background}")
-									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela} 
+									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela.nombre} 
 								.card-content
 									p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
@@ -44,11 +44,11 @@ block contenido
 						-j=i+1;
 						-if (j < arrayAreas.length) {
 							.col.s6
-								.card.large
+								.card.medium
 									.card-image
 										img(
 										src="#{arrayAreas[j].background}")
-										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[i].escuela} 
+										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[i].escuela.nombre} 
 									.card-content
 										p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
