@@ -41,8 +41,7 @@ block contenido
 								i.material-icons.prefix.grey-icons reorder
 								textarea#descripcion.materialize-textarea(
 									name="descripcion"
-									value="#{area.descripcion}"
-									data-error=".errorTxt2")
+									data-error=".errorTxt2") #{area.descripcion}
 								label(for="descripcion") Descripción
 								.errorTxt2 							 
 						.row
@@ -59,11 +58,17 @@ block contenido
 								.errorTxt3
 						.row
 							input#background_id(type="hidden" value="#{area.background_id}" name="background_id")
+						.row
+							.col.s6
+								.card
+									.card-image
+										img(src="#{area.background}")
+										span.card-title.stroke Imagen actual
 						.divider
 						.row
 							.col.s12.center-align
 								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
-									href="/admin/escuelas") regresar
+									href="/admin/areas") regresar
 									i.material-icons.left close
 								button.waves-effect.waves-light.btn.sbt.cyan.creando(
 								type="submit"

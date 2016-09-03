@@ -28,7 +28,7 @@ module.exports.cargarNuevoBackground = function (sol, res, next) {
 
 module.exports.borrarBackground = function (sol, res) {
 		if (res.locals.bid) {
-			console.log("se borrara un background");
+			console.log("se borrara un background..");
 			if (res.locals.bid!="default_image") {
 				cloudinary.uploader.destroy(res.locals.bid, function (result) {
 					console.log("se borro la imagen anterior?");
@@ -41,11 +41,9 @@ module.exports.borrarBackground = function (sol, res) {
 					if (res.locals.redirect) {
 						console.log("se detecto redirect: "+res.locals.redirect)
 						res.redirect(res.locals.redirect);
-					}
-					
+					}	
 				})
-			} 
-			if (res.locals.bid=="default_image") {
+			} else {
 				sol.flash("toast", res.locals.msToast);
 				if (res.locals.send) {
 					console.log("se detecto send: "+res.locals.send)
@@ -56,7 +54,17 @@ module.exports.borrarBackground = function (sol, res) {
 					res.redirect(res.locals.redirect);
 				}
 			}
-		} 
+		} else {
+			sol.flash("toast", res.locals.msToast)
+			if (res.locals.send) {
+				console.log("se detecto send: "+res.locals.send)
+				res.send(res.locals.send);
+			}
+			if (res.locals.redirect) {
+				console.log("se detecto redirect: "+res.locals.redirect)
+				res.redirect(res.locals.redirect);
+			}
+}
 }
 
 

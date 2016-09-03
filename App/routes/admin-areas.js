@@ -84,8 +84,6 @@ module.exports = function (app) {
 				})	
 		})
 		.post(uploader.cargarNuevoBackground, function (sol, res) {
-			//res.json(sol.body);
-			console.log(sol.body);
 			var data = {
 				nombre: sol.body.nombre,
 				descripcion : sol.body.descripcion,
@@ -157,9 +155,8 @@ module.exports = function (app) {
 					area.background_id = res.locals.cloudinary.id
 				}
 
-				res.locals.bid = "default_image"
 				if (sol.body.background_id!=area.background_id) {
-					res.locals.bid = sol.body.background_id
+					res.locals.bid=sol.body.background_id
 				}
 
 				console.log("area actualizada");
@@ -195,11 +192,11 @@ module.exports = function (app) {
 	//verificar el registro de la cedula
 		router.route("/validarNombre")
 			.post(function (sol, res) {
-				var promise = Escuela.findOne({nombre:sol.body.value}).exec();
+				var promise = Area.findOne({nombre:sol.body.value}).exec();
 				promise
-				.then(function (escuela) {
-					if(escuela!=null && escuela.nombre == sol.body.value){
-						res.send("El nombre "+sol.body.value+" ya lo usa otra escuela.");
+				.then(function (area) {
+					if(area!=null && area.nombre == sol.body.value){
+						res.send("El nombre "+sol.body.value+" ya lo usa otra area.");
 					}
 				})
 				.catch(function (err) {

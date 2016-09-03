@@ -105,13 +105,13 @@ module.exports = function (app) {
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise
 			.then(function (escuela) {	
-					escuela.nombre = sol.body.nombre,
-					escuela.descripcion = sol.body.descripcion,
+					escuela.nombre = sol.body.nombre
+					escuela.descripcion = sol.body.descripcion
 					escuela.estado = sol.body.estado
 					escuela.fechaModificado = moment();
 				
 				if (res.locals.cloudinary) {
-					escuela.background = res.locals.cloudinary.url,
+					escuela.background = res.locals.cloudinary.url
 					escuela.background_id = res.locals.cloudinary.id
 				}
 
@@ -123,7 +123,7 @@ module.exports = function (app) {
 				return escuela.save();
 			})
 			.then(function (escuela) {
-				res.locals.send = "/admin/escuelas";
+				res.locals.redirect = "/admin/escuelas";
 				res.locals.msToast = "Escuela "+escuela.nombre+" modificada.";
 				next();
 			})
