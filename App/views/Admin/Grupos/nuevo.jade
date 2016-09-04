@@ -1,0 +1,68 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			p.descripcion Aquí puedes agregar un nuevo Grupo
+			//formulario
+			.row
+				.card-panel.km
+					form#nueva-grupo.col.s12(
+						method="POST"
+						action="/admin/grupos/nuevo"
+						enctype="multipart/form-data")
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons library_books
+								label.active(for="jornada") Area
+								select#jornada(
+								name="area"
+								data-error=".errorTxt1")
+									option(value="mañana") Mañana
+									option(value="tarde") Tarde
+									option(value="noche") Noche
+								.errorTxt1
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons library_books
+								label.active(for="escuela") Escuela 
+								select#escuela(
+									name="escuela")
+									each area in areas
+										option(
+											value="#{area.id}") #{area.nombre}
+
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons date_range
+								input#fechaInicio.datepickerStart(
+									name="fechaInicio"
+									type="date"
+									data-error=".errorTxt3")
+								label.active(for="fechaInicio") Fecha de Incio de las clases
+								.errorTxt3
+							.input-field.col.s6
+								input#fechaFin.datepickerStart(
+									name="fechaFin"
+									type="date"
+									data-error=".errorTxt3")
+								label.active(for="fechaFin") Fecha de Incio de las clases
+								.errorTxt3
+
+
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/areas") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan.creando(
+								type="submit"
+								name="estado"
+								value="NUEVO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer

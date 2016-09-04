@@ -1,0 +1,17 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			include ../Ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/grupos/nuevo") Nuevo
+			if grupos.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/grupos/nuevo") Nuevo
+
+
+block footer
