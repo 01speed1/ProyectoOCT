@@ -7,12 +7,14 @@ $().ready(function () {
 	//configuracion del calendario
 	$('.datepickerborn').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 80, // Creates a dropdown of 15 years to control year
+    selectYears: 80, 
     max: true,
     today: 'Hoy',
 	  clear: 'limpiar',
 	  close: 'Aceptar'
   });
+
+
   //configuracion del boton para cerrar mensaje emergente
   $(".closeCard").on("click",function () {
     $(this).closest("#card-alert").fadeOut("slow")
