@@ -71,7 +71,7 @@ module.exports = function (app) {
 				page_title: "Crear Grupo"
 			}
 
-			var promiseAreas = Area.find().exec();
+			var promiseAreas = Area.find().populate('escuela').exec();
 			promiseAreas
 				.then(function (areas) {
 					locals.areas= areas;
