@@ -55,13 +55,11 @@ $().ready(function () {
 		$("#fechaFin,#jornada,#area,#fechaInicio").change(function () {
 			var arrayText = [];
 
-			alert($(this).val());
-
 			var meses = ['enero','febrero','marzo','abril','mayo','junio','julio',
 			               'agosto','septiembre','octubre','noviembre','diciembre'];
 
 
-			arrayText[0] = $("#area").text().split(" ");
+			arrayText[0] = $("#area > option:selected").text().split(" ");
 			arrayText[1] = $("#jornada").val();
 			arrayText[2] = $("#fechaInicio").val().split("-");
 			var mesNumero1 = arrayText[2][1]
@@ -84,10 +82,77 @@ $().ready(function () {
 			$("#nombre").val(str);
 			
 		})
-		
- 
+	
+	//validar campos en formulario de grupo 
+		var validaciones = {
+			rules:{
+				jornada:{
+					required:true
+				},
+				area:{
+					required:true
+				},
+				fechaInicio:{
+					required:true
+				},
+				fechaFin:{
+					required:true
+				},
+				horaInicio:{
+					required:true
+				},
+				horaInicioMin:{
+					required:true
+				},
+				DiasDeClase:{
+					required:true
+				},
+				nombre:{
+					required:true,
+					minlength:2
+				}
+			},
+			messages:{
+				jornada:{
+					required:"Selecciona una jornada"
+				},
+				area:{
+					required:"Selecciona un area"
+				},
+				fechaInicio:{
+					required:"Debes seleccionar una fecha de inicio"
+				},
+				fechaFin:{
+					required:"debes seleccionar una fecha de finalización"
+				},
+				horaInicio:{
+					required:"Ajusta la hora de incio"
+				},
+				horaInicioMin:{
+					required:"Ajusta la hora de finalizacion"
+				},
+				DiasDeClase:{
+					required:"Debes selecionar almenos 1 dia de clase"
+				},
+				nombre:{
+					required:"Este grupo debe tener un nombre",
+					minlength: "El nombre del grupo es demasiado corto"
+				}
+			},
+			errorElement : 'div',
+			errorPlacement: function(error, element) {
+	      var placement = $(element).data('error');
+	      if (placement) {
+	        $(placement).append(error)
+	      } else {
+	        error.insertAfter(element);
+	      }
+	    }	
+		}
+ 	
 
-  	
+	// ejecutar validacion en formulario de grupo 
+		$('#nuevo-grupo').validate(validaciones);
 
 //end jq script grupo-script
 });

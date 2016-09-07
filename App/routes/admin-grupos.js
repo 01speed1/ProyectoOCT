@@ -9,6 +9,7 @@ var locals={};
 //modelos DB
 var Grupo = require("../models/grupos")
 var Area = require("../models/area");
+var Profesor = require("../models/usuarios")
 //middlewere para cargar imagenes
 var uploader = require("../../config/gestorImagenes");
 
@@ -75,8 +76,22 @@ module.exports = function (app) {
 			promiseAreas
 				.then(function (areas) {
 					locals.areas= areas;
-			
-					res.render("Admin/Grupos/nuevo",locals);
+				
+				})
+				.then(function () {
+					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
+					promiseProfesores.then(function (profesores) {
+						locals.profesores = profesores;
+					})
+					.then(function () {
+						res.render("Admin/Grupos/nuevo",locals);
+					})
+					.error(function (err) {
+						res.json(err);
+					})				
+				})
+				.error(function (err) {
+					res.json(err);
 				})
 
 
