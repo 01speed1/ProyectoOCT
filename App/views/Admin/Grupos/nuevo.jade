@@ -51,11 +51,11 @@ block contenido
 								label.active(for="fechaFin") Fecha de Fin de clases
 								.errorTxt4
 							.input-field.col.s6
-								label.active(for="DiasDeClase" style="padding-bottom: 0.3rem;") Dias de clase
+								label.active(for="DiasDeClase" ) Dias de clase
 								select#DiasDeClase(
 									name="DiasDeClase"
 									multiple
-									required="required")
+									data-error=".errorTxt5")
 									option(value="" disabled selected) Selecciona los dias de clase
 									option(value="Lunes") Lunes
 									option(value="Martes") Martes
@@ -64,8 +64,7 @@ block contenido
 									option(value="Viernes") Viernes
 									option(value="Sábado") Sábado
 									option(value="Domingo") Domingo
-
-								.errorTxt5(style="padding-top: 0.7rem;")
+								.errorTxt5
 						.row
 							.col.s6
 								label Hora de inicio de las clases

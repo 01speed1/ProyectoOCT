@@ -93,8 +93,9 @@ module.exports = function (app) {
 				.error(function (err) {
 					res.json(err);
 				})
-
-
+		})
+		.post(function (sol, res) {
+			res.json(sol.body);
 		})
 
 	app.use("/admin/grupos", router)

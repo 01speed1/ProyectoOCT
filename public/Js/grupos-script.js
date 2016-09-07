@@ -150,9 +150,26 @@ $().ready(function () {
 	    }	
 		}
  	
-
 	// ejecutar validacion en formulario de grupo 
 		$('#nuevo-grupo').validate(validaciones);
+
+	//validar dias de clase 
+
+		$("#nuevo-grupo").submit(function (e) {
+			$("#nombre").prop("disabled", false);	
+			var DiasDeClase = $("#DiasDeClase").val();
+
+			if (DiasDeClase=="") {
+				e.preventDefault();
+				$(".errorTxt5").text("escoge almenos un dia de clase").addClass("error");
+			}	
+
+		})
+
+
+
+
+		//$("#DiasDeClase ~ ul>li>span>input[type='checkbox']").is(":checked")
 
 //end jq script grupo-script
 });
