@@ -154,14 +154,13 @@ $().ready(function () {
 		$('#nuevo-grupo').validate(validaciones);
 
 	//validar dias de clase 
-
 		$("#nuevo-grupo").submit(function (e) {
 			$("#nombre").prop("disabled", false);	
 			var DiasDeClase = $("#DiasDeClase").val();
 
 			if (DiasDeClase=="") {
 				e.preventDefault();
-				$(".errorTxt5").text("escoge almenos un dia de clase").addClass("error");
+				$(".errorTxt5").text("Escoge al menos un día de clase").addClass("error");
 			}	
 
 		})

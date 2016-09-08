@@ -95,7 +95,17 @@ module.exports = function (app) {
 				})
 		})
 		.post(function (sol, res) {
-			res.json(sol.body);
+			res.send(moment(sol.body.fechaInicio));
+
+			/*var data = {
+				nombre: sol.body.nombre,
+				profesor: sol.body.profesor,
+				area: sol.body.area,
+				fechaInicio: 
+			}*/
+
+			//nuevoGrupo = new Grupo(data);
+
 		})
 
 	app.use("/admin/grupos", router)
