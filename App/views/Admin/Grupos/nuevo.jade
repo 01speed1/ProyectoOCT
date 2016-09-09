@@ -51,9 +51,9 @@ block contenido
 								label.active(for="fechaFin") Fecha de Fin de clases
 								.errorTxt4
 							.input-field.col.s6
-								label.active(for="DiasDeClase" ) Dias de clase
-								select#DiasDeClase(
-									name="DiasDeClase"
+								label.active(for="diasDeClase" ) Dias de clase
+								select#diasDeClase(
+									name="diasDeClase"
 									multiple
 									data-error=".errorTxt5")
 									option(value="" disabled selected) Selecciona los dias de clase
@@ -74,7 +74,8 @@ block contenido
 											select#horaInicio(
 											name="horaInicio"
 											data-error=".errorTxt6")
-												-for (var i = 1; i < 13; i++) {
+												option(value="0") 12
+												-for (var i = 1; i < 12; i++) {
 													option(
 														value="#{i}") #{i}
 												-}
@@ -84,7 +85,8 @@ block contenido
 											select#horaInicioMin(
 											name="horaInicioMin"
 											data-error=".errorTxt7")
-												-for (var i = 0; i < 60; i++) {
+												option(value="0") 00
+												-for (var i = 1; i < 60; i++) {
 													if i<=9
 														option(value='#{i}') 0#{i}
 													else
@@ -107,7 +109,8 @@ block contenido
 											select#horaFin(
 											name="horaFin"
 											data-error=".errorTxt9")
-												-for (var i = 1; i < 13; i++) {
+												option(value="0") 12
+												-for (var i = 1; i < 12; i++) {
 													option(
 														value="#{i}") #{i}
 												-}
@@ -117,7 +120,8 @@ block contenido
 											select#horaFinMin(
 											name="horaFinMin"
 											data-error=".errorTxt10")
-												-for (var i = 0; i < 60; i++) {
+												option(value="0") 00
+												-for (var i = 1; i < 60; i++) {
 													if i<=9
 														option(value='#{i}') 0#{i}
 													else
@@ -130,7 +134,7 @@ block contenido
 											name="AMPMFin"
 											data-error=".errorTxt11")
 												option(value='AM') A.M.
-												option(value='pM') P.M.
+												option(value='PM') P.M.
 											.errorTxt11
 						.row
 							.input-field.col.s3
@@ -149,7 +153,7 @@ block contenido
 								label.active(for="nombre") Nombre del grupo
 								.errorTxt12
 						.row
-							.input-field.col.s12
+							.input-field.col.s7
 								i.material-icons.prefix.grey-icons account_circle 
 								label.active(for="profesor") Profesor del grupo
 								select#profesor(
@@ -158,6 +162,13 @@ block contenido
 									each profesor in profesores
 										option(value="#{profesor.id}") #{profesor.nombres} #{profesor.apellidos}
 								.errorTxt13
+							.input-field.col.s5
+								label.active(for="limiteEstudiantes") Limite de estudiantes
+								input#limiteEstudiantes(
+								name="limiteEstudiantes"
+								placeholder="Sin Limite"
+								data-error=".errorTxt14")
+								.errorTxt14
 
 						.divider
 						.row

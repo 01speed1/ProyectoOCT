@@ -95,16 +95,67 @@ module.exports = function (app) {
 				})
 		})
 		.post(function (sol, res) {
-			res.send(moment(sol.body.fechaInicio));
+			//convertir hora ampm
+				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
+				if (sol.body.AMPMInicio=="PM") {
+					hourStart=parseInt(sol.body.horaInicio)+12;
+				}
+				if (sol.body.AMPMFin=="PM") {
+					hourEnd=parseInt(sol.body.horaFin)+12;
+				}
+				
+			var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes").subtract(5,'hours');
+			var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes").subtract(5,'hours')			
 
-			/*var data = {
+
+			var data = {
 				nombre: sol.body.nombre,
 				profesor: sol.body.profesor,
 				area: sol.body.area,
-				fechaInicio: 
-			}*/
+				fechaInicio: fechaInicio,
+				fechaFin: fechaFin,
+				estado: sol.body.estado,
+				diasDeClase: sol.body.diasDeClase
+			}
 
-			//nuevoGrupo = new Grupo(data);
+			nuevoGrupo = new Grupo(data);
+
+			nuevoGrupo.save(function (err) {
+				if (!err) {
+					sol.flash("toast", "Grupo creado.");
+					res.redirect("/admin/grupos");
+				}
+			})
+
+		})
+
+	router.route("/editar/:id")
+		.get(function (sol, res) {
+			locals={
+				title: "Editar Grupo",
+				page_title: "Editar Grupo"
+			}
+
+			var promise = Grupo.findById(sol.params.id).exec();
+			promise
+			.then(function (grupo) {
+				locals.grupo = grupo;
+
+				var promiseArea = Area.find().exec();
+				promiseArea.then(function (areas) {
+					locals.areas = areas;
+					res.render("Admin/Grupos/editar", locals);
+				})
+				.then(function (err) {
+					//res.json(err);
+				})
+				
+			})
+			.error(function (err) {
+				//res.json(err);
+			});
+
+			
 
 		})
 

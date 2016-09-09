@@ -30,6 +30,15 @@ var	grupoSchema = mongoose.Schema({
 		type:Date,
 		require: true
 	},
+	limiteEstudiantes:{
+		type:Number,
+		require: true,
+		default: 0
+	},
+	diasDeClase:{
+		type:Array,
+		require: true
+	},
 	//campos de creacion
 	background:{
 		type:String,
@@ -65,6 +74,31 @@ grupoSchema.virtual("creacionPretty")
 		} else {
 			return moment(this.creacion).locale('es').format("LL");
 		}		
+	})
+grupoSchema.virtual("fechaInicioPretty")
+	.get(function () {
+		return moment(this.fechaInicio).locale('es').format("LL");			
+	})
+grupoSchema.virtual("fechaFinPretty")
+	.get(function () {
+		return moment(this.fechaFin).locale('es').format("LL");			
+	})
+
+grupoSchema.virtual("horario")
+	.get(function () {
+		var horaInicio =  moment(this.fechaInicio).locale('es').format("h:mm a");
+		var horaFin =  moment(this.fechaFin).locale('es').format("h:mm a");
+		return 	horaInicio+" - "+horaFin;		
+	})
+
+grupoSchema.virtual("fehcaInicioReturn")
+	.get(function () {
+		return moment(this.fechaInicio).locale('es').format("YYYY-MM-DD");
+	})
+
+grupoSchema.virtual("fehcaFinReturn")
+	.get(function () {
+		return moment(this.fechaFin).locale('es').format("YYYY-MM-DD");
 	})
 //plugins
 grupoSchema.plugin(require('mongoose-paginate'));

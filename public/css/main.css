@@ -5,6 +5,13 @@ body{
   background-color: #fafafa;
 }
 
+/*agregar una pequeña margen*/
+.gbrd{
+  border-top-width: 0.7rem;
+  border-top-style: solid;
+  border-color: transparent;
+}
+
 /*sombrita para texto*/
 .stroke {
 text-shadow: -2px 2px 1px #212121;

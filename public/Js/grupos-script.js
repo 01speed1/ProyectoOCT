@@ -110,6 +110,9 @@ $().ready(function () {
 				nombre:{
 					required:true,
 					minlength:2
+				},
+				limiteEstudiantes:{
+					number:true
 				}
 			},
 			messages:{
@@ -137,6 +140,9 @@ $().ready(function () {
 				nombre:{
 					required:"Este grupo debe tener un nombre",
 					minlength: "El nombre del grupo es demasiado corto"
+				},
+				limiteEstudiantes:{
+					number:"debe ser un numero"
 				}
 			},
 			errorElement : 'div',
@@ -149,26 +155,28 @@ $().ready(function () {
 	      }
 	    }	
 		}
- 	
-	// ejecutar validacion en formulario de grupo 
-		$('#nuevo-grupo').validate(validaciones);
 
 	//validar dias de clase 
 		$("#nuevo-grupo").submit(function (e) {
-			$("#nombre").prop("disabled", false);	
 			var DiasDeClase = $("#DiasDeClase").val();
-
+			$("#nombre").prop("disabled", false);	
 			if (DiasDeClase=="") {
 				e.preventDefault();
 				$(".errorTxt5").text("Escoge al menos un día de clase").addClass("error");
-			}	
+				swalCancelar("Ups!", "Escoge al menos un día de clase")
+			} else{
+				MensajeDeEspera("creando", "grupo" );
+			}
+
 
 		})
 
+	//formater para limite de estudiantes
+	$("#limiteEstudiantes").numeric();
 
-
-
-		//$("#DiasDeClase ~ ul>li>span>input[type='checkbox']").is(":checked")
+	// ejecutar validacion en formulario de grupo 
+		$('#nuevo-grupo').validate(validaciones);
+		
 
 //end jq script grupo-script
 });

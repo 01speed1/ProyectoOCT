@@ -1,0 +1,192 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			p.descripcion Aquí puedes agregar un nuevo Grupo
+			//formulario
+			.row
+				.card-panel.km
+					form#nuevo-grupo.col.s12(
+						method="POST"
+						action="/admin/grupos/nuevo"
+						enctype="multipart/form-data")
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons library_books
+								label.active(for="jornada") Jornada
+								select#jornada(
+								name="jornada"
+								data-error=".errorTxt1")
+									optgroup(label="Jornada Actual")
+										option(value="#{grupo.jornada}") #{grupo.jornada}
+									optgroup(label="Jornadas")
+										option(value="Mañana") Mañana
+										option(value="Tarde") Tarde
+										option(value="Noche") Noche
+								.errorTxt1
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons library_books
+								label.active(for="area") area 
+								select#area(
+									name="area"
+									data-error=".errorTxt2")
+									each area in areas
+										option(
+											value="#{area.id}") #{area.nombre} - #{area.escuela.nombre}
+								.errorTxt2
+						.row
+							.input-field.col.s3
+								i.material-icons.prefix.grey-icons date_range
+								input#fechaInicio.dateGroupStart(
+									name="fechaInicio"
+									type="date"
+									data-error=".errorTxt3") #{grupo.fehcaInicioReturn}
+								label.active(for="fechaInicio") Fecha de Incio de las clases
+								.errorTxt3
+							.input-field.col.s3
+								input#fechaFin.dateGroupEnd(
+									name="fechaFin"
+									type="date"
+									data-error=".errorTxt4") #{grupo.fehcaFinReturn}
+								label.active(for="fechaFin") Fecha de Fin de clases
+								.errorTxt4
+							.input-field.col.s6
+								label.active(for="diasDeClase" ) Dias de clase
+								select#diasDeClase(
+									name="diasDeClase"
+									multiple
+									data-error=".errorTxt5")
+									each dia in grupo.diasDeClase
+										option(value="#{dia}") #{dia}
+									option(value="" disabled selected) Selecciona los dias de clase
+									option(value="Lunes") Lunes
+									option(value="Martes") Martes
+									option(value="Miércoles") Miércoles
+									option(value="Jueves") Jueves
+									option(value="Viernes") Viernes
+									option(value="Sábado") Sábado
+									option(value="Domingo") Domingo
+								.errorTxt5
+						.row
+							.col.s6
+								label Hora de inicio de las clases
+								.row
+									.col.s4
+										.input-field.col.s12
+											select#horaInicio(
+											name="horaInicio"
+											data-error=".errorTxt6")
+												option(value="0") 12
+												-for (var i = 1; i < 12; i++) {
+													option(
+														value="#{i}") #{i}
+												-}
+											.errorTxt6
+									.col.s4
+										.input-field.col.s12
+											select#horaInicioMin(
+											name="horaInicioMin"
+											data-error=".errorTxt7")
+												option(value="0") 00
+												-for (var i = 1; i < 60; i++) {
+													if i<=9
+														option(value='#{i}') 0#{i}
+													else
+														option(value='#{i}') #{i}
+												-}
+											.errorTxt7
+									.col.s4
+										.input-field.col.s12
+											select#AMPMInicio(
+											name="AMPMInicio"
+											data-error=".errorTxt8")
+												option(value='AM') A.M.
+												option(value='PM') P.M.
+											.errorTxt8
+							.col.s6
+								label Hora fin de las clases
+								.row
+									.col.s4
+										.input-field.col.s12
+											select#horaFin(
+											name="horaFin"
+											data-error=".errorTxt9")
+												option(value="0") 12
+												-for (var i = 1; i < 12; i++) {
+													option(
+														value="#{i}") #{i}
+												-}
+											.errorTxt9
+									.col.s4
+										.input-field.col.s12
+											select#horaFinMin(
+											name="horaFinMin"
+											data-error=".errorTxt10")
+												option(value="0") 00
+												-for (var i = 1; i < 60; i++) {
+													if i<=9
+														option(value='#{i}') 0#{i}
+													else
+														option(value='#{i}') #{i}
+												-}
+											.errorTxt10
+									.col.s4
+										.input-field.col.s12
+											select#AMPMFin(
+											name="AMPMFin"
+											data-error=".errorTxt11")
+												option(value='AM') A.M.
+												option(value='PM') P.M.
+											.errorTxt11
+						.row
+							.input-field.col.s3
+								input#activeName(
+								type="checkbox"
+								data-error=".errorTxt11")
+								label(for="activeName") Editar nombre
+								.errorTxt11
+							.input-field.col.s9        
+								input#nombre(
+								name="nombre"
+								type="text"
+								placeholder="Nombre del grupo, se genera automaticamente"
+								data-error=".errorTxt12"
+								disabled)
+								label.active(for="nombre") Nombre del grupo
+								.errorTxt12
+						.row
+							.input-field.col.s7
+								i.material-icons.prefix.grey-icons account_circle 
+								label.active(for="profesor") Profesor del grupo
+								select#profesor(
+								name="profesor"
+								data-error=".errorTxt13")
+									each profesor in profesores
+										option(value="#{profesor.id}") #{profesor.nombres} #{profesor.apellidos}
+								.errorTxt13
+							.input-field.col.s5
+								label.active(for="limiteEstudiantes") Limite de estudiantes
+								input#limiteEstudiantes(
+								name="limiteEstudiantes"
+								placeholder="Sin Limite"
+								data-error=".errorTxt14")
+								.errorTxt14
+
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/grupos") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan.creando2(
+								type="submit"
+								name="estado"
+								value="NUEVO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer
