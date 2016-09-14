@@ -56,7 +56,7 @@ block contenido
 									name="diasDeClase"
 									multiple
 									data-error=".errorTxt5")
-									option(value="" disabled selected) Selecciona los dias de clase
+									option(value="0" disabled selected) Selecciona los dias de clase
 									option(value="Lunes") Lunes
 									option(value="Martes") Martes
 									option(value="Miércoles") Miércoles
@@ -138,11 +138,12 @@ block contenido
 											.errorTxt11
 						.row
 							.input-field.col.s3
-								input#activeName(
-								type="checkbox"
-								data-error=".errorTxt11")
-								label(for="activeName") Editar nombre
-								.errorTxt11
+								div#divdiv
+									input#activeName(
+										type="checkbox"
+										data-error=".errorTxt11")
+									label(for="activeName") Editar nombre
+								.errorTxt11 
 							.input-field.col.s9        
 								input#nombre(
 								name="nombre"

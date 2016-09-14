@@ -39,6 +39,10 @@ var	grupoSchema = mongoose.Schema({
 		type:Array,
 		require: true
 	},
+	jornada:{
+		type: String,
+		require: true
+	},
 	//campos de creacion
 	background:{
 		type:String,

@@ -43,14 +43,16 @@ block contenido
 								input#fechaInicio.dateGroupStart(
 									name="fechaInicio"
 									type="date"
-									data-error=".errorTxt3") #{grupo.fehcaInicioReturn}
+									value="#{grupo.fehcaInicioReturn}"
+									data-error=".errorTxt3")
 								label.active(for="fechaInicio") Fecha de Incio de las clases
 								.errorTxt3
 							.input-field.col.s3
 								input#fechaFin.dateGroupEnd(
 									name="fechaFin"
 									type="date"
-									data-error=".errorTxt4") #{grupo.fehcaFinReturn}
+									value="#{grupo.fehcaFinReturn}"
+									data-error=".errorTxt4") 
 								label.active(for="fechaFin") Fecha de Fin de clases
 								.errorTxt4
 							.input-field.col.s6
@@ -59,16 +61,18 @@ block contenido
 									name="diasDeClase"
 									multiple
 									data-error=".errorTxt5")
-									each dia in grupo.diasDeClase
-										option(value="#{dia}") #{dia}
-									option(value="" disabled selected) Selecciona los dias de clase
-									option(value="Lunes") Lunes
-									option(value="Martes") Martes
-									option(value="Miércoles") Miércoles
-									option(value="Jueves") Jueves
-									option(value="Viernes") Viernes
-									option(value="Sábado") Sábado
-									option(value="Domingo") Domingo
+									optgroup(label="Dias seleccionados")
+										each dia in grupo.diasDeClase
+											option(value="#{dia}" disabled) #{dia}
+									optgroup(label="Dias seleccionados")
+										option(value="" disabled selected) Selecciona los dias de clase
+										option(value="Lunes") Lunes
+										option(value="Martes") Martes
+										option(value="Miércoles") Miércoles
+										option(value="Jueves") Jueves
+										option(value="Viernes") Viernes
+										option(value="Sábado") Sábado
+										option(value="Domingo") Domingo
 								.errorTxt5
 						.row
 							.col.s6

@@ -22,7 +22,6 @@ $().ready(function () {
   		
   		$(".dateGroupEnd").val("");
 
-
   		fechaDeInicio = "";
 
 		});
@@ -41,14 +40,17 @@ $().ready(function () {
 		}
 
 	//habilitar la edicion del nombre
+		$("#sendBotton").hide();
+
 		var check = $("#activeName");
 		var name = $("#nombre");
+
 		check.change(function () {
 			if (check.is(":checked")) {
 				$("#nombre").prop("disabled", false);
 			} else {
 				$("#nombre").prop("disabled", true);
-			}
+			}		
 		})
 
 	//cambiar el nombre del grupo
@@ -158,17 +160,16 @@ $().ready(function () {
 
 	//validar dias de clase 
 		$("#nuevo-grupo").submit(function (e) {
-			var DiasDeClase = $("#DiasDeClase").val();
-			$("#nombre").prop("disabled", false);	
-			if (DiasDeClase=="") {
+
+			var diasDeClase = $("#diasDeClase").val();
+			if (diasDeClase=="") {
 				e.preventDefault();
 				$(".errorTxt5").text("Escoge al menos un día de clase").addClass("error");
 				swalCancelar("Ups!", "Escoge al menos un día de clase")
 			} else{
+				$("#nombre").prop("disabled", false);	
 				MensajeDeEspera("creando", "grupo" );
 			}
-
-
 		})
 
 	//formater para limite de estudiantes
