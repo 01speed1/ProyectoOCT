@@ -4,6 +4,7 @@ $().ready(function () {
 	$('.collapsible').collapsible({
       accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
+  $('.tooltipped').tooltip({delay: 50});
 	//configuracion del calendario
 	$('.datepickerborn').pickadate({
     selectMonths: true, // Creates a dropdown to control month

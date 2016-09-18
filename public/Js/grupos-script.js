@@ -177,6 +177,9 @@ $().ready(function () {
 
 	// ejecutar validacion en formulario de grupo 
 		$('#nuevo-grupo').validate(validaciones);
+	
+
+
 		
 
 //end jq script grupo-script

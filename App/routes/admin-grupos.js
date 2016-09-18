@@ -95,45 +95,47 @@ module.exports = function (app) {
 				})
 		})
 		.post(function (sol, res) {
-			//convertir hora ampm
+			//ajustar hora para almacenarla		
 				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
-				if (sol.body.AMPMInicio=="PM") {
-					hourStart=parseInt(sol.body.horaInicio)+12;
+					if (sol.body.AMPMInicio=="PM") {
+						hourStart=parseInt(sol.body.horaInicio)+12;
+					}
+					if (sol.body.AMPMFin=="PM") {
+						hourEnd=parseInt(sol.body.horaFin)+12;
+					}
+
+				var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes");
+				var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");			
+
+				var limiteEstudiantes;
+				if (sol.body.limiteEstudiantes == ""){
+					limiteEstudiantes=0;
+				} else {
+					limiteEstudiantes = sol.body.limiteEstudiantes
 				}
-				if (sol.body.AMPMFin=="PM") {
-					hourEnd=parseInt(sol.body.horaFin)+12;
+
+				var data = {
+					nombre: sol.body.nombre,
+					profesor: sol.body.profesor,
+					area: sol.body.area,
+					fechaInicio: fechaInicio,
+					fechaFin: fechaFin,
+					estado: sol.body.estado,
+					diasDeClase: sol.body.diasDeClase,
+					limiteEstudiantes:limiteEstudiantes,
+					jornada: sol.body.jornada
 				}
-			
 
-			var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes").subtract(5,'hours');
-			var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes").subtract(5,'hours')			
+				var nuevoGrupo = new Grupo(data);
 
-			if (sol.body.limiteEstudiantes == ""){
-				sol.body.limiteEstudiantes=0;
-			}
+				nuevoGrupo.save(function (err) {
+					if (!err) {
+						sol.flash("toast", "Grupo creado.");
+						res.redirect("/admin/grupos");
+					}
+				})
 
-			var data = {
-				nombre: sol.body.nombre,
-				profesor: sol.body.profesor,
-				area: sol.body.area,
-				fechaInicio: fechaInicio,
-				fechaFin: fechaFin,
-				estado: sol.body.estado,
-				diasDeClase: sol.body.diasDeClase,
-				limiteEstudiantes:sol.body.limiteEstudiantes,
-				jornada: sol.body.jornada
-			}
-
-
-			nuevoGrupo = new Grupo(data);
-
-			nuevoGrupo.save(function (err) {
-				if (!err) {
-					sol.flash("toast", "Grupo creado.");
-					res.redirect("/admin/grupos");
-				}
-			})
-
+		//
 		})
 
 	//editar grupo 
@@ -145,15 +147,15 @@ module.exports = function (app) {
 			}
 
 
-			var promise = Grupo.findById(sol.params.id).exec();
+			var promise = Grupo.findById(sol.params.id).populate("profesor").populate({path:"area", populate:{path:"escuela"}}).exec();
 			promise
 			.then(function (grupo) {
 				locals.grupo = grupo;
 
-				var promiseArea = Area.find().populate("escuelas").exec();
+				var promiseArea = Area.find().populate("escuela").exec();
 				promiseArea
 				.then(function (areas) {
-					console.log(areas);
+
 					locals.areas = areas;
 
 					var promiseProfesores = Profesor.find().exec();
@@ -174,7 +176,77 @@ module.exports = function (app) {
 				res.json(err);
 			});
 
-			
+		})
+		.put(function (sol, res) {
+			//console.log(sol.body)
+
+			//ajustar hora para almacenarla		
+				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
+					if (sol.body.AMPMInicio=="PM") {
+						hourStart=parseInt(sol.body.horaInicio)+12;
+					}
+					if (sol.body.AMPMFin=="PM") {
+						hourEnd=parseInt(sol.body.horaFin)+12;
+					}
+
+			var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes");
+			var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");			
+
+			var limiteEstudiantes;
+			if (sol.body.limiteEstudiantes == ""){
+				limiteEstudiantes=0;
+			} else {
+				limiteEstudiantes = sol.body.limiteEstudiantes
+			}
+
+			var data = {
+				nombre: sol.body.nombre,
+				profesor: sol.body.profesor,
+				area: sol.body.area,
+				fechaInicio: fechaInicio,
+				fechaFin: fechaFin,
+				estado: sol.body.estado,
+				diasDeClase: sol.body.diasDeClase,
+				limiteEstudiantes:limiteEstudiantes,
+				jornada: sol.body.jornada
+			}
+
+			var promise = Grupo.findById(sol.params.id).exec();
+			promise
+			.then(function (grupo) {
+
+
+				for(var key in data){
+					if (typeof key!=undefined) {
+						grupo[key] = data[key];
+					}	
+				}
+
+				return grupo.save();
+			})
+			.then(function (result) {
+				sol.flash("toast", "Grupo actualizado.");
+				res.redirect("/admin/grupos");
+			})
+			.error(function (err) {
+				res.json(err)
+			})
+
+		})
+		.delete(function (sol, res) {
+
+			var promise = Grupo.findById(sol.params.id).exec();
+			promise
+			.then(function (grupo) {
+				return grupo.remove();
+			})
+			.then(function () {
+				sol.flash("toast", "Grupo Eliminado.");
+				res.send("grupos");
+			})
+			.error(function (err) {
+				res.json(err);
+			})
 
 		})
 

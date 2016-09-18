@@ -13,9 +13,8 @@ ul#slide-out.side-nav.fixed
 						span.white-text.email abc@123.com
 			//lista de enlaces
 			li
-				a(href="#") esto es un enlace
-			li
-				a() esto es otro enlace
+				a(href="/Admin") Panel
+					i.material-icons.left dashboard
 			//usuarios
 			li.no-padding
 				ul.collapsible.collapsible-accordion
@@ -42,6 +41,12 @@ ul#slide-out.side-nav.fixed
 									a.waves-effect(href='/admin/escuelas') Escuelas
 								li
 									a.waves-effect(href='/admin/areas') Areas
+			// grupos
 			li.no-padding
 				a.waves-effect(href="/admin/grupos") Grupos
 					i.material-icons.left group
+			//home
+			li.no-padding
+				a.waves-effect(href="/") Pagina Pricipal
+					i.material-icons.left home
+

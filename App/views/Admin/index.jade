@@ -7,39 +7,98 @@ block contenido
 		.container
 			p.descripcion
 				| Opten desde esta interfaz información rápida y acceso a la gestión de la información y creación de usuarios y contenido.
-			ul.collapsible(
-			data-collapsible="accordion")
-				li
-					.collapsible-header.active Usuarios
-					.collapsible-body
-						.row
-							.col.s6
-								.card-panel.blue.darken-4
-									.row.center-align
-										.col.s9
-											h5.white-text Administradores
-										.col.s3
-											a.dropdown-button.btn-large.transparent(
-											href='#' 
-											data-activates='accion-list')
-												i.large.material-icons menu
-											ul#accion-list.dropdown-content
-												li
-													a(href="#") accion
-												li
-													a(href="#") accion
-												li
-													a(href="#") accions
-									.row.center-align
-										h2.white-text 10
-						p 
-							|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							|tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							|quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							|consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							|cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							|proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				li
-					.collapsible-header
-					.collapsible-body
-						.row
+		//estadisticas de usuarios
+		.row
+			.col.s3
+				.card-panel
+					.row.km
+						.col.s10
+							h5.km Administradores
+						.col.s2
+							i.material-icons.grey-icons.right more_vert
+					.row.km
+						.col.s6
+							canvas#AdminsChrt(
+							width="400" 
+							height="400" 
+							numOldAdmins="#{numOldAdmins}" 
+							numNewAdmins="#{numNewAdmins}"
+							noAdmins="#{noAdmins}")
+						.col.s6
+							.row.right-align
+								h2 #{numAdmins}
+			.col.s3
+				.card-panel
+					.row.km
+						.col.s10
+							h5.km Profesores
+						.col.s2
+							i.material-icons.grey-icons.right more_vert
+					.row.km
+						.col.s6
+							canvas#ProfesChrt(
+							width="400" 
+							height="400" 
+							numOldProfes="#{numOldProfes}" 
+							numNewProfes="#{numNewProfes}"
+							noProfes="#{noProfes}")
+						.col.s6
+							.row.right-align
+								h2 #{numProfes}
+			.col.s3
+			.col.s3
+		//estadisticas escuelas de formacion
+		.row
+			.col.s6
+				.card-panel
+					.row.km
+						.col.s10
+							h5.km Escuelas de Formacion 
+						.col.s2
+							i.material-icons.grey-icons.right more_vert
+					.row.km 
+						.col.s9
+							.center-align
+								canvas#EscuelaChrt(
+								numOldEscuelas="#{numOldEscuelas}" 
+								numNewEscuelas="#{numNewEscuelas}")
+						.col.s3
+							.row.center-align
+								h2(style="padding-top: 3rem; font-size:7rem;") #{numEscuelas}
+			.col.s6
+				.card-panel
+					.row.km
+						.col.s10
+							h5.km Areas
+						.col.s2
+							i.material-icons.grey-icons.right more_vert
+					.row.km 
+						.col.s9
+							.center-align
+								canvas#AreasChrt(
+								labels="#{numAreas.labels}"
+								areasPerLabel="#{numAreas.areasPerLabel}")
+						.col.s3
+							.row.center-align
+								h2(style="padding-top: 3rem; font-size:7rem;") #{numAreas.num}
+		// estadisticas de grupos
+		.row
+			.col.s3
+				.card-panel
+					.row.km
+						.col.s10
+							h5.km Grupos
+						.col.s2
+							i.material-icons.grey-icons.right more_vert
+					.row.km
+						.col.s6
+							canvas#GruposChrt(
+							width="400" 
+							height="400" 
+							numOldGrupos="#{numOldGrupos}" 
+							numNewGrupos="#{numNewGrupos}")
+						.col.s6
+							.row.right-align
+								h2 #{numGrupos}
+
+							

@@ -1,0 +1,40 @@
+extends ../layout
+block others
+	.container
+		.row
+			.col.l8.s12
+				.card(style="margin-top: 10rem;")
+					.card-content
+						span.card-title(style="font-size: 35px;") Registro
+						p.descripcion.gbrd Bievenido al servicio de registro de la plataforma crea una cuenta para disfurtar de todos los cursos que tenemos para ti!
+						form.s12.km.gbrd(
+						method=""
+						action="!#")
+							.row
+								.input-field.col.s6
+									input#nombres(
+									name="nombres"
+									type="text")
+									label(for="nombres") Nombre
+								.input-field.col.s6
+									input#apellidos(
+									name="apellidos"
+									type="text")
+									label(for="apellidos") Apellidos
+							.row
+								.input-field.col.s12
+									input#nombreUsuario(
+									name="nombreUsuario"
+									type="text")
+									label(for="nombreUsuario") Nombre de usuario
+							.divider
+							.row
+								a.btn.
+
+
+
+						//Rowkiller
+						.row.km
+
+block footer
+	

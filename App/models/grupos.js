@@ -104,6 +104,63 @@ grupoSchema.virtual("fehcaFinReturn")
 	.get(function () {
 		return moment(this.fechaFin).locale('es').format("YYYY-MM-DD");
 	})
+
+//hora inicio return
+	grupoSchema.virtual("horaInicioReturn")
+		.get(function () {
+			var hourReturn;
+			if (moment(this.fechaInicio).hours()>12) {
+				hourReturn = moment(this.fechaInicio).hours()-12;
+			} else{
+				hourReturn = moment(this.fechaInicio).hours();
+			}
+			return hourReturn;
+		})
+
+	grupoSchema.virtual("horaMinInicioReturn")
+		.get(function () {
+			return moment(this.fechaInicio).minutes();
+		})
+
+	grupoSchema.virtual("horaAMPMInicioReturn")
+		.get(function () {
+			var Return;
+			if (moment(this.fechaInicio).hours()>12) {
+				Return = "PM";
+			} else{
+				Return = "AM";
+			}
+			return Return;
+		})
+
+//hora fin return
+	grupoSchema.virtual("horaFinReturn")
+		.get(function () {
+			var hourReturn;
+			if (moment(this.fechaFin).hours()>12) {
+				hourReturn = moment(this.fechaFin).hours()-12;
+			} else{
+				hourReturn = moment(this.fechaFin).hours();
+			}
+			return hourReturn;
+		})
+
+	grupoSchema.virtual("horaMinFinReturn")
+		.get(function () {
+			return moment(this.fechaFin).minutes();
+		})
+
+	grupoSchema.virtual("horaAMPMFinReturn")
+		.get(function () {
+			var Return;
+			if (moment(this.fechaFin).hours()>12) {
+				Return = "PM";
+			} else{
+				Return = "AM";
+			}
+			return Return;
+		})
+
 //plugins
 grupoSchema.plugin(require('mongoose-paginate'));
 

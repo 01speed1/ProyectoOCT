@@ -206,3 +206,31 @@
 				son.toggle("fast");
 			}
 		});
+
+	//Generar colores aleatorios
+		function aleatorio(inferior,superior){
+	   numPosibilidades = superior - inferior
+	   aleat = Math.random() * numPosibilidades
+	   aleat = Math.floor(aleat)
+	   return parseInt(inferior) + aleat
+		} 
+
+		function dame_color_aleatorio(){
+	   hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F")
+	   color_aleatorio = "#";
+	   for (i=0;i<6;i++){
+	      posarray = aleatorio(0,hexadecimal.length)
+	      color_aleatorio += hexadecimal[posarray]
+	   }
+	   return color_aleatorio
+		}
+
+		//genera un array de colores aleatorios 
+			function arrayColoresRandom(campos) {
+				var array = [];
+				for (var i = 0; i < campos; i++) {
+					var color = dame_color_aleatorio();
+					array.push(color);
+				}
+				return array
+			}

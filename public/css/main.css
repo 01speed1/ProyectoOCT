@@ -5,6 +5,11 @@ body{
   background-color: #fafafa;
 }
 
+/*ajustar h5*/
+h5{
+  font-size: 1.4rem;
+}
+
 /*agregar una pequeña margen*/
 .gbrd{
   border-top-width: 0.7rem;
@@ -43,9 +48,6 @@ p.descripcion{
 	margin: 0rem !important;
 }
 
-main{
-	background: 
-}
 
 /*green line header*/
 .green-line-header{
