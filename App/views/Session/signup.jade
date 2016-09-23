@@ -1,40 +1,110 @@
 extends ../layout
-block others
-	.container
-		.row
-			.col.l8.s12
-				.card(style="margin-top: 10rem;")
-					.card-content
-						span.card-title(style="font-size: 35px;") Registro
-						p.descripcion.gbrd Bievenido al servicio de registro de la plataforma crea una cuenta para disfurtar de todos los cursos que tenemos para ti!
-						form.s12.km.gbrd(
-						method=""
-						action="!#")
-							.row
-								.input-field.col.s6
-									input#nombres(
-									name="nombres"
-									type="text")
-									label(for="nombres") Nombre
-								.input-field.col.s6
-									input#apellidos(
-									name="apellidos"
-									type="text")
-									label(for="apellidos") Apellidos
-							.row
-								.input-field.col.s12
-									input#nombreUsuario(
-									name="nombreUsuario"
-									type="text")
-									label(for="nombreUsuario") Nombre de usuario
-							.divider
-							.row
-								a.btn.
-
+block contenido
+	div(height="100rem" width="100%" style="background-color: #aed581;") 
+		.container
+			.row.km
+				.col.l8.s12
+					.card(style="margin-top: 5rem; margin-bottom: 5rem;")
+						.card-content
+							span.card-title(style="font-size: 35px;") Registro
+							p.descripcion.gbrd Bievenido al servicio de registro de la plataforma crea una cuenta para disfurtar de todos los cursos que tenemos para ti!
+							form#nuevo-usuario.s12.km.gbrd(
+							method="POST"
+							action="/registro")
+								.row
+									.input-field.col.s6
+										i.material-icons.prefix.grey-icons face
+										input#nombres(
+											class="autoUsername"
+											name="nombres"
+											type="text"
+											data-error=".errorTxt1")
+										label(for="nombres") Nombre(s)
+										.errorTxt1
+									.input-field.col.s6
+										input#apellidos(
+											class="autoUsername"
+											name="apellidos"
+											type="text"
+											data-error=".errorTxt2")
+										label(for="apellidos") Apellidos
+										.errorTxt2
+								.row
+									.input-field.col.s10
+										i.material-icons.prefix.grey-icons credit_card
+										input#numeroDocumento.formater(
+											name="numeroDocumento"
+											type="text"
+											data-error=".errorTxt3")
+										label(for="numeroDocumento") Numero de documento
+										.errorTxt3
+									.input-field.col.s2 
+										select#tipoDocumento(
+											name="tipoDocumento"
+											data-error=".errorTxt4")
+											option(value="CC") CC
+											option(value="TI" selected) TI
+											option(value="CE") CE
+										label(for="tipoDocumento") Tipo de documento
+										.errorTxt4
+								.row
+									.input-field.col.s12
+										i.material-icons.prefix.grey-icons account_box
+										input#nombreUsuario(
+											name="nombreUsuario"
+											type="text"
+											placeholder="Generar Automaticamente"
+											data-error=".errorTxt5")
+										label(for="nombreUsuario") Nombre de usuario 
+										.errorTxt5
+								.row
+									.input-field.col.s12
+										i.material-icons.prefix.grey-icons email
+										input#email(
+											name="email"
+											type="email"
+											data-error=".errorTxt6")
+										label(for="email") Correo Electrónico
+										.errorTxt6
+								.row
+									.input-field.col.s6 
+										input(
+											id="contraseña"
+											name="contraseña"
+											type="password"
+											data-error=".errorTxt7")
+										label(for="contraseña") Contraseña
+										.errorTxt7
+									.input-field.col.s6
+										input(
+											id="contraseñaValidar"
+											name="contraseñaValidar"
+											type="password"
+											data-error=".errorTxt8")
+										label(for="contraseña-validar") Repita la Contraseña
+										.errorTxt8
+								.divider
+								.row.km
+									.col.s12.center-align
+										a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+											href="/") regresar
+											i.material-icons.left close
+										button.waves-effect.waves-light.btn.sbt.cyan(
+										type="submit"
+										name="estado"
+										value="NUEVO") Registrarse
+										br
+										br
+										a(href="/ingreso").center-align Ya tengo cuenta
 
 
 						//Rowkiller
 						.row.km
 
 block footer
-	
+	footer.page-footer.light-green.fixfoo
+		.container
+			h5.center-align.white-text texto del footer en desarrollo
+		.footer-copyright
+			.container
+				| © 2016 Copyright Text

@@ -1,13 +1,22 @@
 /*Agregando montserrat*/
 @import 'https://fonts.googleapis.com/css?family=Montserrat';
 
-body{
+html, body{
+  margin: 0px;
   background-color: #fafafa;
+  height: 100%;
 }
 
 /*ajustar h5*/
 h5{
   font-size: 1.4rem;
+}
+
+/*Ajustar el footer*/
+.fixfoo{
+  margin-top: 0px !important ;
+padding-left: 0px !important;
+
 }
 
 /*agregar una pequeña margen*/
