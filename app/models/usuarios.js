@@ -50,8 +50,9 @@ var	usuarioSchema = mongoose.Schema({
 	},
 	genero:{
 		type: String,
-		require: true,
-		enum:["H","M"]
+		require: false,
+		enum:["H","M"],
+		default:"H"
 	},
 	telefono:{
 		type:String

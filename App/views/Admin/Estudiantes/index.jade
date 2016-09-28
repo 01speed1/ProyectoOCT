@@ -1,0 +1,77 @@
+extends ../../layout
+block contenido
+	header
+		include ../Ext/menu-lateral-admin.jade
+	main
+		include ../Ext/page-title.jade
+		.container
+			include ../Ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/estudiantes/nuevo") Nuevo
+			if estudiantes.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/estudiantes/nuevo") Nuevo
+			else
+				include ../Ext/paginate.jade	
+				ul.collection.hoverable
+					each estudiante in estudiantes
+						.elemento
+							.info
+								li.collection-item.avatar
+									if estudiante.estado == "NUEVO"
+										span.new.badge.cyan(
+										data-badge-caption="Nuevo")
+									img.circle(src="#{estudiante.avatar}")
+									span.title #{estudiante.nombres} #{estudiante.apellidos}
+									p.grey-icons #{estudiante.nombreUsuario}
+										br
+										|  #{estudiante.email}
+							.mas-info.grey.lighten-4
+								.divider
+								table.responsive-table.centered
+									thead
+										tr
+											th(data-field="numeroDocumento") Documento
+											th(data-field="genero") Género
+											th(data-field="fechaPretty") Fecha de Nacimiento
+											th(data-field="edad") Edad
+									tbody
+										tr
+											td #{estudiante.tipoDocumento}: #{estudiante.numeroDocumento}
+											if estudiante.genero == "H"
+												td Hombre
+											else
+												td Mujer
+											td #{estudiante.fechaPretty}
+											td #{estudiante.edad}		
+								table.responsive-table.centered
+									thead
+										tr
+											th(data-field="creacion") Fecha de registro
+											th(data-field="fechaModificado") Ultima modificación
+
+									tbody
+										tr
+											td #{estudiante.creacionPretty}
+											td #{estudiante.ultimaModi}
+								.divider
+								.center-align.white
+									a.btn.sbt.cyan() ver perfil
+										i.material-icons.right account_box
+									a.btn.sbt.cyan(
+										href="/admin/estudiantes/editar/#{estudiante.id}") modificar
+										i.material-icons.right edit
+									form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/estudiantes/editar/#{estudiante.id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+											i.material-icons.right delete
+				include ../Ext/paginate.jade				
+
+
+
+
+
+block footer
