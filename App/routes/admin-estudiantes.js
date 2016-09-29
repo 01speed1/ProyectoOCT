@@ -3,7 +3,6 @@ var moment = require("moment");
 var paginate = require('express-paginate');
 var router = express.Router();
 
-
 var locals={};
 
 //modelos DB
@@ -62,51 +61,50 @@ module.exports = function (app) {
 			res.redirect("/registro");
 		})
 
-
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
 		.get(function (sol, res) {
-			Profesor.findById(sol.params.id, function (err, profe) {
+			Estudiante.findById(sol.params.id, function (err, estudiante) {
 				locals={
-					profe:profe,
-					page_title:"Modificar profesor",
-					title: "Modificar Profesor"
+					estudiante:estudiante,
+					page_title:"Modificar estudiante",
+					title: "Modificar Estudiante"
 				}
-				res.render("Admin/Profesores/editar", locals);
+				res.render("Admin/Estudiantes/editar", locals);
 			})
 		})
 		.put(function (sol, res) {
-			var promise = Profesor.findById(sol.params.id).exec();
+			var promise = Estudiante.findById(sol.params.id).exec();
 
-			promise.then(function (profe) {
+			promise.then(function (estudiante) {
 				for(var key in sol.body){
 					if (typeof key != undefined) {
 						//console.log(key+":"+sol.body[key]);
-				 		profe[key] = sol.body[key];
+				 		estudiante[key] = sol.body[key];
 				}};
 
-				profe.fechaModificado = moment();
+				estudiante.fechaModificado = moment();
 
-				return profe.save();
+				return estudiante.save();
 			})
-			.then(function (profe) {
-				sol.flash("toast", "Profesor modificado");
-				res.redirect("/admin/administradores");
+			.then(function (estudiante) {
+				sol.flash("toast", "Estudiante modificado");
+				res.redirect("/admin/estudiantes");
 			})
 			.catch(function (err) {
 				res.json(err);
 			});
 		})
 		.delete(function (sol, res) {
-			var promise = Profesor.findById(sol.params.id).exec();
+			var promise = Estudiante.findById(sol.params.id).exec();
 			promise
 			.then(function (profe) {
-				res.locals.nombre = admin.nombres+" "+admin.apellidos;
-				return admin.remove();
+				res.locals.nombre = profe.nombres+" "+profe.apellidos;
+				return profe.remove();
 			})
 			.then(function () {
-				sol.flash('toast', "Profesor "+res.locals.nombre+" eliminado");
-				res.send("/admin/profesores");
+				sol.flash('toast', "Estudiante "+res.locals.nombre+" eliminado");
+				res.send("/admin/estudiantes");
 			})
 			.catch(function (err) {
 				res.json(err);

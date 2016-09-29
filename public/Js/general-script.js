@@ -144,6 +144,7 @@
 			$.post({
 				url:url,
 				success: function (res) {
+					console.log(res);
 					window.location.assign(res);
 				}
 			})
