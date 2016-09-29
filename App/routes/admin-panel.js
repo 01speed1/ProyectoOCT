@@ -53,6 +53,21 @@ module.exports = function (app) {
 				}
 				locals.noProfes = locals.numUsers-(locals.numNewProfes + locals.numOldProfes)
 
+				return Usuario.find({tipo:"ESTUDIANTE"}).exec();
+			})
+			.then(function (estudiantes) {
+				locals.numEstudiantes = estudiantes.length
+				locals.numNewEstudiantes=0;
+				locals.numOldEstudiantes=0;
+				for (var i = 0; i < estudiantes.length; i++) {
+					if (estudiantes[i].estado=="NUEVO") {
+						locals.numNewEstudiantes++;
+					}else{
+						locals.numOldEstudiantes++;
+					}
+				}
+				locals.noEstudiantes = locals.numUsers-(locals.numNewEstudiantes + locals.numOldEstudiantes)
+
 				return Escuela.find().exec();
 			})
 			.then(function (escuelas) {

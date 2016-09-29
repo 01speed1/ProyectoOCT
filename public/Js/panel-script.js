@@ -52,6 +52,25 @@ $().ready(function () {
 
 		var adminChart = new Chart(ctxProfe, dataChartProfe)
 
+	//establecer el chart de estudiantes
+		var ctxProfe =  $("#EstudiantesChrt");
+		dataChartProfe = {
+			type:"doughnut",
+			data: {
+				labels:["Viejos","Nuevos", "Otros usuarios"],
+				datasets:[{
+					data:[ctxProfe.attr("numOldEstudiantes"),ctxProfe.attr("numNewEstudiantes"),ctxProfe.attr("noEstudiantes")],
+					backgroundColor:["#5c6bc0", "#9fa8da ", "#e8eaf6"]
+				}]
+
+			},
+			options: optionsChart
+
+		}
+
+		var adminChart = new Chart(ctxProfe, dataChartProfe)
+
+
 	//establecer el chart de escuelas 
 		var ctxEscuela =  $("#EscuelaChrt");
 		dataChartEscuela = {
