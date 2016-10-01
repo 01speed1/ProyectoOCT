@@ -1,6 +1,12 @@
 extends ../layout
 block contenido
-	h2 pagina principal
+	//h2 pagina principal
+	include ./Ext/nav-bar-home.jade
+
+	.row
+		.col.s4
+			div.grey.darken-4.white-text
+				h2 Oscar Guzman
 
 	a.waves-effect.waves-light.btn.sbt(
 	href="/admin") administración

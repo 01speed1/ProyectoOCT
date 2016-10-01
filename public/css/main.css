@@ -66,6 +66,13 @@ p.descripcion{
 	background-color: #689f38;
 }
 
+/*yellow line header*/
+.yellow-line-header{
+  width: 100%;
+  height: 1.5rem;
+  background-color: #689f38;
+}
+
 .key{
   color: #212121 !important;
 }
