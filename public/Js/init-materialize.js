@@ -15,11 +15,17 @@ $().ready(function () {
 	  close: 'Aceptar'
   });
 
-
   //configuracion del boton para cerrar mensaje emergente
   $(".closeCard").on("click",function () {
     $(this).closest("#card-alert").fadeOut("slow")
     });
+
+  //init del slider
+    $('.slider').slider({full_width: true});
+  //paralax
+   $('.parallax').parallax();
+
 })
+
 
 

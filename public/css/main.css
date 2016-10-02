@@ -1,10 +1,76 @@
 /*Agregando montserrat*/
 @import 'https://fonts.googleapis.com/css?family=Montserrat';
 
+/*Signika*/
+@import 'https://fonts.googleapis.com/css?family=Signika';
+
 html, body{
   margin: 0px;
   background-color: #fafafa;
   height: 100%;
+}
+
+/*crea una barra separadora invisible*/
+.spacer {
+    height: 2rem;
+    width: 100%;
+}
+
+
+/*seccion*/
+.section{
+  padding-top: 1rem;
+padding-bottom: 1rem;
+}
+
+/*usar syknica para titulos*/
+.title-style{
+  font-family: 'Signika', sans-serif !important
+}
+
+/*para los texto llamativos del index*/
+p.index-text{
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1.8rem;
+  stroke: 300;
+}
+
+/*ajuste de la imagen logo*/
+.glogo{
+  height: 65px;
+  width: 100%;
+}
+
+/*div de bienvenida*/
+.welcome{
+  background: #757575 ;
+  background-image: url('/Img/cubes.png');
+  background-size: 1536px 1536px;
+  height: 100%;
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+  text-shadow: 1px 1px 1px #00bcd4 ;
+}
+
+.message{
+  color: #FFF;
+  font-size: 1.5em;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.message-arrow{
+  height: 27px;
+  width:  51px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 1050%);
 }
 
 /*ajustar h5*/
