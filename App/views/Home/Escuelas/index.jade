@@ -38,8 +38,8 @@ block contenido
 									p.descripcion #{arrayEscuelas[i].descripcion}
 								.card-action
 									a.btn.sbt.cyan(
-									href="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}") ver areas
-										i.material-icons.right edit
+									href="/areas/#{arrayEscuelas[i].nombre}") ver areas
+										i.material-icons.right forward
 									
 						-j=i+1;
 						-if (j < arrayEscuelas.length) {
@@ -53,8 +53,8 @@ block contenido
 										p.descripcion #{arrayEscuelas[j].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}") ver areas
-											i.material-icons.right edit
+										href="/areas/#{arrayEscuelas[j].nombre}") ver areas
+											i.material-icons.right forward
 												
 						- }
 						-t=j+1
@@ -69,8 +69,8 @@ block contenido
 										p.descripcion #{arrayEscuelas[t].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayEscuelas[t].id}") ver areas
-											i.material-icons.right edit
+										href="/areas/#{arrayEscuelas[t].nombre}") ver areas
+											i.material-icons.right forward
 												
 						- }
 						-i=i+2;						

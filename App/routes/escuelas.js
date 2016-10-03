@@ -16,7 +16,7 @@ module.exports = function (app) {
 			locals={
 				tipoDeUsuairo: "Escuelas",
 				paginate: "escuelas",
-				title: "Escuelas",
+				title: "Escuelas de formación",
 				page_title: "Panel de escuelas"};
 
 			var paginate_option = {
