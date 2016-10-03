@@ -16,7 +16,6 @@ html, body{
     width: 100%;
 }
 
-
 /*seccion*/
 .section{
   padding-top: 1rem;
@@ -52,7 +51,22 @@ p.index-text{
   position: relative;
   text-shadow: 1px 1px 1px #00bcd4 ;
 }
+/*div de presentacion de escuelas de formacimacio*/
+.div-escuelas{
+  background: #757575 ;
+  background-image: url('/Img/escuelas-prllx.jpg');
+  background-size: 1536px 1536px;
+  background-position: 50% 15%;
+  height: 10%;
+  width: 100%;
+  min-height: 350px;
+  position: relative;
+  text-shadow: 1px 1px 1px #00bcd4;
+  position: relative;
+  overflow: hidden;
+}
 
+/*el mensaje en medio de welcome en el home*/
 .message{
   color: #FFF;
   font-size: 1.5em;
@@ -63,6 +77,7 @@ p.index-text{
   transform: translate(-50%, -50%);
 }
 
+/*style de la flecha en el home*/
 .message-arrow{
   height: 27px;
   width:  51px;
@@ -178,5 +193,11 @@ nav.top-nav {
 nav.top-nav a.page-title {
     line-height: 122px;
     font-size: 48px;
+}
+
+div.divider-line{
+  border-right-width: 3px;
+  border-right-style: solid;
+  border-right-color: #CBCBCB;
 }
 

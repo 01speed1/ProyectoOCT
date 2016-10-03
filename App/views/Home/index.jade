@@ -6,26 +6,28 @@ block contenido
 	.divider
 	.spacer
 	.spacer
+	//block login y registro
 	.container
-		.row.section(style="border-right-color:#212121")
+		.row.section
 			.col.s6
-				h3.title-style Soy Usuario frecuente
-				p.index-text Iniciar sesion
-				form.s12
-					.row
-						.input-field.col.s11
-							i.material-icons.prefix.grey-icons account_circle
-							input#userName(
-								name="userName"
-								type="text")
-							label(for="userName") Nombre de usuario, Numero de Documento o Email
-						.input-field.col.s11
-							i.material-icons.prefix.grey-icons https
-							input(
-								id="pass"
-								name="pass"
-								type="password")
-							label(for="pass") Contraseña
+				div.divider-line
+					h3.title-style Soy Usuario frecuente
+					p.index-text Iniciar sesion
+					form.s12
+						.row
+							.input-field.col.s11
+								i.material-icons.prefix.grey-icons account_circle
+								input#userName(
+									name="userName"
+									type="text")
+								label(for="userName") Nombre de usuario, Numero de Documento o Email
+							.input-field.col.s11
+								i.material-icons.prefix.grey-icons https
+								input(
+									id="pass"
+									name="pass"
+									type="password")
+								label(for="pass") Contraseña
 					//.divider
 					.row
 						.col.s12.center-align
@@ -39,13 +41,16 @@ block contenido
 				.spacer
 				.spacer
 				.spacer
-				a.waves-effet-waves-light.btn-large.cyan.sbt Registrarse
+				.row
+						.col.s12.center-align
+							a.waves-effet-waves-light.btn-large.cyan.sbt Registrarse
 				.spacer
 				.spacer
 				.spacer
 	.spacer
 	.divider
 	.spacer
+	//block ver ecuelas de formacion
 	.parallax-container
 		.parallax
 			img(src="https://goo.gl/NsjNMI")
@@ -56,12 +61,21 @@ block contenido
 				.spacer
 				.spacer
 				.spacer
-				a.waves-effet-waves-light.btn-large.cyan.sbt Ver Escuelas de formacion
+				.row.km
+					.col.s12.center-align
+						a.waves-effet-waves-light.btn-large.cyan.sbt Ver Escuelas de formacion
 				.spacer
 				.spacer
 				.spacer
-
-
+	//bloc contacto
+	.spacer
+	.divider
+	h2.center-align contacto
+	.spacer
+	.spacer
+	.spacer
+	.spacer
+	.divider
 	//accesos rapidos, depsues borrar 
 	a.waves-effect.waves-light.btn.sbt(
 	href="/admin") administración
