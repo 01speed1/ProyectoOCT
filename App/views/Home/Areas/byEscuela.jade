@@ -27,13 +27,14 @@ block contenido
 					- arrayAreas[n]= area;
 					- n++;
 				- for (var i = 0; i < arrayAreas.length; i++) {
-					.row 
+					.row
 						.col.l4.m6.s12
 							.card.large
 								.card-image
 									img(
 									src="#{arrayAreas[i].background}")
-									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela.nombre} 
+									span.card-title.stroke text 
+										//#{arrayAreas[i].nombre} - //#{arrayAreas[i].escuela.nombre} 
 								.card-content
 									p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
@@ -47,7 +48,8 @@ block contenido
 									.card-image
 										img(
 										src="#{arrayAreas[j].background}")
-										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
+										span.card-title.stroke 
+											//#{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
 									.card-content
 										p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
@@ -62,7 +64,8 @@ block contenido
 									.card-image
 										img(
 										src="#{arrayAreas[t].background}")
-										span.card-title.stroke #{arrayAreas[t].nombre} - #{arrayAreas[t].escuela.nombre} 
+										span.card-title.stroke 
+											//#{arrayAreas[t].nombre} - #{arrayAreas[t].escuela.nombre} 
 									.card-content
 										p.descripcion #{arrayAreas[t].descripcion}
 									.card-action

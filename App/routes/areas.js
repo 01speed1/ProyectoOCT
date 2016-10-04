@@ -57,12 +57,16 @@ module.exports = function (app) {
 		})
 
 	//ver areas de una escuela
-	router.route("/:escuela")
+	router.route("/:id")
 		.get(function (sol, res) {
 			locals={
-				title: sol.params.escuela,
-				paginate: "areas",
+				title: "Sin titulo",
+				paginate: "areas"
 			}
+
+			var _id = sol.params.id;
+
+			var query = {escuela:_id};
 
 			var paginate_option = {
 				populate: "escuela",
@@ -72,13 +76,18 @@ module.exports = function (app) {
 				sort: {nombres:1}
 				}
 
-			var promise = Area.paginate({escuela:sol.params.escuela}, paginate_option);
+			var promise = Area.paginate(query, paginate_option);
 			promise
 				.then(function (areas) {
 					locals.areas = areas
+
 				})
 				.then(function () {
+					//res.send(sol.params)
 					res.render("Home/Areas/byEscuela", locals);
+				})
+				.error(function (err) {
+					res.json(err);
 				})	
 		});
 
