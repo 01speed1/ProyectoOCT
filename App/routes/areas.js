@@ -56,138 +56,31 @@ module.exports = function (app) {
 			})
 		})
 
-	//Agregar un nueva area
-	router.route("/nuevo")
+	//ver areas de una escuela
+	router.route("/:escuela")
 		.get(function (sol, res) {
 			locals={
-				title: "Nueva Area",
-				page_title: "Crear Area"
+				title: sol.params.escuela,
+				paginate: "areas",
 			}
-			//cargar nombre de escuelas
-			var promise = Escuela.find({}).exec()
-			promise
-				.then(function (escuelas) {
-					var listaEscuela = {};
-					var arrayEscuelas = [];
-					for (var i = escuelas.length - 1; i >= 0; i--) {
-						listaEscuela = {
-							id: escuelas[i].id,
-							nombre: escuelas[i].nombre,
-							background: escuelas[i].background
-						} 
-					arrayEscuelas.push(listaEscuela);
+
+			var paginate_option = {
+				populate: "escuela",
+				page: sol.query.page, 
+				limit: 10,
+				offset: (sol.query.page-1)*10,
+				sort: {nombres:1}
 				}
-				return arrayEscuelas;
-			})
-				.then(function (array) {
-					locals.escuelas = array;
-					res.render("Admin/Areas/nuevo", locals);
+
+			var promise = Area.paginate({escuela:sol.params.escuela}, paginate_option);
+			promise
+				.then(function (areas) {
+					locals.areas = areas
+				})
+				.then(function () {
+					res.render("Home/Areas/byEscuela", locals);
 				})	
-		})
-		.post(uploader.cargarNuevoBackground, function (sol, res) {
-			var data = {
-				nombre: sol.body.nombre,
-				descripcion : sol.body.descripcion,
-				escuela: sol.body.escuela,
-				estado: sol.body.estado
-			}
-
-			if (res.locals.cloudinary) {
-				data.background = res.locals.cloudinary.url,
-				data.background_id = res.locals.cloudinary.id
-			}
-
-			var nuevaArea = new Area(data);
-			nuevaArea.fechaModificado = moment();
-
-			nuevaArea.save(function (err) {
-				if (!err) {
-					sol.flash("toast", "Area "+sol.body.nombre+" creada");
-					res.redirect("/admin/areas");
-				}
-			});
 		});
-
-	//modificar y eliminar area
-	router.route("/editar/:id")
-		.get(function (sol, res) {
-			var promise2 = Escuela.find({}).exec();
-			promise2
-				.then(function (escuelas) {
-					var listaEscuela = {};
-					var arrayEscuelas = [];
-					for (var i = escuelas.length - 1; i >= 0; i--) {
-						listaEscuela = {
-							id: escuelas[i].id,
-							nombre: escuelas[i].nombre,
-							background: escuelas[i].background
-						} 
-						arrayEscuelas.push(listaEscuela);
-					}
-					return arrayEscuelas;
-				})
-				.then(function (arrayEscuelas) {
-					
-					var promise = Area.findById(sol.params.id).populate('escuela').exec();
-					promise
-						.then(function (area) {
-							locals={
-								area:area,
-								page_title:"Modificar Escuela "+area.nombre,
-								title: "Modificar Escuela",
-								arrayEscuelas:arrayEscuelas
-							}
-							res.render("Admin/Areas/editar", locals);
-						})
-				})
-		})
-		.put(uploader.cargarNuevoBackground, function (sol, res, next) {
-			var promise = Area.findById(sol.params.id).exec();
-			promise
-			.then(function (area) {
-					area.nombre = sol.body.nombre
-					area.descripcion = sol.body.descripcion 
-					area.escuela = sol.body.escuela
-					area.estado = sol.body.estado
-					area.fechaModificado = moment();
-				
-				if (res.locals.cloudinary) {
-					area.background = res.locals.cloudinary.url,
-					area.background_id = res.locals.cloudinary.id
-				}
-
-				if (sol.body.background_id!=area.background_id) {
-					res.locals.bid=sol.body.background_id
-				}
-
-				console.log("area actualizada");
-				return area.save();
-			})
-			.then(function (area) {
-				res.locals.redirect = "/admin/areas";
-				res.locals.msToast = "Area "+sol.body.nombre+" modificada.";
-				next();
-			})
-			.error(function (err) {
-				res.json(err);
-			});
-		}, uploader.borrarBackground)
-		.delete(function (sol, res, next) {
-			var promise = Area.findById(sol.params.id).exec();
-			promise.then(function (escuela) {
-				res.locals.nombre = escuela.nombre;
-				res.locals.bid = escuela.background_id;
-				return escuela.remove();
-			})
-			.then(function () {
-				res.locals.msToast = "Escuela "+res.locals.nombre+" Borrada";
-				res.locals.send = "/admin/areas"
-				next();
-			})
-			.error(function (err) {
-				res.json(err);
-			});
-		},uploader.borrarBackground)
 
 //solicitudes Ajax
 	//verificar el registro de la cedula
