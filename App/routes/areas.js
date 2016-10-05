@@ -57,55 +57,52 @@ module.exports = function (app) {
 		})
 
 	//ver areas de una escuela
-	router.route("/:id")
+	router.route("/:escuelaId")
 		.get(function (sol, res) {
 			locals={
 				title: "Sin titulo",
 				paginate: "areas"
 			}
 
-			var _id = sol.params.id;
-
-			var query = {escuela:_id};
-
 			var paginate_option = {
 				populate: "escuela",
 				page: sol.query.page, 
-				limit: 10,
-				offset: (sol.query.page-1)*10,
+				limit: 6,
+				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
-				}
+			}
 
-			var promise = Area.paginate(query, paginate_option);
-			promise
+			var promise = Area.paginate({escuela:sol.params.escuelaId}, paginate_option);
+				promise
 				.then(function (areas) {
-					locals.areas = areas
+					if (areas.docs.length==0) {
+						sol.flash("toast", "Esta escuela no tiene areas")
+						res.redirect("/escuelas")
+					}
+					locals.areas=areas.docs
+					locals.title = areas.docs[0].escuela.nombre;
+					locals.page = sol.query.page;
+					locals.limit = areas.limit;
+					locals.total = areas.total;
+				  locals.limit = areas.limit;
+				  locals.offset= areas.offset;
+				  var i = (areas.total/areas.limit);
+				  if(areas.total%areas.limit == 0){
+				  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+				  }
+				  else{locals.pages = parseInt(i)+1;}
 
-				})
-				.then(function () {
-					//res.send(sol.params)
-					res.render("Home/Areas/byEscuela", locals);
+				  	res.render("Home/Areas/byEscuela", locals);
+					
 				})
 				.error(function (err) {
-					res.json(err);
-				})	
+					res.json(err)
+				})
+
+
 		});
 
 //solicitudes Ajax
-	//verificar el registro de la cedula
-		router.route("/validarNombre")
-			.post(function (sol, res) {
-				var promise = Area.findOne({nombre:sol.body.value}).exec();
-				promise
-				.then(function (area) {
-					if(area!=null && area.nombre == sol.body.value){
-						res.send("El nombre "+sol.body.value+" ya lo usa otra area.");
-					}
-				})
-				.catch(function (err) {
-					res.json(err);
-				})
-			}) 
 
 		
 app.use("/areas", router);

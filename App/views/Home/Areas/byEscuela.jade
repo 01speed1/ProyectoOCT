@@ -6,14 +6,14 @@ block contenido
 		.spacer
 		.container
 			.row.section
-				h3.title-style.white-text.stroke Areas
+				h3.title-style.white-text.stroke Areas de #{title}
 				p.index-text.white-text.stroke 
 	.spacer
 	.divider
 	.spacer
 	.container
 		.row.section
-			if areas.length == 0 
+			if areas.length == 0
 				//include ../Ext/mensaje-no-hay-elementos.jade
 					a.waves-effet.waves-light.btn.cyan.sbt(href="/admin/areas/nuevo") Nuevo
 			else
@@ -33,13 +33,12 @@ block contenido
 								.card-image
 									img(
 									src="#{arrayAreas[i].background}")
-									span.card-title.stroke text 
-										//#{arrayAreas[i].nombre} - //#{arrayAreas[i].escuela.nombre} 
+									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela.nombre} 
 								.card-content
 									p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
 									a.btn.sbt.cyan(
-									href="/admin/#{paginate}/editar/#{arrayAreas[i].id}") ver grupos
+									href="/areas/grupos/#{arrayAreas[i].id}") ver grupos
 										i.material-icons.right forward
 						-j=i+1;
 						-if (j < arrayAreas.length) {
@@ -48,13 +47,12 @@ block contenido
 									.card-image
 										img(
 										src="#{arrayAreas[j].background}")
-										span.card-title.stroke 
-											//#{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
+										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
 									.card-content
 										p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayAreas[j].id}") ver grupos
+										href="/areas/grupos/#{arrayAreas[j].id}") ver grupos
 											i.material-icons.right forward	
 						- }
 						-t=j+1;
@@ -64,16 +62,17 @@ block contenido
 									.card-image
 										img(
 										src="#{arrayAreas[t].background}")
-										span.card-title.stroke 
-											//#{arrayAreas[t].nombre} - #{arrayAreas[t].escuela.nombre} 
+										span.card-title.stroke #{arrayAreas[t].nombre} - #{arrayAreas[t].escuela.nombre} 
 									.card-content
 										p.descripcion #{arrayAreas[t].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayAreas[t].id}") ver grupos
+										href="/areas/grupos/#{arrayAreas[t].id}") ver grupos
 											i.material-icons.right forward		
 						- }
 						-i=i+2;						
 				-}
-				include ../Ext/paginate.jade	
+				include ../Ext/paginate.jade
+				
+				 
 	
