@@ -1,0 +1,92 @@
+extends ../../layout
+block contenido
+	.div-escuelas
+		include ../Ext/nav-bar-home.jade
+		.spacer
+		.spacer
+		.container
+			.row.section
+				h3.title-style.white-text.stroke Grupos
+				p.index-text.white-text.stroke 
+	.spacer
+	.divider
+	.spacer
+	.container
+		.row.section
+			if grupos.length == 0 
+				//include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(href="/admin/areas/nuevo") Nuevo
+			else	
+				//.row
+					.col.s6
+						.card.ligth-green
+							.card-content
+								a.card-title.mini-header(href="/" ) Clases de Dibujo 
+								.row.km
+									.col.s6
+										br
+										span.grey-text Profesor
+										br
+										span Andres Hoyos
+									.col.s6
+										br
+										span.grey-text Estudiantes
+										br
+										span 200
+							.card-action.center-align
+								a.btn.cyan registrarse
+				include ../Ext/paginate.jade
+				- var n = 0;
+				- var j = 0;
+				- var t = 0;
+				- var arrayGrupos = new Array();
+				each grupo in grupos
+					- arrayGrupos[n] = grupo
+					-n++;
+				-var aLength = arrayGrupos.length
+				-for (var i = 0; i < aLength; i++) {
+					.row
+						.col.s6
+							.card.ligth-green
+								.card-content
+									a.card-title.mini-header(href="/" ) #{arrayGrupos[i].nombre} 
+									.row.km
+										.col.s6
+											br
+											span.grey-text Profesor
+											br
+											span #{arrayGrupos[i].profesor.nombres} #{arrayGrupos[i].profesor.apellidos} 
+										.col.s6
+											br
+											span.grey-text Estudiantes
+											br
+											span aun no
+								.card-action.center-align
+									a.btn.cyan(href="/") registrarse
+						-j=i+1;
+						-if (j < aLength ) {
+							.col.s6
+								.card.ligth-green
+									.card-content
+										a.card-title.mini-header(href="/" ) #{arrayGrupos[i].nombre} 
+										.row.km
+											.col.s6
+												br
+												span.grey-text Profesor
+												br
+												span #{arrayGrupos[i].profesor.nombres} #{arrayGrupos[j].profesor.apellidos} 
+											.col.s6
+												br
+												span.grey-text Estudiantes
+												br
+												span aun no
+									.card-action.center-align
+										a.btn.cyan(href="/") registrarse
+						-}
+						-i=i+1
+				- }
+					
+				include ../Ext/paginate.jade
+
+
+					

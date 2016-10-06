@@ -10,6 +10,15 @@ html, body{
   height: 100%;
 }
 
+/*titulo personalizado de las */
+a.card-title.mini-header{
+  font-size: 20px !important;
+  line-height: 2px !important;
+}
+a.card-title.mini-header:hover{
+  color: #039be5;
+}
+
 /*crea una barra separadora invisible*/
 .spacer {
     height: 2rem;

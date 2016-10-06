@@ -111,9 +111,7 @@
 				if (isConfirm) {
 					redireccionarPOST(config.hrefDelete);
 				}
-				else{
 
-				}
 			})
 		}
 
@@ -141,6 +139,7 @@
 
 	//redireccionar a la url que se pase por parametro
 		var redireccionarPOST = function (url) {
+			alert(url)
 			$.post({
 				url:url,
 				success: function (res) {

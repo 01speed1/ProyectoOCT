@@ -1,6 +1,5 @@
 extends ../layout
 block contenido
-	//h2 pagina principal
 	include ./Ext/welcome-div.jade
 	.spacer
 	.divider
@@ -83,4 +82,5 @@ block contenido
 	a.waves-effect.waves-light.btn.sbt(
 		href="/registro") registrarse
 
-	
+block epecialjs
+	include ../Ext/front-scripts.jade

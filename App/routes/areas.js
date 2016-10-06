@@ -35,7 +35,6 @@ module.exports = function (app) {
 			var promise = Area.paginate({}, paginate_option);
 			promise
 			.then(function (areas) {
-				
 				locals.areas=areas.docs;
 				locals.page = sol.query.page;
 				locals.limit = areas.limit;
