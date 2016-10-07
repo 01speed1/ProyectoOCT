@@ -12,7 +12,6 @@ var Grupo = require("../models/grupos");
 //middlewere para cargar imagenes
 //var uploader = require("../../config/gestorImagenes");
 
-
 //routes Administradores
 module.exports = function (app) {
 
@@ -26,9 +25,10 @@ module.exports = function (app) {
 
 			var paginate_option = {
 				populate: "profesor",
+				populate: "area",
 				page: sol.query.page,
-				limit: 10,
-				offset: (sol.query.page-1)*10,
+				limit: 6,
+				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
 				}
 			var promise = Grupo.paginate({}, paginate_option);
@@ -59,26 +59,27 @@ module.exports = function (app) {
 		.get(function (sol, res) {
 			locals={
 				title: "Sin titulo",
-				paginate: "grupos"
+				paginate: "grupos/"+sol.params.areaId
 			}
 
 			var paginate_option = {
 				populate: "profesor",
-				page: sol.query.page, 
+				//populate: "area",
+				page: sol.query.page,
 				limit: 6,
 				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
 			}
 
-			var promise = Grupo.paginate({escuela:sol.params.areaId}, paginate_option);
+			var promise = Grupo.paginate({area:sol.params.areaId}, paginate_option);
 				promise
 				.then(function (grupos) {
 					if (grupos.docs.length==0) {
 						sol.flash("toast", "Esta area no tiene grupos")
-						res.redirect("/escuelas")
+						res.redirect("/grupos")
 					}
 					locals.grupos=grupos.docs
-					locals.title = grupos.docs[0].escuela.nombre;
+					locals.title = grupos.docs[0].area.nombre;
 					locals.page = sol.query.page;
 					locals.limit = grupos.limit;
 					locals.total = grupos.total;
@@ -90,8 +91,8 @@ module.exports = function (app) {
 				  }
 				  else{locals.pages = parseInt(i)+1;}
 
-				  	res.render("Home/Areas/byArea", locals);
-					
+				  	res.render("Home/Grupos/byArea", locals);
+						//res.json(grupos.docs)
 				})
 				.error(function (err) {
 					res.json(err)
@@ -102,6 +103,6 @@ module.exports = function (app) {
 
 //solicitudes Ajax
 
-		
+
 app.use("/grupos", router);
 };

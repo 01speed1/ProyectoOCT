@@ -27,9 +27,9 @@ module.exports = function (app) {
 
 			var paginate_option = {
 				populate: "escuela",
-				page: sol.query.page, 
-				limit: 10,
-				offset: (sol.query.page-1)*10,
+				page: sol.query.page,
+				limit: 6,
+				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
 				}
 			var promise = Area.paginate({}, paginate_option);
@@ -60,12 +60,12 @@ module.exports = function (app) {
 		.get(function (sol, res) {
 			locals={
 				title: "Sin titulo",
-				paginate: "areas"
+				paginate: "areas/"+sol.params.escuelaId
 			}
 
 			var paginate_option = {
 				populate: "escuela",
-				page: sol.query.page, 
+				page: sol.query.page,
 				limit: 6,
 				offset: (sol.query.page-1)*6,
 				sort: {nombres:1}
@@ -92,7 +92,7 @@ module.exports = function (app) {
 				  else{locals.pages = parseInt(i)+1;}
 
 				  	res.render("Home/Areas/byEscuela", locals);
-					
+
 				})
 				.error(function (err) {
 					res.json(err)
@@ -103,6 +103,6 @@ module.exports = function (app) {
 
 //solicitudes Ajax
 
-		
+
 app.use("/areas", router);
 };

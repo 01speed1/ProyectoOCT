@@ -1,5 +1,5 @@
 //sweetalerts
-	
+
 	//espere
 	var MensajeDeEspera = function (procesoTexto, tipoUsuario) {
 		swal({
@@ -20,7 +20,7 @@
 				type: "success",
 				closeOnConfirm: false
 			},redireccionarPOST(hrefDelete));
-			
+
 		};
 
 	//cancelar
@@ -38,12 +38,12 @@
 				var title = "¡Eliminado!"
 				var text = "Se ha eliminado un registro de tipo: "+tipoUsuario+" exitosamente";
 				swalConfirmar(title, text, hrefDelete);
-				
+
 			}else{
 				var title = "¡Cancelaste!"
 				var text = "Un registro de tipo: "+tipoUsuario+" esta a salvo";
-				swalCancelar(title, text);		
-			}		
+				swalCancelar(title, text);
+			}
 		};
 
 	//swal preguntar
@@ -62,7 +62,7 @@
 				swalResponder
 			);
 		}
-	
+
 //funciones
 
 	//mensaje prevenir borrar ""solo copy"" no funcional
@@ -95,7 +95,7 @@
 				console.log("No se configuraron argumentos");
 			}
 
-			//ejecutar primer swal	
+			//ejecutar primer swal
 			swal({
 				title:"¿Seguro que quieres borrar este registro de tipo: "+config.tipoUsuario+"?",
 				text:"Este registro se perdera permanentemente y no se podra recuperar.",
@@ -108,6 +108,7 @@
 			  closeOnCancel: true
 			},
 			function (isConfirm) {
+				alert(isConfirm)
 				if (isConfirm) {
 					redireccionarPOST(config.hrefDelete);
 				}
@@ -139,13 +140,14 @@
 
 	//redireccionar a la url que se pase por parametro
 		var redireccionarPOST = function (url) {
-			alert(url)
 			$.post({
 				url:url,
 				success: function (res) {
 					console.log(res);
 					window.location.assign(res);
 				}
+			}).fail(function () {
+				alert("WTF")
 			})
 		};
 
@@ -155,11 +157,11 @@
 				$(this).val(nval);
 		};
 
-	//la primera mayuscula 
+	//la primera mayuscula
 		var primera_mayuscula =  function () {
 				var value =$(this).val().split(' ');
 				p_palabra = value[0].charAt(0).toUpperCase()+value[0].slice(1);
-				
+
 				if (value[1]!=undefined) {
 					s_palabra = value[1].charAt(0).toUpperCase()+value[1].slice(1);
 					$(this).val(p_palabra+" "+s_palabra);
@@ -180,11 +182,11 @@
 						}
 						else{
 							aux = finalText+" "+palabra
-							finalText = $.trim(aux)}	
+							finalText = $.trim(aux)}
 					}
-					
+
 				}
-				$(this).val(finalText);			
+				$(this).val(finalText);
 		};
 
 	//nombre de usuario aleatorio
@@ -195,7 +197,7 @@
 					var ran = Math.floor(Math.random()*11);
 					var nomaperan = nom[0]+"."+ape[0]+ran;
 					$('#nombreUsuario').val(nomaperan);
-				}				
+				}
 		};
 
 	//impedir que uno click active todas los demas elementos, mostras mas contenido del adminsitrador
@@ -213,7 +215,7 @@
 	   aleat = Math.random() * numPosibilidades
 	   aleat = Math.floor(aleat)
 	   return parseInt(inferior) + aleat
-		} 
+		}
 
 		function dame_color_aleatorio(){
 	   hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F")
@@ -225,7 +227,7 @@
 	   return color_aleatorio
 		}
 
-		//genera un array de colores aleatorios 
+		//genera un array de colores aleatorios
 			function arrayColoresRandom(campos) {
 				var array = [];
 				for (var i = 0; i < campos; i++) {

@@ -38,7 +38,7 @@ block contenido
 									p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
 									a.btn.sbt.cyan(
-									href="/admin/#{paginate}/editar/#{arrayAreas[i].id}") ver grupos
+									href="/grupos/#{arrayAreas[i].id}") ver grupos
 										i.material-icons.right forward
 						-j=i+1;
 						-if (j < arrayAreas.length) {
@@ -52,7 +52,7 @@ block contenido
 										p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayAreas[j].id}") ver grupos
+										href="/grupos/#{arrayAreas[j].id}") ver grupos
 											i.material-icons.right forward	
 						- }
 						-t=j+1;
@@ -67,10 +67,11 @@ block contenido
 										p.descripcion #{arrayAreas[t].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayAreas[t].id}") ver grupos
+										href="/grupos/#{arrayAreas[t].id}") ver grupos
 											i.material-icons.right forward		
 						- }
 						-i=i+2;						
 				-}
-				include ../Ext/paginate.jade	
+				include ../Ext/paginate.jade
+				include ../Ext/tarjetas-mensajes.jade
 	

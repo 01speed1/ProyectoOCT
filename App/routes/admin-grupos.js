@@ -19,7 +19,7 @@ module.exports = function (app) {
 	//ver todos los grupos
 	router.route("/")
 		.get(function (sol, res) {
-			
+
 				locals={
 					tipoDeUsuairo: "Grupos",
 					paginate: "grupos",
@@ -29,7 +29,7 @@ module.exports = function (app) {
 
 				var paginate_option = {
 				populate: ["profesor","area"],
-				page: sol.query.page, 
+				page: sol.query.page,
 				limit: 10,
 				offset: (sol.query.page-1)*10,
 				sort: {nombres:1}
@@ -38,7 +38,7 @@ module.exports = function (app) {
 			var promise = Grupo.paginate({},paginate_option)
 			promise
 				.then(function (grupos) {
-					
+
 					locals.grupos=grupos.docs;
 					locals.page = sol.query.page;
 					locals.limit = grupos.limit;
@@ -58,13 +58,13 @@ module.exports = function (app) {
 				.error(function (err) {
 					console.log(err);
 					res.json(err);
-				})			
-			
+				})
+
 
 		})
 
 
-	//crear grupo 
+	//crear grupo
 	router.route("/nuevo")
 		.get(function (sol, res) {
 			locals={
@@ -76,7 +76,7 @@ module.exports = function (app) {
 			promiseAreas
 				.then(function (areas) {
 					locals.areas= areas;
-				
+
 				})
 				.then(function () {
 					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
@@ -88,14 +88,14 @@ module.exports = function (app) {
 					})
 					.error(function (err) {
 						res.json(err);
-					})				
+					})
 				})
 				.error(function (err) {
 					res.json(err);
 				})
 		})
 		.post(function (sol, res) {
-			//ajustar hora para almacenarla		
+			//ajustar hora para almacenarla
 				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
 					if (sol.body.AMPMInicio=="PM") {
 						hourStart=parseInt(sol.body.horaInicio)+12;
@@ -105,7 +105,7 @@ module.exports = function (app) {
 					}
 
 				var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes");
-				var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");			
+				var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");
 
 				var limiteEstudiantes;
 				if (sol.body.limiteEstudiantes == ""){
@@ -138,7 +138,7 @@ module.exports = function (app) {
 		//
 		})
 
-	//editar grupo 
+	//editar grupo
 	router.route("/editar/:id")
 		.get(function (sol, res) {
 			locals={
@@ -180,7 +180,7 @@ module.exports = function (app) {
 		.put(function (sol, res) {
 			//console.log(sol.body)
 
-			//ajustar hora para almacenarla		
+			//ajustar hora para almacenarla
 				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
 					if (sol.body.AMPMInicio=="PM") {
 						hourStart=parseInt(sol.body.horaInicio)+12;
@@ -190,7 +190,7 @@ module.exports = function (app) {
 					}
 
 			var fechaInicio = moment(sol.body.fechaInicio).add(hourStart, "hours").add(sol.body.horaInicioMin, "minutes");
-			var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");			
+			var fechaFin = moment(sol.body.fechaFin).add(hourEnd, "hours").add(sol.body.horaFinMin, "minutes");
 
 			var limiteEstudiantes;
 			if (sol.body.limiteEstudiantes == ""){
@@ -219,7 +219,7 @@ module.exports = function (app) {
 				for(var key in data){
 					if (typeof key!=undefined) {
 						grupo[key] = data[key];
-					}	
+					}
 				}
 
 				return grupo.save();
@@ -238,6 +238,7 @@ module.exports = function (app) {
 			var promise = Grupo.findById(sol.params.id).exec();
 			promise
 			.then(function (grupo) {
+				console.log(grupo)
 				return grupo.remove();
 			})
 			.then(function () {

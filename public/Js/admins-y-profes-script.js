@@ -7,7 +7,7 @@ $(document).ready(function () {
 			var tipoUsuario = $("div.tipoUsuario.hide").text();
 			var hrefDelete = $(this).parent().attr("action");
 
-			alert("funciona")
+			alert(hrefDelete);
 
 			var args = {
 				tipoUsuario:tipoUsuario,

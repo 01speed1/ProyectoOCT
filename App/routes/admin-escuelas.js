@@ -132,13 +132,14 @@ module.exports = function (app) {
 			});
 		},uploader.borrarBackground)
 		.delete(function (sol, res, next) {
+
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise.then(function (escuela) {
 				res.locals.nombre = escuela.nombre;
 				res.locals.bid = escuela.background_id;
-				return escuela.remove();
-			})
-			.then(function () {
+				escuela.remove();
+
+
 				res.locals.msToast = "Escuela "+res.locals.nombre+" Borrada";
 				res.locals.send = "/admin/escuelas"
 				next();

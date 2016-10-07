@@ -17,24 +17,6 @@ block contenido
 				//include ../Ext/mensaje-no-hay-elementos.jade
 					a.waves-effet.waves-light.btn.cyan.sbt(href="/admin/areas/nuevo") Nuevo
 			else	
-				//.row
-					.col.s6
-						.card.ligth-green
-							.card-content
-								a.card-title.mini-header(href="/" ) Clases de Dibujo 
-								.row.km
-									.col.s6
-										br
-										span.grey-text Profesor
-										br
-										span Andres Hoyos
-									.col.s6
-										br
-										span.grey-text Estudiantes
-										br
-										span 200
-							.card-action.center-align
-								a.btn.cyan registrarse
 				include ../Ext/paginate.jade
 				- var n = 0;
 				- var j = 0;
@@ -87,6 +69,4 @@ block contenido
 				- }
 					
 				include ../Ext/paginate.jade
-
-
-					
+				include ../Ext/tarjetas-mensajes.jade

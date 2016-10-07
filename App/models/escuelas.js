@@ -43,27 +43,36 @@ var	escuelaSchema = mongoose.Schema({
 });
 
 //virtuales
-escuelaSchema.virtual("contraseñaValidar")
-	.get(function () {
-		return this.cnfirmation;		
-	})
-	.set(function (constraseña) {
-		this.cnfirmation = constraseña;
-	});
-escuelaSchema.virtual("ultimaModi")
-	.get(function () {
-		return moment(this.fechaModificado).locale('es').fromNow(true);
-	})
-escuelaSchema.virtual("creacionPretty")
-	.get(function () {
-		if (this.creacion == null) {
-			return "No se ha modificado"
-		} else {
-			return moment(this.creacion).locale('es').format("LL");
-		}		
-	})
+	escuelaSchema.virtual("contraseñaValidar")
+		.get(function () {
+			return this.cnfirmation;
+		})
+		.set(function (constraseña) {
+			this.cnfirmation = constraseña;
+		});
+	escuelaSchema.virtual("ultimaModi")
+		.get(function () {
+			return moment(this.fechaModificado).locale('es').fromNow(true);
+		})
+	escuelaSchema.virtual("creacionPretty")
+		.get(function () {
+			if (this.creacion == null) {
+				return "No se ha modificado"
+			} else {
+				return moment(this.creacion).locale('es').format("LL");
+			}
+		})
 //plugins
-escuelaSchema.plugin(require('mongoose-paginate'));
+	escuelaSchema.plugin(require('mongoose-paginate'));
+
+//pre
+var Area = require("../models/area.js");
+
+escuelaSchema.pre('remove', function (next) {
+	console.log("se borraran las areas de esta escuela");
+	Area.remove({escuela:this.id}).exec();
+	next();
+})
 
 //export el schema como modelo
 module.exports = mongoose.model('Escuela', escuelaSchema);

@@ -39,7 +39,7 @@ block contenido
 										style="display: inline-block;"
 										action="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}?_method=DELETE"
 										method="POST")
-										button.btn.sbt.red.borrarEscuela(type="submit") borrar
+										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 											i.material-icons.right delete
 						-j=i+1;
 						-if (j < arrayEscuelas.length) {
@@ -59,7 +59,7 @@ block contenido
 										style="display: inline-block;"
 										action="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}?_method=DELETE"
 										method="POST")
-											button.btn.sbt.red.borrarEscuela(type="submit") borrar
+											button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 												i.material-icons.right delete			
 						- }
 						-i=i+1;						

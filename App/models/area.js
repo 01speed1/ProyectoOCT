@@ -45,20 +45,29 @@ var	areaSchema = mongoose.Schema({
 });
 
 //virtuales
-areaSchema.virtual("ultimaModi")
-	.get(function () {
-		return moment(this.fechaModificado).locale('es').fromNow(true);
-	})
-areaSchema.virtual("creacionPretty")
-	.get(function () {
-		if (this.creacion == null) {
-			return "No se ha modificado"
-		} else {
-			return moment(this.creacion).locale('es').format("LL");
-		}		
-	})
+	areaSchema.virtual("ultimaModi")
+		.get(function () {
+			return moment(this.fechaModificado).locale('es').fromNow(true);
+		})
+	areaSchema.virtual("creacionPretty")
+		.get(function () {
+			if (this.creacion == null) {
+				return "No se ha modificado"
+			} else {
+				return moment(this.creacion).locale('es').format("LL");
+			}		
+		})
 //plugins
 areaSchema.plugin(require('mongoose-paginate'));
+
+//pre
+var Grupo = require("../models/grupos");
+
+areaSchema.pre('remove', function (next) {
+	console.log("se borraran los grupos de esta area");
+	Grupo.remove({area:this.id}).exec();
+	next();
+})
 
 //export el schema como modelo
 module.exports = mongoose.model('Area', areaSchema);
