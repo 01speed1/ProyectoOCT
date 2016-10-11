@@ -29,13 +29,13 @@ block contenido
 				- for (var i = 0; i < arrayEscuelas.length; i++) {
 					.row 
 						.col.l4.m6.s12
-							.card.large
+							.card.small
 								.card-image
 									img(
 									src="#{arrayEscuelas[i].background}")
 									span.card-title.stroke #{arrayEscuelas[i].nombre}
-								.card-content
-									p.descripcion #{arrayEscuelas[i].descripcion}
+								//.card-content
+									//p.descripcion #{arrayEscuelas[i].descripcion}
 								.card-action
 									a.btn.sbt.cyan(
 									href="/areas/#{arrayEscuelas[i].id}") ver areas
@@ -44,13 +44,13 @@ block contenido
 						-j=i+1;
 						-if (j < arrayEscuelas.length) {
 							.col.l4.m6.s12
-								.card.large
+								.card.small
 									.card-image
 										img(
 										src="#{arrayEscuelas[j].background}")
 										span.card-title.stroke #{arrayEscuelas[j].nombre}
-									.card-content
-										p.descripcion #{arrayEscuelas[j].descripcion}
+									//.card-content
+										//p.descripcion #{arrayEscuelas[j].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
 										href="/areas/#{arrayEscuelas[j].id}") ver areas
@@ -60,13 +60,13 @@ block contenido
 						-t=j+1
 						-if (t < arrayEscuelas.length) {
 							.col.l4.m6.s12
-								.card.large
+								.card.small
 									.card-image
 										img(
 										src="#{arrayEscuelas[t].background}")
 										span.card-title.stroke #{arrayEscuelas[t].nombre}
-									.card-content
-										p.descripcion #{arrayEscuelas[t].descripcion}
+									//.card-content
+										//p.descripcion #{arrayEscuelas[t].descripcion}
 									.card-action
 										a.btn.sbt.cyan(
 										href="/areas/#{arrayEscuelas[t].id}") ver areas

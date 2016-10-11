@@ -29,44 +29,44 @@ block contenido
 				- for (var i = 0; i < arrayAreas.length; i++) {
 					.row 
 						.col.l4.m6.s12
-							.card.large
+							.card.small
 								.card-image
 									img(
 									src="#{arrayAreas[i].background}")
 									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela.nombre} 
-								.card-content
-									p.descripcion #{arrayAreas[i].descripcion} 
+								//.card-content
+									//p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
-									a.btn.sbt.cyan(
+									a.waves-effect.waves-light.btn.sbt.cyan(
 									href="/grupos/#{arrayAreas[i].id}") ver grupos
 										i.material-icons.right forward
 						-j=i+1;
 						-if (j < arrayAreas.length) {
 							.col.l4.m6.s12
-								.card.large
+								.card.small
 									.card-image
 										img(
 										src="#{arrayAreas[j].background}")
 										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
-									.card-content
-										p.descripcion #{arrayAreas[j].descripcion}
+									//.card-content
+										//p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
-										a.btn.sbt.cyan(
+										a.waves-effect.waves-light.btn.sbt.cyan(
 										href="/grupos/#{arrayAreas[j].id}") ver grupos
 											i.material-icons.right forward	
 						- }
 						-t=j+1;
 						-if (t < arrayAreas.length) {
 							.col.l4.m6.s12
-								.card.large
+								.card.small
 									.card-image
 										img(
 										src="#{arrayAreas[t].background}")
 										span.card-title.stroke #{arrayAreas[t].nombre} - #{arrayAreas[t].escuela.nombre} 
-									.card-content
-										p.descripcion #{arrayAreas[t].descripcion}
+									//.card-content
+										//p.descripcion #{arrayAreas[t].descripcion}
 									.card-action
-										a.btn.sbt.cyan(
+										a.waves-effect.waves-light.btn.sbt.cyan(
 										href="/grupos/#{arrayAreas[t].id}") ver grupos
 											i.material-icons.right forward		
 						- }

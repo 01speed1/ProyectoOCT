@@ -10,6 +10,18 @@ html, body{
   height: 100%;
 }
 
+/*modificar card large*/
+
+.card.large {
+    height: 400px;
+}
+
+.card.large2 {
+    height: 200px;
+}
+
+
+
 /*titulo personalizado de las */
 a.card-title.mini-header{
   font-size: 20px !important;

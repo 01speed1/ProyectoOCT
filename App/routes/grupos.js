@@ -25,7 +25,6 @@ module.exports = function (app) {
 
 			var paginate_option = {
 				populate: "profesor",
-				populate: "area",
 				page: sol.query.page,
 				limit: 6,
 				offset: (sol.query.page-1)*6,
@@ -75,7 +74,7 @@ module.exports = function (app) {
 				promise
 				.then(function (grupos) {
 					if (grupos.docs.length==0) {
-						sol.flash("toast", "Esta area no tiene grupos")
+						sol.flash("toast", "Esta area no tiene grupos, veras todos los grupos")
 						res.redirect("/grupos")
 					}
 					locals.grupos=grupos.docs

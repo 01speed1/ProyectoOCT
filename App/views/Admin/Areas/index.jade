@@ -24,42 +24,42 @@ block contenido
 				- for (var i = 0; i < arrayAreas.length; i++) {
 					.row 
 						.col.s6
-							.card.medium
+							.card.large
 								.card-image
 									img(
 									src="#{arrayAreas[i].background}")
 									span.card-title.stroke #{arrayAreas[i].nombre} - #{arrayAreas[i].escuela.nombre} 
-								.card-content
-									p.descripcion #{arrayAreas[i].descripcion} 
+								//.card-content
+									//p.descripcion #{arrayAreas[i].descripcion} 
 								.card-action
-									a.btn.sbt.cyan(
-									href="/admin/#{paginate}/editar/#{arrayAreas[i].id}") modificar
+									a.waves-effect.waves-light.btn.sbt.cyan(
+									href="/admin/#{paginate}/editar/#{arrayAreas[i].id}") editar
 										i.material-icons.right edit
 									form.btn-borrar(
 										style="display: inline-block;"
 										action="/admin/#{paginate}/editar/#{arrayAreas[i].id}?_method=DELETE"
 										method="POST")
-										button.btn.sbt.red.borrarEscuela(type="submit") borrar
+										a.waves-effect.waves-light.btn.sbt.red.borrarEscuela(type="submit") borrar
 											i.material-icons.right delete
 						-j=i+1;
 						-if (j < arrayAreas.length) {
 							.col.s6
-								.card.medium
+								.card.large
 									.card-image
 										img(
 										src="#{arrayAreas[j].background}")
 										span.card-title.stroke #{arrayAreas[j].nombre} - #{arrayAreas[j].escuela.nombre} 
-									.card-content
-										p.descripcion #{arrayAreas[j].descripcion}
+									//.card-content
+										//p.descripcion #{arrayAreas[j].descripcion}
 									.card-action
-										a.btn.sbt.cyan(
-										href="/admin/#{paginate}/editar/#{arrayAreas[j].id}") modificar
+										a.waves-effect.waves-light.btn.sbt.cyan(
+										href="/admin/#{paginate}/editar/#{arrayAreas[j].id}") editar
 											i.material-icons.right edit
 										form.btn-borrar(
 										style="display: inline-block;"
 										action="/admin/#{paginate}/editar/#{arrayAreas[j].id}?_method=DELETE"
 										method="POST")
-											button.btn.sbt.red.borrarEscuela(type="submit") borrar
+											a.waves-effect.waves-light.btn.sbt.red.borrarEscuela(type="submit") borrar
 												i.material-icons.right delete			
 						- }
 						-i=i+1;						
