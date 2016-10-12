@@ -1,34 +1,34 @@
 var express = require("express");
 var app = express();
-var Usuario = require("../App/Models/usuario");
+var Usuario = require("../App/models/usuario");
 
 module.exports.user = function  (sol, res, next) {
 	if (!sol.session.Usuario_id) {
 		console.log("Un Usuario esta intentado acceder a una ruta privada.");
-		res.render("Usuarios/login",{
-			error: "Debes iniciar sesion para acceder a esta pagina"
-		}) 
+		sol.flash("toast", "Primero inicia session");
+		res.redirect("/login"); 
 	}
 	else{
-		Usuario.findById(sol.session.Usuario_id, function (err, user) {
-			if (!err) {
-				if (user) {
-					sol.session.apodo=user.Apodo;
-					next();
-				} else{
-					res.render("Usuarios/login", {error: "Debes iniciar sesion para acceder a esta pagina"});
-				}
-			} else {
-				res.render("Usuarios/login", {error: "Debes iniciar sesion para acceder a esta pagina"});
-			}
 
-			
-		})
-		
+		var promise = Usuario.findById(sol.session.Usuario_id).exec();
+		promise
+			.then(function (user) {
+				if (user) {next();}
+				else{
+					sol.flash("toast", "Primero inicia session");
+					res.redirect("/login");
+				}
+			.error(function (err) {
+				sol.flash("toast", "Algo salio mal :C");
+					res.redirect("/login");
+			})
+			})		
 	}
 }
-module.exports.admin  = function (sol, res,next) {
-	var locals={}
+
+//falta editar el acceso a administracion
+module.exports.admin  = function (sol, res, next) {
+
 	if (!sol.session.EsAdmin) {
 		console.log("Un Usuario intenta acceder a una ruta de administracion.");
 		res.redirect("/usuario/login")

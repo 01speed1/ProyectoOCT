@@ -22,7 +22,7 @@ var	usuarioSchema = mongoose.Schema({
 	nombreUsuario:{
 		type:String,
 		require:true,
-		maxlength: 60
+		maxlength: 60,
 		unique:true
 	},
 	nombres:{

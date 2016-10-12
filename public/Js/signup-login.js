@@ -90,4 +90,10 @@ $().ready(function () {
 
 		$('#nuevo-usuario').validate(validaciones);
 
+
+	//avisar que el nombre de usuario no existe
+		$("#nombreUsuario").change(function () {
+			verificar_dato($(this), "/login/validarUsername");
+		})
+
 })

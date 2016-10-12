@@ -79,42 +79,42 @@
 		}*/
 
 	//funciones 2.0 prevenir borrar
-	var preguntarAntesDeBorrar = function (argumentos) {
+		var preguntarAntesDeBorrar = function (argumentos) {
 
-			var config = {}
+				var config = {}
 
-			/*args={
-				tipoUsuario:tipoUsuario,
-				hrefDelete: hrefDelete
-			}*/
+				/*args={
+					tipoUsuario:tipoUsuario,
+					hrefDelete: hrefDelete
+				}*/
 
-			if (argumentos) {
-				$.extend(config,argumentos)
-			}
-			else {
-				console.log("No se configuraron argumentos");
-			}
-
-			//ejecutar primer swal
-			swal({
-				title:"¿Seguro que quieres borrar este registro de tipo: "+config.tipoUsuario+"?",
-				text:"Este registro se perdera permanentemente y no se podra recuperar.",
-				type:"warning",
-				showCancelButton: true,
-				cancelButtonText: "NO! aún no",
-				confirmButtonText: "Si!, borralo!",
-				confirmButtonColor:"#f44336",
-			  closeOnConfirm: false,
-			  closeOnCancel: true
-			},
-			function (isConfirm) {
-				alert(isConfirm)
-				if (isConfirm) {
-					redireccionarPOST(config.hrefDelete);
+				if (argumentos) {
+					$.extend(config,argumentos)
+				}
+				else {
+					console.log("No se configuraron argumentos");
 				}
 
-			})
-		}
+				//ejecutar primer swal
+				swal({
+					title:"¿Seguro que quieres borrar este registro de tipo: "+config.tipoUsuario+"?",
+					text:"Este registro se perdera permanentemente y no se podra recuperar.",
+					type:"warning",
+					showCancelButton: true,
+					cancelButtonText: "NO! aún no",
+					confirmButtonText: "Si!, borralo!",
+					confirmButtonColor:"#f44336",
+				  closeOnConfirm: false,
+				  closeOnCancel: true
+				},
+				function (isConfirm) {
+					alert(isConfirm)
+					if (isConfirm) {
+						redireccionarPOST(config.hrefDelete);
+					}
+
+				})
+			}
 
 	// DEPRESED previsualizar imagenes
 		/*var mostrarImagen =  function (input, destino) {

@@ -20,41 +20,43 @@ module.exports = function (app) {
 
 			//encriptar la contrasea
 				var passCrypt =  crypto.encrypt(sol.body.contraseña);
-				//var passVaCrypt =  crypto.encrypt(sol.body.contraseñaValidar);
 			
 			var identi = sol.body.nombreUsuario;
 
 			var promise = Estudiante.findOne({nombreUsuario:identi}).exec();
 
 			promise.then(function (user) {
-				console.log(user)
-				res.json(user);
+				if (user==null) {
+					sol.flash("toast", "Nombre de Usuario no encontrado");
+					res.redirect("/login");
+				}
+
+				if (user.constraseña==passCrypt && user.nombreUsuario==identi) {
+					sol.session.Usuario_id=user.id;
+					if (user.tipo == "ADMINISTRADOR") {
+						res.redirect("/admin");
+					}else{
+						res.redirect("/usuario/"+user.nombreUsuario);
+					}
+					
+				}else{
+					sol.flash("toast", "Nombre de usuario o contraseña incorrecta");
+					res.redirect("/login");
+				}
+				
 			})
 
-			/*var data = {
-				nombres: sol.body.nombres,
-				apellidos: sol.body.apellidos,
-				numeroDocumento: sol.body.numeroDocumento,
-				tipoDocumento: sol.body.tipoDocumento,
-				nombreUsuario: sol.body.nombreUsuario,
-				email: sol.body.email,
-				contraseña: passCrypt,
-				contraseñaValidar: passVaCrypt,
-				estado: sol.body.estado,
-				tipo: "ESTUDIANTE"
-			}*/
+		})
 
-			//var nuevoEstudiante = new Estudiante(data);
-
-			/*var promise =  nuevoEstudiante.save();
-			promise
-			.then(function () {
-				res.redirect("/");
+//Validadores Ajax 
+	router.route("/validarUsername")
+		.post(function (sol, res) {
+			var value = sol.body.value;
+			Estudiante.findOne({nombreUsuario:value}, function (err, user) {
+				if (user==null && value!="") {
+					res.send(value+" aun no esta registrado");
+				}
 			})
-			.error(function (err) {
-				res.json(err)
-			})*/
-
 			
 
 		})

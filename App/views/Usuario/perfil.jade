@@ -1,0 +1,86 @@
+perfil.jadeextends ../layout
+block contenido
+	include ./Ext/welcome-div.jade
+	.spacer
+	.divider
+	.spacer
+	.spacer
+	//block login y registro
+	.container
+		.row.section
+			.col.s6
+				div.divider-line
+					h3.title-style Soy Usuario frecuente
+					p.index-text Iniciar sesion
+					form.s12
+						.row
+							.input-field.col.s11
+								i.material-icons.prefix.grey-icons account_circle
+								input#userName(
+									name="userName"
+									type="text")
+								label(for="userName") Nombre de usuario
+							.input-field.col.s11
+								i.material-icons.prefix.grey-icons https
+								input(
+									id="pass"
+									name="pass"
+									type="password")
+								label(for="pass") Contraseña
+					//.divider
+					.row
+						.col.s12.center-align
+							button.waves-effect.waves-light.btn-large.sbt.cyan(
+							type="submit"
+							) Entrar
+								i.material-icons.right check
+			.col.s6
+				h3.title-style Quiero registrarme
+				p.index-text ¿Que estas esperando?
+				.spacer
+				.spacer
+				.spacer
+				.row
+						.col.s12.center-align
+							a.waves-effet-waves-light.btn-large.cyan.sbt Registrarse
+				.spacer
+				.spacer
+				.spacer
+	.spacer
+	.divider
+	.spacer
+	//block ver ecuelas de formacion
+	.parallax-container
+		.parallax
+			img(src="https://goo.gl/NsjNMI")
+		.container
+			.row.section
+				h3.title-style.white-text.stroke Aprobecha tu tiempo libre y aprende cosas nuevas
+				p.index-text.white-text.stroke Unete al grupo que mas te guste
+				.spacer
+				.spacer
+				.spacer
+				.row.km
+					.col.s12.center-align
+						a.waves-effet-waves-light.btn-large.cyan.sbt Ver Escuelas de formacion
+				.spacer
+				.spacer
+				.spacer
+	//bloc contacto
+	.spacer
+	.divider
+	h2.center-align contacto
+	.spacer
+	.spacer
+	.spacer
+	.spacer
+	.divider
+	//accesos rapidos, depsues borrar 
+	a.waves-effect.waves-light.btn.sbt(
+	href="/admin") administración
+
+	a.waves-effect.waves-light.btn.sbt(
+		href="/registro") registrarse
+
+block epecialjs
+	include ../Ext/front-scripts.jade
