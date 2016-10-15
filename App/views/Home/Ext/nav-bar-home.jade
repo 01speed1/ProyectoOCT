@@ -8,7 +8,15 @@ nav.light-green.black-text.animated.slideInDown
 				a(href="/escuelas") Escuelas de formacion
 			li
 				a(href="/areas") Areas
-			li
-				a(href="/login") Iniciar Sesión
-			li
-				a(href="/registro") Registrarse
+			if user
+				- profileUrl = "/usuario/"+user.nombreUsuario;
+				li
+					a(href="#{profileUrl}") Mi Perfil
+				li
+					a(href="/logout") Cerrar sesion
+			else
+				li
+					a(href="/login") Iniciar Sesión
+				li
+					a(href="/registro") Registrarse
+				li

@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var crypto = require('../../config/crypto.js')
 var router = express.Router();
 
 
@@ -16,6 +17,7 @@ module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
 			locals={
+				usuario: sol.session.usuario,
 				tipoDeUsuairo: "Administrador",
 				paginate: "administradores",
 				title: "Administradores",
@@ -76,8 +78,12 @@ module.exports = function (app) {
 				}};
 
 			//informacion fuera del sol.body
+			//var crypto = require('../../config/crypto.js')
+			nuevoAdministrador.contraseña = crypto.encrypt(sol.body.contraseña);
+			nuevoAdministrador.contraseñaValidar = crypto.encrypt(sol.body.contraseñaValidar);
 			nuevoAdministrador.fechaNacimiento = moment(sol.body.fechaNacimiento_submit);
 			nuevoAdministrador.tipo = "ADMINISTRADOR";
+
 
 
 			nuevoAdministrador.save(function (err) {

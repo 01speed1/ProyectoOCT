@@ -10,8 +10,38 @@ html, body{
   height: 100%;
 }
 
-/*modificar card large*/
+/*modificar tabs*/
+.tabs .tab a{
+  color:#00aeff !important;
+}
 
+.tabs .tab a:hover{
+  color:#cdf9fb !important;
+}
+
+.tabs .indicator{
+  background-color: #b2d7f6 !important;
+}
+
+.tabs{
+  background-color: #fff0 !important;
+}
+
+/*borde para imagenes redondas*/
+
+.circle-border{
+  border-color: #212121;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-right-width: 1px;
+  border-right-style: solid;
+}
+
+/*modificar card large*/
 .card.large {
     height: 400px;
 }
@@ -40,7 +70,7 @@ a.card-title.mini-header:hover{
 /*seccion*/
 .section{
   padding-top: 1rem;
-padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 /*usar syknica para titulos*/

@@ -42,9 +42,9 @@ block contenido
 											br
 											span.grey-text Estudiantes
 											br
-											span aun no
+											span #{arrayGrupos[i].estudiantes.length}
 								.card-action.center-align
-									a.btn.cyan(href="/") registrarse
+									a.btn.cyan(href="/grupos/reg/#{arrayGrupos[i].id}") registrarse
 						-j=i+1;
 						-if (j < aLength ) {
 							.col.s6
@@ -61,9 +61,9 @@ block contenido
 												br
 												span.grey-text Estudiantes
 												br
-												span aun no
+												span #{arrayGrupos[j].estudiantes.length}
 									.card-action.center-align
-										a.btn.cyan(href="/") registrarse
+										a.btn.cyan(href="/grupos/reg/#{arrayGrupos[i].id}") registrarse
 						-}
 						-i=i+1
 				- }

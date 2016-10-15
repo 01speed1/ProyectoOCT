@@ -13,6 +13,7 @@ module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
 			var locals = {
+				usuario: sol.session.user,
 				page_title: "Panel de Administración",
 				title: "Panel de Administración"
 			}

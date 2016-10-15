@@ -7,11 +7,9 @@ var router = express.Router();
 var locals={};
 
 //modelos DB
-	//var Profesor = require("../models/usuarios");
-	var Estudiante = require("../models/usuarios"); //ESTUDIANTE
+	var Estudiante = require("../models/usuarios"); 
 
 module.exports = function (app) {
-
 	router.route("/")
 		.get(function (sol, res) {
 			res.render("Session/login");
@@ -26,27 +24,31 @@ module.exports = function (app) {
 			var promise = Estudiante.findOne({nombreUsuario:identi}).exec();
 
 			promise.then(function (user) {
-				if (user==null) {
+				if (!user) {
 					sol.flash("toast", "Nombre de Usuario no encontrado");
 					res.redirect("/login");
+				}else{
+					if (user.contraseña==passCrypt && user.nombreUsuario==identi) {
+						sol.session.usuario_id=user.id;
+						sol.session.user=user;
+						if (user.tipo == "ADMINISTRADOR") {
+							sol.session.EsAdmin = true
+							res.redirect("/admin");
+						}else{
+							res.redirect("/usuario/"+user.nombreUsuario);
+						}
+					}else{
+						sol.flash("toast", "Nombre de usuario o contraseña incorrecta");
+						res.redirect("/login");
+						console.log("todo mal")
+					}
 				}
 
-				if (user.constraseña==passCrypt && user.nombreUsuario==identi) {
-					sol.session.Usuario_id=user.id;
-					if (user.tipo == "ADMINISTRADOR") {
-						res.redirect("/admin");
-					}else{
-						res.redirect("/usuario/"+user.nombreUsuario);
-					}
-					
-				}else{
-					sol.flash("toast", "Nombre de usuario o contraseña incorrecta");
-					res.redirect("/login");
-				}
 				
 			})
 
 		})
+
 
 //Validadores Ajax 
 	router.route("/validarUsername")

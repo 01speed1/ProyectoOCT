@@ -92,7 +92,7 @@ $().ready(function () {
 
 
 	//avisar que el nombre de usuario no existe
-		$("#nombreUsuario").change(function () {
+		$(".nombreUsuario").change(function () {
 			verificar_dato($(this), "/login/validarUsername");
 		})
 

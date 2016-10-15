@@ -3,14 +3,15 @@ ul#slide-out.side-nav.fixed
 			li
 				.userView
 					img.background(
-					src="http://goo.gl/mnPn0S")
+					src="#{usuario.background}"
+					width="100%" height="auto")
 					a(href="#!user")
 						img.circle(
-						src="https://goo.gl/QYrHyx")
+						src="#{usuario.avatar}")
 					a(href="#!name")
-						span.white-text.name Oscar Guzman
+						span.white-text.name #{usuario.nombres} #{usuario.apellidos}
 					a(href="#!email")
-						span.white-text.email abc@123.com
+						span.white-text.email #{usuario.email}
 			//lista de enlaces
 			li
 				a(href="/Admin") Panel
@@ -47,6 +48,6 @@ ul#slide-out.side-nav.fixed
 					i.material-icons.left group
 			//home
 			li.no-padding
-				a.waves-effect(href="/") Pagina Pricipal
+				a.waves-effect(href="/") Pagina Principal
 					i.material-icons.left home
 

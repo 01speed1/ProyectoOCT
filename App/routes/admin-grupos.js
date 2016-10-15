@@ -21,6 +21,7 @@ module.exports = function (app) {
 		.get(function (sol, res) {
 
 				locals={
+					usuario: sol.session.user,
 					tipoDeUsuairo: "Grupos",
 					paginate: "grupos",
 					title: "Grupos",
@@ -68,6 +69,7 @@ module.exports = function (app) {
 	router.route("/nuevo")
 		.get(function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				title: "Nuevo Grupo",
 				page_title: "Crear Grupo"
 			}

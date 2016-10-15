@@ -14,7 +14,7 @@ block contenido
 								.row
 									.input-field.col.s12
 										i.material-icons.prefix.grey-icons account_box
-										input#nombreUsuario(
+										input#nombreUsuario.nombreUsuario(
 											name="nombreUsuario"
 											type="text"
 											data-error=".errorTxt5")
@@ -47,7 +47,7 @@ block contenido
 						//Rowkiller
 						.row.km
 
-include ../Ext/tarjetas-mensajes.jade
+	include ../Ext/tarjetas-mensajes.jade
 block footer
 	footer.page-footer.light-green.fixfoo
 		.container

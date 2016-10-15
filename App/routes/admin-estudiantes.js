@@ -1,6 +1,8 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var crypto = require('../../config/crypto.js')
+
 var router = express.Router();
 
 var locals={};
@@ -83,6 +85,8 @@ module.exports = function (app) {
 				 		estudiante[key] = sol.body[key];
 				}};
 
+				estudiante.contraseña = crypto.encrypt(sol.body.contraseña);
+				estudiante.contraseñaValidar = crypto.encrypt(sol.body.contraseñaValidar);
 				estudiante.fechaModificado = moment();
 
 				return estudiante.save();

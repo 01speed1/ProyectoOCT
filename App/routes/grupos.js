@@ -2,6 +2,7 @@ var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
 var gestorImagenes = require("../../config/gestorImagenes");
+var session = require("../../config/session")
 var router = express.Router();
 
 var locals={};
@@ -54,7 +55,7 @@ module.exports = function (app) {
 		})
 
 	//ver areas de una escuela
-	router.route("/:areaId")
+	router.route("/a/:areaId")
 		.get(function (sol, res) {
 			locals={
 				title: "Sin titulo",
@@ -100,6 +101,33 @@ module.exports = function (app) {
 
 		});
 
+	//registrar usuario logeado al grupo
+	router.route("/reg/:grupoId")
+		.get(session.user, function (sol, res) {
+
+			var promise = Grupo.findById(sol.params.grupoId).exec()
+			promise
+				.then(function (grupo) {
+
+					var temp; 
+					for (var i = 0; i < grupo.estudiantes.length; i++) {
+						if (grupo.estudiantes[i]==sol.session.usuario_id) {
+							temp=grupo.estudiantes[i];
+						}
+						console.log(grupo.estudiantes[i])
+					}
+					if (temp != sol.session.usuario_id) {
+						grupo.estudiantes.push(sol.session.usuario_id)
+						grupo.save();
+						sol.flash("toast", "registro exito en el nuevo grupo")
+						res.redirect("/usuario/"+sol.session.user.nombreUsuario)
+					}else{
+						sol.flash("toast", "Ya estas registrado en ese grupo")
+						res.redirect("/grupos")
+					}
+				})
+
+	})
 //solicitudes Ajax
 
 

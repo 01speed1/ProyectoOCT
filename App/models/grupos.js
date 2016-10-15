@@ -43,6 +43,10 @@ var	grupoSchema = mongoose.Schema({
 		type: String,
 		require: true
 	},
+	//lista de usuarios en el grupo
+	estudiantes:[
+	{type:  mongoose.Schema.Types.ObjectId}
+	],
 	//campos de creacion
 	background:{
 		type:String,

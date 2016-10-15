@@ -42,28 +42,28 @@ block contenido
 											br
 											span.grey-text Estudiantes
 											br
-											span aun no
+											span #{arrayGrupos[i].estudiantes.length}
 								.card-action.center-align
-									a.btn.cyan(href="/") registrarse
+									a.btn.cyan(href="/grupos/reg/#{arrayGrupos[i].id}") registrarse
 						-j=i+1;
 						-if (j < aLength ) {
 							.col.s6
 								.card.ligth-green
 									.card-content
-										a.card-title.mini-header(href="/" ) #{arrayGrupos[i].nombre} 
+										a.card-title.mini-header(href="/" ) #{arrayGrupos[j].nombre} 
 										.row.km
 											.col.s6
 												br
 												span.grey-text Profesor
 												br
-												span #{arrayGrupos[i].profesor.nombres} #{arrayGrupos[j].profesor.apellidos} 
+												span #{arrayGrupos[j].profesor.nombres} #{arrayGrupos[j].profesor.apellidos} 
 											.col.s6
 												br
 												span.grey-text Estudiantes
 												br
-												span aun no
+												span #{arrayGrupos[i].estudiantes.length}
 									.card-action.center-align
-										a.btn.cyan(href="/") registrarse
+										a.btn.cyan(href="/grupos/reg/#{arrayGrupos[j].id}") registrarse
 						-}
 						-i=i+1
 				- }

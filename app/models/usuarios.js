@@ -40,7 +40,7 @@ var	usuarioSchema = mongoose.Schema({
 		require:true,
 		maxlength: 300
 	},
-	constraseña:{
+	contraseña:{
 		type:String,
 		require:true,
 		minlength: 8,
