@@ -2,6 +2,7 @@ var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
 var crypto = require('../../config/crypto.js')
+var session = require("../../config/session"); //session.admin,
 var router = express.Router();
 
 
@@ -15,7 +16,7 @@ module.exports = function (app) {
 
 	//ver todos los administradores
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				usuario: sol.session.usuario,
 				tipoDeUsuairo: "Administrador",
@@ -60,14 +61,14 @@ module.exports = function (app) {
 
 	//Agregar un nuevo administrador
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				title: "Nuevo administrador",
 				page_title: "Crear administrador"
 			}
 			res.render("Admin/Administradores/nuevo", locals);
 		})
-		.post(function (sol, res) {
+		.post(session.admin, function (sol, res) {
 			locals={};
 			var nuevoAdministrador = new Administrador();
 
@@ -100,7 +101,7 @@ module.exports = function (app) {
 
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			Administrador.findById(sol.params.id, function (err, admin) {
 				locals={
 					admin:admin,
@@ -110,7 +111,7 @@ module.exports = function (app) {
 				res.render("Admin/Administradores/editar", locals);
 			})
 		})
-		.put(function (sol, res) {
+		.put(session.admin, function (sol, res) {
 			var promise = Administrador.findById(sol.params.id).exec();
 
 			promise.then(function (admin) {
@@ -132,7 +133,7 @@ module.exports = function (app) {
 				res.json(err);
 			});
 		})
-		.delete(function (sol, res) {
+		.delete(session.admin, function (sol, res) {
 			var promise = Administrador.findById(sol.params.id).exec();
 			promise.then(function (admin) {
 				res.locals.nombre = admin.nombres+" "+admin.apellidos;
@@ -150,7 +151,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarCc")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Administrador.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
@@ -165,7 +166,7 @@ module.exports = function (app) {
 
 	//verficar el registro del correo electronico
 		router.route("/validarEmail")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Administrador.findOne({email:sol.body.value}).exec();
 				promise
 					.then(function (admin) {

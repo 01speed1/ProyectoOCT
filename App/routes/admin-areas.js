@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var session = require("../../config/session"); //session.admin, 
 var gestorImagenes = require("../../config/gestorImagenes");
 var router = express.Router();
 
@@ -18,7 +19,7 @@ module.exports = function (app) {
 
 	//ver todas areas
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Areas",
 				paginate: "areas",
@@ -58,7 +59,7 @@ module.exports = function (app) {
 
 	//Agregar un nueva area
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				title: "Nueva Area",
 				page_title: "Crear Area"
@@ -84,7 +85,7 @@ module.exports = function (app) {
 					res.render("Admin/Areas/nuevo", locals);
 				})	
 		})
-		.post(uploader.cargarNuevoBackground, function (sol, res) {
+		.post(session.admin, uploader.cargarNuevoBackground, function (sol, res) {
 			var data = {
 				nombre: sol.body.nombre,
 				descripcion : sol.body.descripcion,
@@ -110,7 +111,7 @@ module.exports = function (app) {
 
 	//modificar y eliminar area
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			var promise2 = Escuela.find({}).exec();
 			promise2
 				.then(function (escuelas) {
@@ -141,7 +142,7 @@ module.exports = function (app) {
 						})
 				})
 		})
-		.put(uploader.cargarNuevoBackground, function (sol, res, next) {
+		.put(session.admin, uploader.cargarNuevoBackground, function (sol, res, next) {
 			var promise = Area.findById(sol.params.id).exec();
 			promise
 			.then(function (area) {
@@ -172,7 +173,7 @@ module.exports = function (app) {
 				res.json(err);
 			});
 		}, uploader.borrarBackground)
-		.delete(function (sol, res, next) {
+		.delete(session.admin, function (sol, res, next) {
 			var promise = Area.findById(sol.params.id).exec();
 			promise.then(function (escuela) {
 				res.locals.nombre = escuela.nombre;
@@ -192,7 +193,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarNombre")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Area.findOne({nombre:sol.body.value}).exec();
 				promise
 				.then(function (area) {

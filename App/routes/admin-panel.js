@@ -1,4 +1,5 @@
 var express = require("express");
+var session = require("../../config/session"); //session.admin,
 var router = express.Router();
 
 //routes Administradores
@@ -11,7 +12,7 @@ module.exports = function (app) {
 
 	//cargar el panel de administracion
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			var locals = {
 				usuario: sol.session.user,
 				page_title: "Panel de Administración",

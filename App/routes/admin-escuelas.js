@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var session = require("../../config/session"); //session.admin, 
 var gestorImagenes = require("../../config/gestorImagenes");
 var router = express.Router();
 
@@ -18,7 +19,7 @@ module.exports = function (app) {
 
 	//ver todas las escuelas
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Escuelas",
 				paginate: "escuelas",
@@ -57,14 +58,14 @@ module.exports = function (app) {
 
 	//Agregar un nueva escuela
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				title: "Nueva Escuela",
 				page_title: "Crear Escuela"
 			}
 			res.render("Admin/Escuelas/nuevo", locals);
 		})
-		.post(uploader.cargarNuevoBackground, function (sol, res) {
+		.post(session.admin, uploader.cargarNuevoBackground, function (sol, res) {
 
 			var data = {
 				nombre: sol.body.nombre,
@@ -86,12 +87,11 @@ module.exports = function (app) {
 					res.redirect("/admin/escuelas");
 				}
 			});
-
 		});
 
 	//modificar y eliminar escuela
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			Escuela.findById(sol.params.id, function (err, escuela) {
 				locals={
 					escuela:escuela,
@@ -101,7 +101,7 @@ module.exports = function (app) {
 				res.render("Admin/Escuelas/editar", locals);
 			})
 		})
-		.put(uploader.cargarNuevoBackground, function (sol, res, next) {
+		.put(session.admin, uploader.cargarNuevoBackground, function (sol, res, next) {
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise
 			.then(function (escuela) {	
@@ -131,7 +131,7 @@ module.exports = function (app) {
 				res.json(err);
 			});
 		},uploader.borrarBackground)
-		.delete(function (sol, res, next) {
+		.delete(session.admin, function (sol, res, next) {
 
 			var promise = Escuela.findById(sol.params.id).exec();
 			promise.then(function (escuela) {
@@ -152,7 +152,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarNombre")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Escuela.findOne({nombre:sol.body.value}).exec();
 				promise
 				.then(function (escuela) {
@@ -164,7 +164,6 @@ module.exports = function (app) {
 					res.json(err);
 				})
 			}) 
-
 		
 app.use("/admin/escuelas", router);
 };

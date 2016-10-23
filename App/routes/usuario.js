@@ -21,44 +21,47 @@ module.exports = function (app) {
 
 	router.route("/:nombreUsuario")
 		.get(session.user, function (sol, res) {
-			var promise = Usuario.findOne({nombreUsuario:sol.params.nombreUsuario}).exec()
-			promise
-				.then(function (user) {
-					if (!user && sol.session.usuario_id) {
-						res.redirect("/usuario/"+sol.session.user.nombreUsuario)
-					} else{
-						locals.user = user
-						locals.session = sol.session.Usuario_id
+			locals={
+				title: "perfil de "+sol.params.nombreUsuario
+			}
 
-						return Grupos.find().exec();
-						
-					}		
+			var promise = Usuario.findOne({nombreUsuario:sol.params.nombreUsuario}).exec()
+
+			promise
+				.then(function (usuario) {
+
+					if (sol.session.usuario_id == usuario.id) {
+						locals.user = usuario
+					} else {
+						res.redirect("/usuario/"+sol.session.user.nombreUsuario)
+					}
+
+					
+
+					return Grupos.find().populate("profesor").exec();
+
 				})
 				.then(function (grupos) {
-
 					locals.misGrupos = []
 
-					if (grupos.length==0) {
+					var gruposl = grupos.length;
+
+					if (gruposl==0) {
 						locals.misGrupos=0
 					}
 
-					for (var i = 0; i < grupos.length; i++) {
+					for (var i = 0; i < gruposl; i++) {
 						var grupo = grupos[i].estudiantes;
-						for (var i = 0; i < grupo.length; i++) {
-							if (grupo[i]==sol.session.usuario_id) {
+						for (var j = 0; j < grupo.length; j++) {
+							if (grupo[j]==sol.session.usuario_id) {
 								locals.misGrupos.push(grupos[i])
-							}
-							//grupo[i]
-						}
+							}								
+						}	
 					}
-					//console.log(locals.misGrupos);
-					//res.send(locals.misGrupos);
 
-					res.render("Usuario/perfil", locals);
+					res.render("Usuario/perfil", locals)
 				})
-				.error(function (err) {
-					res.json(err)
-				})
+
 		})
 
 

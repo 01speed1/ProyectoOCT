@@ -31,6 +31,10 @@ module.exports = function (app) {
 					if (user.contraseña==passCrypt && user.nombreUsuario==identi) {
 						sol.session.usuario_id=user.id;
 						sol.session.user=user;
+
+						//precargar los grupos
+						
+
 						if (user.tipo == "ADMINISTRADOR") {
 							sol.session.EsAdmin = true
 							res.redirect("/admin");

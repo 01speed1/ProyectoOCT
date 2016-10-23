@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var session = require("../../config/session"); //session.admin, 
 var crypto = require('../../config/crypto.js')
 
 var router = express.Router();
@@ -15,7 +16,7 @@ module.exports = function (app) {
 
 	//ver todos los Estudiantes
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Estudiante",
 				paginate: "estudiantes",
@@ -59,13 +60,13 @@ module.exports = function (app) {
 
 	//Agregar un nuevo Estudiante
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			res.redirect("/registro");
 		})
 
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			Estudiante.findById(sol.params.id, function (err, estudiante) {
 				locals={
 					estudiante:estudiante,
@@ -75,7 +76,7 @@ module.exports = function (app) {
 				res.render("Admin/Estudiantes/editar", locals);
 			})
 		})
-		.put(function (sol, res) {
+		.put(session.admin, function (sol, res) {
 			var promise = Estudiante.findById(sol.params.id).exec();
 
 			promise.then(function (estudiante) {
@@ -99,7 +100,7 @@ module.exports = function (app) {
 				res.json(err);
 			});
 		})
-		.delete(function (sol, res) {
+		.delete(session.admin, function (sol, res) {
 			var promise = Estudiante.findById(sol.params.id).exec();
 			promise
 			.then(function (profe) {
@@ -118,7 +119,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarCc")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Profesor.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
@@ -133,7 +134,7 @@ module.exports = function (app) {
 
 	//verficar el registro del correo electronico
 		router.route("/validarEmail")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Profesor.findOne({email:sol.body.value}).exec();
 				promise
 					.then(function (admin) {

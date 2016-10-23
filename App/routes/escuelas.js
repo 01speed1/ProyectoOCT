@@ -19,6 +19,10 @@ module.exports = function (app) {
 				title: "Escuelas de formación",
 				page_title: "Panel de escuelas"};
 
+			if (sol.session.usuario_id) {
+				locals.user = sol.session.user
+			}
+
 			var paginate_option = {
 				page: sol.query.page, 
 				limit: 6,

@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var session = require("../../config/session"); //session.admin, 
 var gestorImagenes = require("../../config/gestorImagenes");
 var router = express.Router();
 
@@ -18,23 +19,23 @@ module.exports = function (app) {
 
 	//ver todos los grupos
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 
-				locals={
-					usuario: sol.session.user,
-					tipoDeUsuairo: "Grupos",
-					paginate: "grupos",
-					title: "Grupos",
-					page_title: "Panel de Grupos"
-				};
+			locals={
+				usuario: sol.session.user,
+				tipoDeUsuairo: "Grupos",
+				paginate: "grupos",
+				title: "Grupos",
+				page_title: "Panel de Grupos"
+			};
 
-				var paginate_option = {
-				populate: ["profesor","area"],
-				page: sol.query.page,
-				limit: 10,
-				offset: (sol.query.page-1)*10,
-				sort: {nombres:1}
-				}
+			var paginate_option = {
+			populate: ["profesor","area"],
+			page: sol.query.page,
+			limit: 10,
+			offset: (sol.query.page-1)*10,
+			sort: {nombres:1}
+			}
 
 			var promise = Grupo.paginate({},paginate_option)
 			promise
@@ -60,14 +61,12 @@ module.exports = function (app) {
 					console.log(err);
 					res.json(err);
 				})
-
-
 		})
 
 
 	//crear grupo
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
 				usuario: sol.session.user,
 				title: "Nuevo Grupo",
@@ -96,7 +95,7 @@ module.exports = function (app) {
 					res.json(err);
 				})
 		})
-		.post(function (sol, res) {
+		.post(session.admin, function (sol, res) {
 			//ajustar hora para almacenarla
 				var hourStart=parseInt(sol.body.horaInicio), hourEnd=parseInt(sol.body.horaFin);
 					if (sol.body.AMPMInicio=="PM") {
@@ -136,14 +135,14 @@ module.exports = function (app) {
 						res.redirect("/admin/grupos");
 					}
 				})
-
 		//
 		})
 
 	//editar grupo
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				title: "Editar Grupo",
 				page_title: "Editar Grupo"
 			}
@@ -179,7 +178,7 @@ module.exports = function (app) {
 			});
 
 		})
-		.put(function (sol, res) {
+		.put(session.admin, function (sol, res) {
 			//console.log(sol.body)
 
 			//ajustar hora para almacenarla
@@ -235,7 +234,7 @@ module.exports = function (app) {
 			})
 
 		})
-		.delete(function (sol, res) {
+		.delete(session.admin, function (sol, res) {
 
 			var promise = Grupo.findById(sol.params.id).exec();
 			promise

@@ -98,7 +98,7 @@
 				//ejecutar primer swal
 				swal({
 					title:"¿Seguro que quieres borrar este registro de tipo: "+config.tipoUsuario+"?",
-					text:"Este registro se perdera permanentemente y no se podra recuperar.",
+					text:"Este registro se perdera permanentemente.",
 					type:"warning",
 					showCancelButton: true,
 					cancelButtonText: "NO! aún no",
@@ -108,7 +108,6 @@
 				  closeOnCancel: true
 				},
 				function (isConfirm) {
-					alert(isConfirm)
 					if (isConfirm) {
 						redireccionarPOST(config.hrefDelete);
 					}
@@ -144,7 +143,7 @@
 				url:url,
 				success: function (res) {
 					console.log(res);
-					window.location.assign(res);
+					//window.location.assign(res);
 				}
 			}).fail(function () {
 				alert("WTF")

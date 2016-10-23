@@ -24,6 +24,11 @@ module.exports = function (app) {
 				paginate: "grupos",
 				title: "Grupos"};
 
+			if (sol.session.usuario_id) {
+				locals.user = sol.session.user,
+				locals.usuario_id = sol.session.usuario_id
+			}
+
 			var paginate_option = {
 				populate: "profesor",
 				page: sol.query.page,
@@ -34,7 +39,23 @@ module.exports = function (app) {
 			var promise = Grupo.paginate({}, paginate_option);
 			promise
 			.then(function (grupos) {
-				locals.grupos=grupos.docs;
+
+				var gruposConProfesores = []
+
+				for (var i = 0; i < grupos.docs.length; i++) {
+					if (grupos.docs[i].estado != "SIN PROFESOR") {
+						gruposConProfesores.push(grupos.docs[i]);
+						console.log(grupos.docs[i])
+					}	
+				}
+
+				if (gruposConProfesores.length==0) {
+					locals.grupos=grupos.docs
+				} else {
+					locals.grupos = gruposConProfesores
+				}
+
+				//locals.grupos=grupos.docs;
 				locals.page = sol.query.page;
 				locals.limit = grupos.limit;
 				locals.total = grupos.total;
@@ -54,7 +75,10 @@ module.exports = function (app) {
 			})
 		})
 
-	//ver areas de una escuela
+	//ver informacion completa del grupo
+	router.route("/ver/:grupoId") //wait for it
+
+	//ver grupos de una area
 	router.route("/a/:areaId")
 		.get(function (sol, res) {
 			locals={
@@ -62,9 +86,13 @@ module.exports = function (app) {
 				paginate: "grupos/"+sol.params.areaId
 			}
 
+			if (sol.session.usuario_id) {
+				locals.user = sol.session.user,
+				locals.usuario_id = sol.session.usuario_id
+			}
+
 			var paginate_option = {
-				populate: "profesor",
-				//populate: "area",
+				populate: ["profesor", "area"],
 				page: sol.query.page,
 				limit: 6,
 				offset: (sol.query.page-1)*6,
@@ -74,11 +102,28 @@ module.exports = function (app) {
 			var promise = Grupo.paginate({area:sol.params.areaId}, paginate_option);
 				promise
 				.then(function (grupos) {
+
 					if (grupos.docs.length==0) {
 						sol.flash("toast", "Esta area no tiene grupos, veras todos los grupos")
 						res.redirect("/grupos")
 					}
-					locals.grupos=grupos.docs
+
+					var gruposConProfesores = []
+
+					for (var i = 0; i < grupos.docs.length; i++) {
+						if (grupos.docs[i].estado != "SIN PROFESOR") {
+							gruposConProfesores.push(grupos.docs[i]);
+							console.log(grupos.docs[i])
+						}	
+					}
+
+					if (gruposConProfesores.length==0) {
+						locals.grupos=grupos.docs
+					} else {
+						locals.grupos = gruposConProfesores
+					}
+
+					
 					locals.title = grupos.docs[0].area.nombre;
 					locals.page = sol.query.page;
 					locals.limit = grupos.limit;
@@ -105,6 +150,7 @@ module.exports = function (app) {
 	router.route("/reg/:grupoId")
 		.get(session.user, function (sol, res) {
 
+
 			var promise = Grupo.findById(sol.params.grupoId).exec()
 			promise
 				.then(function (grupo) {
@@ -114,7 +160,6 @@ module.exports = function (app) {
 						if (grupo.estudiantes[i]==sol.session.usuario_id) {
 							temp=grupo.estudiantes[i];
 						}
-						console.log(grupo.estudiantes[i])
 					}
 					if (temp != sol.session.usuario_id) {
 						grupo.estudiantes.push(sol.session.usuario_id)
@@ -128,6 +173,38 @@ module.exports = function (app) {
 				})
 
 	})
+
+	//borrar usuarios de un grupo 
+	router.route("/del/:grupoId/:userId")
+		.delete(session.user, function (sol, res) {
+			var promise = Grupo.findById(sol.params.grupoId).exec();
+			promise
+				.then(function (grupo) {
+
+					var grupoEst = grupo.estudiantes
+				
+					for (var i = 0; i < grupoEst.length; i++) {
+						if (grupoEst[i]==sol.params.userId) {
+							grupoEst.splice(i,1)
+						}
+					}
+
+					return grupo.save();
+				})
+				.then(function () {
+					
+					sol.flash("toast", "Saliste de un grupo")
+					res.redirect("/usuario/"+sol.session.user.nombreUsuario)
+
+				})
+
+				.error(function (err) {
+					res.json(err)
+				})
+
+		})
+
+
 //solicitudes Ajax
 
 

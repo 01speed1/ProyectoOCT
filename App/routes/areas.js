@@ -25,6 +25,10 @@ module.exports = function (app) {
 				title: "Areas",
 				page_title: "Panel de Areas"};
 
+			if (sol.session.usuario_id) {
+				locals.user = sol.session.user
+			}
+
 			var paginate_option = {
 				populate: "escuela",
 				page: sol.query.page,
@@ -61,6 +65,10 @@ module.exports = function (app) {
 			locals={
 				title: "Sin titulo",
 				paginate: "areas/"+sol.params.escuelaId
+			}
+
+			if (sol.session.usuario_id) {
+				locals.user = sol.session.user
 			}
 
 			var paginate_option = {

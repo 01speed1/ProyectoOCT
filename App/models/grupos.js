@@ -62,7 +62,7 @@ var	grupoSchema = mongoose.Schema({
 	},
 	estado:{
 		type:String,
-		enum:["NUEVO", "MODIFICADO", "VISTO"],
+		enum:["NUEVO", "MODIFICADO", "VISTO", "SIN PROFESOR"],
 		default:"NUEVO"
 	},
 	fechaModificado:{

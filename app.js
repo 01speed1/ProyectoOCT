@@ -9,6 +9,8 @@ require("./config/express.js")(app,express,config);
 
 app.get("/",function (sol, res) {
 
+	locals.title = "Bienvenido";
+
 	if (sol.session.usuario_id) {
 		locals.user = sol.session.user
 	}

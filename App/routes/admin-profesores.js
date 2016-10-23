@@ -1,6 +1,9 @@
 var express = require("express");
 var moment = require("moment");
 var paginate = require('express-paginate');
+var session = require("../../config/session"); //session.admin, 
+var crypto = require("../../config/crypto.js");
+
 var router = express.Router();
 
 
@@ -14,8 +17,9 @@ module.exports = function (app) {
 
 	//ver todos los Profesores
 	router.route("/")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				tipoDeUsuairo: "Profesor",
 				paginate: "profesores",
 				title: "Profesores",
@@ -58,14 +62,15 @@ module.exports = function (app) {
 
 	//Agregar un nuevo Profesor
 	router.route("/nuevo")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				title: "Nuevo profesor",
 				page_title: "Crear profesor"
 			}
 			res.render("Admin/profesores/nuevo", locals);
 		})
-		.post(function (sol, res) {
+		.post(session.admin, function (sol, res) {
 			locals={};
 			var nuevoProfesor = new Profesor();
 
@@ -94,9 +99,10 @@ module.exports = function (app) {
 
 	//modificar y eliminar administrador
 	router.route("/editar/:id")
-		.get(function (sol, res) {
+		.get(session.admin, function (sol, res) {
 			Profesor.findById(sol.params.id, function (err, profe) {
 				locals={
+					usuario: sol.session.user,
 					profe:profe,
 					page_title:"Modificar profesor",
 					title: "Modificar Profesor"
@@ -104,7 +110,7 @@ module.exports = function (app) {
 				res.render("Admin/Profesores/editar", locals);
 			})
 		})
-		.put(function (sol, res) {
+		.put(session.admin, function (sol, res) {
 			var promise = Profesor.findById(sol.params.id).exec();
 
 			promise.then(function (profe) {
@@ -114,29 +120,30 @@ module.exports = function (app) {
 				 		profe[key] = sol.body[key];
 				}};
 
+				profe.contraseñaValidar = profe.contraseña
+
 				profe.fechaModificado = moment();
 
 				return profe.save();
 			})
 			.then(function (profe) {
 				sol.flash("toast", "Profesor modificado");
-				res.redirect("/admin/administradores");
+				res.redirect("/admin/profesores");
 			})
 			.catch(function (err) {
 				res.json(err);
 			});
 		})
-		.delete(function (sol, res) {
+		.delete(session.admin, function (sol, res) {
 			var promise = Profesor.findById(sol.params.id).exec();
 			promise
 			.then(function (profe) {
-				res.locals.nombre = admin.nombres+" "+admin.apellidos;
-				return admin.remove();
-			})
-			.then(function () {
+				res.locals.nombre = profe.nombres+" "+profe.apellidos;
+				profe.remove();
 				sol.flash('toast', "Profesor "+res.locals.nombre+" eliminado");
 				res.send("/admin/profesores");
 			})
+
 			.catch(function (err) {
 				res.json(err);
 			});
@@ -145,7 +152,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarCc")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Profesor.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
@@ -160,7 +167,7 @@ module.exports = function (app) {
 
 	//verficar el registro del correo electronico
 		router.route("/validarEmail")
-			.post(function (sol, res) {
+			.post(session.admin, function (sol, res) {
 				var promise = Profesor.findOne({email:sol.body.value}).exec();
 				promise
 					.then(function (admin) {

@@ -128,5 +128,30 @@ usuarioSchema.virtual("fechaSubmit")
 //plugins
 usuarioSchema.plugin(require('mongoose-paginate'));
 
+//pre
+var Grupo = require("../models/grupos.js");
+
+usuarioSchema.pre('remove', function (next) {
+
+	if (this.tipo = "PROFESOR"){
+		 var promise = Grupo.find({profesor: this.id}).exec()
+		 promise
+		 	.then(function (grupos) {
+		 		console.log(grupos)
+		 		for (var i = 0; i < grupos.length; i++) {
+		 			grupos[i].estado = "SIN PROFESOR"
+		 			//grupos[i].profesor = ""
+		 			grupos[i].save();
+		 		}
+		 	})
+		 	.error(function (err) {
+		 		res.json(err)
+		 	})
+	}
+
+	
+	next();
+})
+
 //export el schema como modelo
 module.exports = mongoose.model('Usuario', usuarioSchema);
