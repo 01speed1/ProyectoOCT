@@ -22,6 +22,7 @@ module.exports = function (app) {
 		.get(session.admin, function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Areas",
+				usuario: sol.session.user,
 				paginate: "areas",
 				title: "Areas",
 				page_title: "Panel de Areas"};
@@ -61,6 +62,7 @@ module.exports = function (app) {
 	router.route("/nuevo")
 		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				title: "Nueva Area",
 				page_title: "Crear Area"
 			}
@@ -133,6 +135,7 @@ module.exports = function (app) {
 					promise
 						.then(function (area) {
 							locals={
+								usuario: sol.session.user,
 								area:area,
 								page_title:"Modificar Escuela "+area.nombre,
 								title: "Modificar Escuela",

@@ -18,6 +18,7 @@ module.exports = function (app) {
 	router.route("/")
 		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				tipoDeUsuairo: "Estudiante",
 				paginate: "estudiantes",
 				title: "Estudiantes",
@@ -70,6 +71,7 @@ module.exports = function (app) {
 			Estudiante.findById(sol.params.id, function (err, estudiante) {
 				locals={
 					estudiante:estudiante,
+					usuario: sol.session.user,
 					page_title:"Modificar estudiante",
 					title: "Modificar Estudiante"
 				}
@@ -82,12 +84,13 @@ module.exports = function (app) {
 			promise.then(function (estudiante) {
 				for(var key in sol.body){
 					if (typeof key != undefined) {
-						//console.log(key+":"+sol.body[key]);
+						console.log(key+":"+sol.body[key]);
 				 		estudiante[key] = sol.body[key];
 				}};
 
-				estudiante.contraseña = crypto.encrypt(sol.body.contraseña);
-				estudiante.contraseñaValidar = crypto.encrypt(sol.body.contraseñaValidar);
+				//estudiante.contraseña = crypto.encrypt(sol.body.contraseña);
+				//estudiante.contraseñaValidar = crypto.encrypt(sol.body.contraseñaValidar);
+				estudiante.contraseñaValidar = estudiante.contraseña
 				estudiante.fechaModificado = moment();
 
 				return estudiante.save();
@@ -96,7 +99,7 @@ module.exports = function (app) {
 				sol.flash("toast", "Estudiante modificado");
 				res.redirect("/admin/estudiantes");
 			})
-			.catch(function (err) {
+			.error(function (err) {
 				res.json(err);
 			});
 		})

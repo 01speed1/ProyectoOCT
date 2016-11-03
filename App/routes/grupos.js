@@ -10,6 +10,7 @@ var locals={};
 //modelos DB
 var Area = require("../models/area");
 var Grupo = require("../models/grupos");
+var Estudiante = require("../models/usuarios");
 //middlewere para cargar imagenes
 //var uploader = require("../../config/gestorImagenes");
 
@@ -75,8 +76,49 @@ module.exports = function (app) {
 			})
 		})
 
-	//ver informacion completa del grupo
-	router.route("/ver/:grupoId") //wait for it
+	//ver informacion completa de un  grupo
+	router.route("/ver/:grupoId")
+		.get(function (sol, res) {
+
+			locals={
+				title: "Grupo",
+				user: sol.session.user,
+				usuario_id:sol.session.usuario_id
+
+			}
+
+			var areaPopulate = {
+				path:"area",
+				select:"nombre escuela background", 
+				populate:{
+					path:"escuela", 
+					select:"nombre background"
+				}
+			}
+
+			var estudiantesPopulate = {
+				path:"estudiantes"
+			}
+
+			var promise = Grupo.findById(sol.params.grupoId)
+			.populate(areaPopulate)
+			.populate(estudiantesPopulate)
+			.populate("profesor")
+			.exec();
+			promise.then(function (grupo) {
+				locals.grupo = grupo
+				locals.title = grupo.nombre
+				
+			})
+			.then(function (area) {
+
+				res.render("Home/Grupos/one", locals)
+			})
+			.error(function (err) {
+				res.json(err)
+			})
+
+		})
 
 	//ver grupos de una area
 	router.route("/a/:areaId")
@@ -165,7 +207,8 @@ module.exports = function (app) {
 						grupo.estudiantes.push(sol.session.usuario_id)
 						grupo.save();
 						sol.flash("toast", "registro exito en el nuevo grupo")
-						res.redirect("/usuario/"+sol.session.user.nombreUsuario)
+						res.redirect("/usuario/"+sol.session.user.nombreUsuario);
+						
 					}else{
 						sol.flash("toast", "Ya estas registrado en ese grupo")
 						res.redirect("/grupos")

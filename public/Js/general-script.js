@@ -136,14 +136,22 @@
 					}
 				});
 			}
-
+	//verificar si un valor ya esta en uso pero no borra el campo
+		var verificar_dato2 = function (selector, url) {
+				var data = {value:selector.val()};
+				$.post(url,data,function (res) {
+					if(res){
+						swalCancelar("Ups!", res);
+					}
+				});
+			}
 	//redireccionar a la url que se pase por parametro
 		var redireccionarPOST = function (url) {
 			$.post({
 				url:url,
 				success: function (res) {
-					console.log(res);
-					//window.location.assign(res);
+					//console.log(res);
+					window.location.assign(res);
 				}
 			}).fail(function () {
 				alert("WTF")
@@ -235,3 +243,9 @@
 				}
 				return array
 			}
+
+	//lanzar toast
+		var msn = $("div.toast").text();
+		if (msn){
+			Materialize.toast(msn, 4000);
+		}

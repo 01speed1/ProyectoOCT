@@ -1,0 +1,34 @@
+form#nuevo-usuario.s12.km.gbrd(
+	method="POST"
+	action="/login")
+	.row
+		.input-field.col.s11
+			i.material-icons.prefix.grey-icons account_box
+			input#nombreUsuario.nombreUsuario(
+				name="nombreUsuario"
+				type="text"
+				data-error=".errorTxt5")
+			label(for="nombreUsuario") Nombre de usuario
+			.errorTxt5
+	.row
+		.input-field.col.s11
+			i.material-icons.prefix.grey-icons lock
+			input(
+				id="contraseña"
+				name="contraseña"
+				type="password"
+				data-error=".errorTxt7")
+			label(for="contraseña") Contraseña
+			.errorTxt7
+	.divider
+	.row.km
+		.col.s12.center-align
+			a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+				href="/") regresar
+				i.material-icons.left close
+			button.waves-effect.waves-light.btn.sbt.cyan(
+			type="submit"
+			name="estado") Inisiar sesion
+			br
+			br
+			a(href="/registro").center-align No tengo cuenta

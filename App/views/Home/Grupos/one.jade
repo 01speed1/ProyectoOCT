@@ -1,0 +1,82 @@
+extends ../../layout
+block contenido
+	include ../Ext/nav-bar-home.jade
+	.container
+			.card-panel
+				.row.km
+					.col.l3
+						.center
+							span.grey-text Escuela: #{grupo.area.escuela.nombre}
+							img.responsive-img(src="#{grupo.area.escuela.background}" style="margin-top: 2rem;")
+							span.grey-text Area: #{grupo.area.nombre}
+							img.responsive-img(src="#{grupo.area.background}" style="margin-top: 2rem;")
+							
+
+					.col.l9
+						h4.title-style #{grupo.nombre}
+						//fecha inicio fecha fin
+						.row
+							.col.l5
+								span.grey-text Fecha de inicio
+								p.descripcion.km #{grupo.fechaInicioPretty} 
+							.col.l5
+								span.grey-text Fecha de finalizacion
+								p.descripcion.km #{grupo.fechaFinPretty}
+						.divider
+						.row
+							.col.l5
+								span.grey-text Horario
+								p.descripcion.km #{grupo.horario} 
+							.col.l5
+								span.grey-text Dias de clase 
+								each dias in grupo.diasDeClase
+									p.descripcion.km #{dias}
+						.divider
+						.row
+							.col.l5
+								span.grey-text Area 
+								p.descripcion.km #{grupo.area.nombre} - #{grupo.area.escuela.nombre}
+							.col.l5
+								span.grey-text limite de estudiantes 
+								if grupo.limiteEstudiantes <= 0 
+									p.descripcion.km Sin limite
+								else
+									p.descripcion.km #{grupo.limiteEstudiantes}
+				.row.km
+					.spacer
+					.center
+						if user
+							- var validador=false
+							- for (var a = 0; a < grupo.estudiantes.length; a++) {
+								if grupo.estudiantes[a].id==usuario_id
+									- validador = true
+									a.btn.large.disabled registrado	 
+							-}
+							if validador==false
+								a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") registrarse ya
+						else
+							p.km Debes iniciar session para poder registrarte
+							a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") iniciar sesion 
+
+			.row.km 
+				h4.title-style Profesor
+				.collection
+					li.collection-item.avatar
+						img.circle(src="#{grupo.profesor.avatar}")
+						p.title.descripcion #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
+						p 
+							|#{grupo.profesor.nombreUsuario}
+							br
+							a(href="/usuario/#{grupo.profesor.nombreUsuario}") ver perfil
+				h4.title-style Estudiantes 
+				.collection
+					each estudiante in grupo.estudiantes	
+						li.collection-item.avatar
+							img.circle(src="#{estudiante.avatar}")
+							p.title.descripcion #{estudiante.nombres} #{estudiante.apellidos}
+							p 
+								|#{estudiante.nombreUsuario}
+								br
+								a(href="/usuario/#{estudiante.nombreUsuario}") ver perfil
+							
+									

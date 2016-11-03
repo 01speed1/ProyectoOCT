@@ -44,9 +44,10 @@ var	grupoSchema = mongoose.Schema({
 		require: true
 	},
 	//lista de usuarios en el grupo
-	estudiantes:[
-	{type:  mongoose.Schema.Types.ObjectId}
-	],
+	estudiantes:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Usuario"
+	}],
 	//campos de creacion
 	background:{
 		type:String,

@@ -69,6 +69,10 @@ var	usuarioSchema = mongoose.Schema({
 		type:String,
 		default: "http://goo.gl/3Fy64e"
 	},
+	avatar_id:{
+		type:String,
+		default: "default-img-profile_crowfz"
+	},
 	background:{
 		type:String,
 		default:"https://goo.gl/XIEAys"

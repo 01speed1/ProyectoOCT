@@ -31,7 +31,7 @@ block contenido
 						.col.s6
 							.card.ligth-green
 								.card-content
-									a.card-title.mini-header(href="/" ) #{arrayGrupos[i].nombre} 
+									a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
 									.row.km
 										.col.s6
 											br
@@ -44,6 +44,7 @@ block contenido
 											br
 											span #{arrayGrupos[i].estudiantes.length}
 								.card-action.center-align
+									a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[i].id}") ver grupo
 									if user
 										- var validador=false
 										- for (var a = 0; a < arrayGrupos[i].estudiantes.length; a++) {
@@ -62,7 +63,7 @@ block contenido
 							.col.s6
 								.card.ligth-green
 									.card-content
-										a.card-title.mini-header(href="/") #{arrayGrupos[j].nombre} 
+										a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}") #{arrayGrupos[ij].nombre} 
 										.row.km
 											.col.s6
 												br
@@ -75,6 +76,7 @@ block contenido
 												br
 												span #{arrayGrupos[j].estudiantes.length}
 									.card-action.center-align
+										a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[j].id}") ver grupo
 										if user
 											- var validador=false
 											- for (var b = 0; b < arrayGrupos[j].estudiantes.length; b++) {

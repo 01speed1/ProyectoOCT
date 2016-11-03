@@ -22,6 +22,7 @@ module.exports = function (app) {
 		.get(session.admin, function (sol, res) {
 			locals={
 				tipoDeUsuairo: "Escuelas",
+				usuario: sol.session.user,
 				paginate: "escuelas",
 				title: "Escuelas",
 				page_title: "Panel de escuelas"};
@@ -61,6 +62,7 @@ module.exports = function (app) {
 		.get(session.admin, function (sol, res) {
 			locals={
 				title: "Nueva Escuela",
+				usuario: sol.session.user,
 				page_title: "Crear Escuela"
 			}
 			res.render("Admin/Escuelas/nuevo", locals);
@@ -95,6 +97,7 @@ module.exports = function (app) {
 			Escuela.findById(sol.params.id, function (err, escuela) {
 				locals={
 					escuela:escuela,
+					usuario: sol.session.user,
 					page_title:"Modificar Escuela "+escuela.nombre,
 					title: "Modificar Escuela"
 				}
@@ -147,7 +150,7 @@ module.exports = function (app) {
 			.error(function (err) {
 				res.json(err);
 			});
-		},uploader.borrarBackground)
+		},uploader.borrarBackground);
 
 //solicitudes Ajax
 	//verificar el registro de la cedula

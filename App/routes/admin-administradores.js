@@ -18,7 +18,7 @@ module.exports = function (app) {
 	router.route("/")
 		.get(session.admin, function (sol, res) {
 			locals={
-				usuario: sol.session.usuario,
+				usuario: sol.session.user,
 				tipoDeUsuairo: "Administrador",
 				paginate: "administradores",
 				title: "Administradores",
@@ -63,6 +63,7 @@ module.exports = function (app) {
 	router.route("/nuevo")
 		.get(session.admin, function (sol, res) {
 			locals={
+				usuario: sol.session.user,
 				title: "Nuevo administrador",
 				page_title: "Crear administrador"
 			}
@@ -105,6 +106,7 @@ module.exports = function (app) {
 			Administrador.findById(sol.params.id, function (err, admin) {
 				locals={
 					admin:admin,
+					usuario: sol.session.user,
 					page_title:"Modificar administrador",
 					title: "Modificar administrador"
 				}
@@ -151,7 +153,7 @@ module.exports = function (app) {
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarCc")
-			.post(session.admin, function (sol, res) {
+			.post( function (sol, res) {
 				var promise = Administrador.findOne({numeroDocumento:sol.body.value}).exec();
 				promise
 				.then(function (admin) {
@@ -166,7 +168,7 @@ module.exports = function (app) {
 
 	//verficar el registro del correo electronico
 		router.route("/validarEmail")
-			.post(session.admin, function (sol, res) {
+			.post( function (sol, res) {
 				var promise = Administrador.findOne({email:sol.body.value}).exec();
 				promise
 					.then(function (admin) {

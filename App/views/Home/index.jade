@@ -10,9 +10,10 @@ block contenido
 		.row.section
 			.col.s6
 				div.divider-line
-					h3.title-style Soy Usuario frecuente
+					h3.title-style Soy usuario frecuente
 					p.index-text Iniciar sesion
-					form.s12
+					include ./Ext/form-login
+					//form.s12
 						.row
 							.input-field.col.s11
 								i.material-icons.prefix.grey-icons account_circle
@@ -28,7 +29,7 @@ block contenido
 									type="password")
 								label(for="pass") Contraseña
 					//.divider
-					.row
+					//.row
 						.col.s12.center-align
 							button.waves-effect.waves-light.btn-large.sbt.cyan(
 							type="submit"
@@ -42,7 +43,7 @@ block contenido
 				.spacer
 				.row
 						.col.s12.center-align
-							a.waves-effet-waves-light.btn-large.cyan.sbt Registrarse
+							a(href="/registro").waves-effet-waves-light.btn-large.cyan.sbt Registrarse
 				.spacer
 				.spacer
 				.spacer
@@ -62,7 +63,7 @@ block contenido
 				.spacer
 				.row.km
 					.col.s12.center-align
-						a.waves-effet-waves-light.btn-large.cyan.sbt Ver Escuelas de formacion
+						a(href="/escuelas").waves-effet-waves-light.btn-large.cyan.sbt Ver Escuelas de formacion
 				.spacer
 				.spacer
 				.spacer

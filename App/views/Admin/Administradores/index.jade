@@ -57,7 +57,7 @@ block contenido
 											td #{admin.ultimaModi}
 								.divider
 								.center-align.white
-									a.btn.sbt.cyan() ver perfil
+									a.btn.sbt.cyan(href="/usuario/#{admin.nombreUsuario}") ver perfil
 										i.material-icons.right account_box
 									a.btn.sbt.cyan(
 										href="/admin/administradores/editar/#{admin.id}") modificar

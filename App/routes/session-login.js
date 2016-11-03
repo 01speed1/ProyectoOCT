@@ -14,7 +14,7 @@ module.exports = function (app) {
 		.get(function (sol, res) {
 			res.render("Session/login");
 		})
-		.post(function (sol, res) {
+		.post(function (sol, res) { 
 
 			//encriptar la contrasea
 				var passCrypt =  crypto.encrypt(sol.body.contraseña);
@@ -24,16 +24,20 @@ module.exports = function (app) {
 			var promise = Estudiante.findOne({nombreUsuario:identi}).exec();
 
 			promise.then(function (user) {
+
+				if (sol.session.usuario_id) {
+					res.redirect("/usuario/"+user.nombreUsuario)
+				}
+
 				if (!user) {
 					sol.flash("toast", "Nombre de Usuario no encontrado");
 					res.redirect("/login");
 				}else{
-					if (user.contraseña==passCrypt && user.nombreUsuario==identi) {
-						sol.session.usuario_id=user.id;
-						sol.session.user=user;
 
-						//precargar los grupos
-						
+					if (user.contraseña==passCrypt && user.nombreUsuario==identi) {
+
+						sol.session.usuario_id=user.id;
+						sol.session.user=user;						
 
 						if (user.tipo == "ADMINISTRADOR") {
 							sol.session.EsAdmin = true
@@ -47,8 +51,6 @@ module.exports = function (app) {
 						console.log("todo mal")
 					}
 				}
-
-				
 			})
 
 		})

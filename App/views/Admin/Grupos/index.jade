@@ -22,8 +22,13 @@ block contenido
 									if grupo.estado == "NUEVO"
 										span.new.badge.cyan.gbrd(
 										data-badge-caption="Nuevo")
+									if grupo.estado == "SIN PROFESOR"
+										span.new.badge.red.gbrd(
+										data-badge-caption="Sin profesor")
 									a.collection-item #{grupo.nombre}
 								.mas-info.grey.lighten-4
+									if grupo.estado == "SIN PROFESOR"
+										p.red-text.center Este grupo nesecita ser modificado ya que el perfil del profesor fue borrado
 									.divider
 									table.responsive-table.centered
 										thead
@@ -35,9 +40,12 @@ block contenido
 												th limite de estudiantes
 										tbody
 											tr
-												td #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
+												if grupo.estado == "SIN PROFESOR"
+													td.red-text DESCONOCIDO 
+												else
+													td #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
 												td #{grupo.area.nombre}
-												td algun numero 
+												td #{grupo.estudiantes.length}
 												if grupo.limiteEstudiantes == 0
 													td sin limite
 												else 
@@ -54,7 +62,7 @@ block contenido
 												td #{grupo.horario}
 									.divider
 									.center-align.white
-										a.btn.sbt.cyan(href="/admin/grupos/#{grupo.id}") ver detalles
+										a.btn.sbt.cyan(href="/grupos/ver/#{grupo.id}") ver detalles
 										a.btn.sbt.cyan(
 										href="/admin/grupos/editar/#{grupo.id}") modificar
 											i.material-icons.right edit

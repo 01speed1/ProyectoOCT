@@ -8,9 +8,11 @@ block contenido
 						.card-content
 							span.card-title(style="font-size: 35px;") Iniciar Sesion 
 							p.descripcion.gbrd Hola de nuevo, Te estabamos esperando
-							form#nuevo-usuario.s12.km.gbrd(
-							method="POST"
-							action="/login")
+							include ../Home/Ext/form-login 
+
+							//form#nuevo-usuario.s12.km.gbrd(
+								method="POST"
+								action="/login")
 								.row
 									.input-field.col.s12
 										i.material-icons.prefix.grey-icons account_box

@@ -154,11 +154,7 @@ $(document).ready(function () {
 			}
 		})
 
-	//lanzar toast
-		var msn = $("div.toast").text();
-		if (msn){
-			Materialize.toast(msn, 4000);
-		}
+	
 
 //End script
 });

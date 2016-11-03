@@ -11,7 +11,14 @@ nav.light-green.black-text.animated.slideInDown
 			if user
 				- profileUrl = "/usuario/"+user.nombreUsuario;
 				li
-					a(href="#{profileUrl}") Mi Perfil
+					a.tooltipped(href="#{profileUrl}" 
+					data-position="bottom" 
+					data-delay="150" 
+					data-tooltip="#{user.nombreUsuario}") Mi Perfil
+				if user.tipo == "ADMINISTRADOR"
+					li
+						a(href="/admin") Panel de control
+
 				li
 					a(href="/logout") Cerrar sesion
 			else

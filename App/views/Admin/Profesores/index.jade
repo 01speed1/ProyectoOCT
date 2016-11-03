@@ -57,7 +57,7 @@ block contenido
 											td #{profe.ultimaModi}
 								.divider
 								.center-align.white
-									a.btn.sbt.cyan() ver perfil
+									a.btn.sbt.cyan(href="/usuario/#{profe.nombreUsuario}") ver perfil
 										i.material-icons.right account_box
 									a.btn.sbt.cyan(
 										href="/admin/profesores/editar/#{profe.id}") modificar

@@ -159,7 +159,7 @@ module.exports = function (app) {
 
 					locals.areas = areas;
 
-					var promiseProfesores = Profesor.find().exec();
+					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
 					promiseProfesores
 					.then(function (profesores) {
 						locals.profesores = profesores;

@@ -5,12 +5,12 @@ ul#slide-out.side-nav.fixed
 					img.background(
 					src="#{usuario.background}"
 					width="100%" height="auto")
-					a(href="#!user")
+					a(href="/usuario/#{usuario.nombreUsuario}")
 						img.circle(
 						src="#{usuario.avatar}")
-					a(href="#!name")
+					a(href="/usuario/#{usuario.nombreUsuario}")
 						span.white-text.name #{usuario.nombres} #{usuario.apellidos}
-					a(href="#!email")
+					a
 						span.white-text.email #{usuario.email}
 			//lista de enlaces
 			li
