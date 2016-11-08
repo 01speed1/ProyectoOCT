@@ -69,7 +69,7 @@ module.exports = function (app, express, config) {
 
 	//configruacion de glob
 	var glob = require("glob");
-	var routes = glob.sync(config.root + '/App/Routes/*.js');
+	var routes = glob.sync(config.root + '/App/routes/*.js');
 		routes.forEach(function (routes) {
 			require(routes)(app);  //parametro "routes es la direccion de las rutas" y app es express 
 		});
