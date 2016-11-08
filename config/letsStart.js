@@ -1,4 +1,4 @@
-var crypto = require("crypto")
+var crypto = require("./crypto.js")
 
 //inicar la crear del super admin
 var superAdmin = require("../App/models/usuarios");
@@ -10,7 +10,6 @@ module.exports = function (sol, res, next) {
 	promise
 	.then(function (result) {
 
-
 		if (result<=0) {
 			console.log("Iniciando aplicacion por primera vez")
 			var firstSuperAdmin = new superAdmin();
@@ -20,25 +19,26 @@ module.exports = function (sol, res, next) {
 			firstSuperAdmin.nombres = "Primer";
 			firstSuperAdmin.apellidos = "Super Administrador";
 			firstSuperAdmin.email = "0000@0000.com";
-			firstSuperAdmin.contraseña = crypto.encrypt("admin");
+			firstSuperAdmin.contraseña = crypto.encrypt("12345678");
+			firstSuperAdmin.contraseñaValidar = crypto.encrypt("12345678");
 			firstSuperAdmin.tipo = "ADMINISTRADOR";
 			firstSuperAdmin.estado ="VISTO";
 			firstSuperAdmin.superAdmin = true;
 
-			firstSuperAdmin.save(function (err) {
-				if (!err) {
-					console.log("primer super admin creado");
-					console.log("---------------")
-					console.log("bienvenido")
-					next();
-				}
-			})
+			return firstSuperAdmin.save()
 		}else{
 			console.log("hola de nuevo")
 			next();
 		}
-
 	})
+	.then(function (user) {
+
+			console.log("primer super admin creado");
+			console.log("---------------")
+			console.log("bienvenido")
+			next();
+				
+			})
 	.error(function (err) {
 		res.json(err);
 	})
