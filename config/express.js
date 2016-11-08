@@ -60,7 +60,7 @@ module.exports = function (app, express, config) {
 	app.set("view engine", "jade");
 
 	//configurar ruta para las vistas config.root+
-	app.set("views", config.root+"/App/Views");
+	app.set("views", config.root+"/App/views");
 
 	//Configuracion de body-parer
 	bodyParser 	= require('body-parser');
