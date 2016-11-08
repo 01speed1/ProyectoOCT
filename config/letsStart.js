@@ -1,7 +1,10 @@
 var crypto = require("./crypto.js")
 
 //inicar la crear del super admin
-var superAdmin = require("../App/models/usuarios.js");
+var mongoose = require("mongoose");
+var superAdmin = mongoose.model("Usuario");
+
+//var superAdmin = require("../App/models/usuarios.js");
 
 module.exports = function (sol, res, next) {
 

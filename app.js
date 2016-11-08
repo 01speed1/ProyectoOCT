@@ -1,6 +1,7 @@
 var express = require("express"), 
-	config		= require("./config/config.js"),
-	letStart	= require("./config/letsStart.js");
+	config		= require("./config/config.js");
+
+var letStart	= require("./config/letsStart.js");
 
 
 var app = express();
