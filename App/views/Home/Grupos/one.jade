@@ -4,15 +4,14 @@ block contenido
 	.container
 			.card-panel
 				.row.km
-					.col.l3
+					.col.l3.m3.hide-on-small-only
 						.center
 							span.grey-text Escuela: #{grupo.area.escuela.nombre}
 							img.responsive-img(src="#{grupo.area.escuela.background}" style="margin-top: 2rem;")
 							span.grey-text Area: #{grupo.area.nombre}
 							img.responsive-img(src="#{grupo.area.background}" style="margin-top: 2rem;")
 							
-
-					.col.l9
+					.col.l9.m9.12
 						h4.title-style #{grupo.nombre}
 						//fecha inicio fecha fin
 						.row
@@ -55,8 +54,8 @@ block contenido
 							if validador==false
 								a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") registrarse ya
 						else
-							p.km Debes iniciar session para poder registrarte
-							a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") iniciar sesion 
+							p.km.descripcion Debes iniciar sesión para poder registrarte
+							a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") iniciar sesión 
 
 			.row.km 
 				h4.title-style Profesor
@@ -69,14 +68,20 @@ block contenido
 							br
 							a(href="/usuario/#{grupo.profesor.nombreUsuario}") ver perfil
 				h4.title-style Estudiantes 
-				.collection
-					each estudiante in grupo.estudiantes	
-						li.collection-item.avatar
-							img.circle(src="#{estudiante.avatar}")
-							p.title.descripcion #{estudiante.nombres} #{estudiante.apellidos}
-							p 
-								|#{estudiante.nombreUsuario}
-								br
-								a(href="/usuario/#{estudiante.nombreUsuario}") ver perfil
+				if grupo.estudiantes.length <= 0
+					.card-panel
+							.center
+								h3.title-style Aun no hay ningún estudiante, ¡se el primero!
+								a.btn-large.cyan.sbt(href="/grupos/reg/#{grupo.id}") registrarse ya
+				else
+					.collection
+						each estudiante in grupo.estudiantes	
+							li.collection-item.avatar
+								img.circle(src="#{estudiante.avatar}")
+								p.title.descripcion #{estudiante.nombres} #{estudiante.apellidos}
+								p 
+									|#{estudiante.nombreUsuario}
+									br
+									a(href="/usuario/#{estudiante.nombreUsuario}") ver perfil
 							
 									

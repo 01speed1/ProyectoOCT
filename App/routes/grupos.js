@@ -46,7 +46,7 @@ module.exports = function (app) {
 				for (var i = 0; i < grupos.docs.length; i++) {
 					if (grupos.docs[i].estado != "SIN PROFESOR") {
 						gruposConProfesores.push(grupos.docs[i]);
-						console.log(grupos.docs[i])
+
 					}	
 				}
 
@@ -155,7 +155,7 @@ module.exports = function (app) {
 					for (var i = 0; i < grupos.docs.length; i++) {
 						if (grupos.docs[i].estado != "SIN PROFESOR") {
 							gruposConProfesores.push(grupos.docs[i]);
-							console.log(grupos.docs[i])
+
 						}	
 					}
 

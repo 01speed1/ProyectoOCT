@@ -10,6 +10,11 @@ html, body{
   height: 100%;
 }
 
+/*divider para collecion de usuarios en la vista del administrador*/
+li.collection-item.avatar, .elemento{
+  border-bottom: 1px solid #e0e0e0 !important;
+  border-radius: 2px;
+}
 /*modificar tabs*/
 .tabs .tab a{
   color:#00aeff !important;

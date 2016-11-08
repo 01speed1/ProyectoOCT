@@ -13,28 +13,6 @@ block contenido
 					h3.title-style Soy usuario frecuente
 					p.index-text Iniciar sesion
 					include ./Ext/form-login
-					//form.s12
-						.row
-							.input-field.col.s11
-								i.material-icons.prefix.grey-icons account_circle
-								input#userName(
-									name="userName"
-									type="text")
-								label(for="userName") Nombre de usuario
-							.input-field.col.s11
-								i.material-icons.prefix.grey-icons https
-								input(
-									id="pass"
-									name="pass"
-									type="password")
-								label(for="pass") Contraseña
-					//.divider
-					//.row
-						.col.s12.center-align
-							button.waves-effect.waves-light.btn-large.sbt.cyan(
-							type="submit"
-							) Entrar
-								i.material-icons.right check
 			.col.s6
 				h3.title-style Quiero registrarme
 				p.index-text ¿Que estas esperando?
@@ -51,7 +29,7 @@ block contenido
 	.divider
 	.spacer
 	//block ver ecuelas de formacion
-	.parallax-container
+	.parallax-container#arrowPoint
 		.parallax
 			img(src="https://goo.gl/NsjNMI")
 		.container
@@ -70,18 +48,12 @@ block contenido
 	//bloc contacto
 	.spacer
 	.divider
-	h2.center-align contacto
-	.spacer
-	.spacer
-	.spacer
+	include ./Ext/contacto.jade
 	.spacer
 	.divider
-	//accesos rapidos, depsues borrar 
-	a.waves-effect.waves-light.btn.sbt(
-	href="/admin") administración
+	.spacer
 
-	a.waves-effect.waves-light.btn.sbt(
-		href="/registro") registrarse
+
 
 block epecialjs
 	include ../Ext/front-scripts.jade

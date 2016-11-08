@@ -27,6 +27,7 @@ block contenido
 									p.grey-icons #{admin.nombreUsuario}
 										br
 										|  #{admin.email}
+
 							.mas-info.grey.lighten-4
 								.divider
 								table.responsive-table.centered
@@ -68,10 +69,8 @@ block contenido
 										method="POST")
 										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 											i.material-icons.right delete
+						.divider
+
 				include ../Ext/paginate.jade			
-
-
-
-
-
 block footer
+	include ../Ext/admin-footer.jade

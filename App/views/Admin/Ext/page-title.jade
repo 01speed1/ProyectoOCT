@@ -1,5 +1,16 @@
-div.green-line-header
+div.green-line-header.hide-on-med-and-down
+nav.hide-on-large-only.light-green.darken-3
+	.nav-wrapper
+		ul
+			li
+				a.button-collapse.white-text(data-activates="mobile-nav-bar-admin") 
+					i.material-icons.small menu
+		
 nav.top-nav.light-green
 	.container
 		.nav-wrapper
-			a.page-title #{page_title}
+			.hide-on-med-and-up
+				.spacer
+				.spacer
+				h4.km #{page_title}
+			a.page-title.hide-on-small-only #{page_title}

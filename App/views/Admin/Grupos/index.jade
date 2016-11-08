@@ -43,7 +43,8 @@ block contenido
 												if grupo.estado == "SIN PROFESOR"
 													td.red-text DESCONOCIDO 
 												else
-													td #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
+													td 
+														a(href="/usuario/#{grupo.profesor.nombreUsuario}") #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
 												td #{grupo.area.nombre}
 												td #{grupo.estudiantes.length}
 												if grupo.limiteEstudiantes == 0
@@ -73,8 +74,5 @@ block contenido
 											button.btn.sbt.red.prevenirBorarr(type="submit") borrar
 												i.material-icons.right delete
 						.divider
-				
-					
-
-
 block footer
+	include ../Ext/admin-footer.jade

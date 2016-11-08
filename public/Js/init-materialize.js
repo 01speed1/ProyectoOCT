@@ -25,6 +25,8 @@ $().ready(function () {
   //paralax
    $('.parallax').parallax();
 
+  //nav
+   $(".button-collapse").sideNav();
 })
 
 

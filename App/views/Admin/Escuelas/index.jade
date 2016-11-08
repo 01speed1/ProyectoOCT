@@ -23,7 +23,7 @@ block contenido
 					- n++;
 				- for (var i = 0; i < arrayEscuelas.length; i++) {
 					.row 
-						.col.s6
+						.col.l6.m6.s12
 							.card.large
 								.card-image
 									img(
@@ -43,7 +43,7 @@ block contenido
 											i.material-icons.right delete
 						-j=i+1;
 						-if (j < arrayEscuelas.length) {
-							.col.s6
+							.col.l6.m6.s12
 								.card.large
 									.card-image
 										img(
@@ -65,5 +65,5 @@ block contenido
 						-i=i+1;						
 				-}
 				include ../Ext/paginate.jade			
-
 block footer
+	include ../Ext/admin-footer.jade

@@ -14,7 +14,10 @@ module.exports = function (app) {
 
 	router.route("/")
 		.get(function (sol, res) {
-			res.render("Session/signup");
+
+			locals.title = "Nuevo registro"
+
+			res.render("Session/signup", locals);
 		})
 		.post(function (sol, res) {
 

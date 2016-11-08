@@ -28,7 +28,7 @@ block contenido
 				-var aLength = arrayGrupos.length
 				-for (var i = 0; i < aLength; i++) {
 					.row
-						.col.s6
+						.col.l6.m6.s12
 							.card.ligth-green
 								.card-content
 									a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
@@ -60,7 +60,7 @@ block contenido
 									
 						-j=i+1;
 						-if (j < aLength ) {
-							.col.s6
+							.col.l6.m6.s12
 								.card.ligth-green
 									.card-content
 										a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}" ) #{arrayGrupos[j].nombre} 

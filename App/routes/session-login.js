@@ -12,7 +12,10 @@ var locals={};
 module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
-			res.render("Session/login");
+
+			locals.title = "Iniciar sesion"
+
+			res.render("Session/login", locals);
 		})
 		.post(function (sol, res) { 
 

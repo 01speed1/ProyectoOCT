@@ -247,5 +247,9 @@
 	//lanzar toast
 		var msn = $("div.toast").text();
 		if (msn){
-			Materialize.toast(msn, 4000);
-		}
+			Materialize.toast(msn, 4000);}
+
+	//desplazamiento suave 
+		$("#irArrowPint").on("click", function(){
+			$("html,body").animate({ scrollTop : $("#arrowPoint").offset().top  }, 1500 );
+		});

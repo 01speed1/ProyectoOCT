@@ -4,22 +4,23 @@ block contenido
 
 	.container
 		.row.km
-			.col.l12
+			.col.s12
 				.card-panel
 					.row
-						.col.l3.s12
+						.col.l4.m4.s12
 							.center-align
+								h3.title-style.hide-on-med-and-up.km #{usuario.nombres} #{usuario.apellidos}
 								img.circle.circle-border(src="#{usuario.avatar}" style="margin-top: 2rem;" )
-						.col.l9.s12
+						.col.l8.m8.s12
 							.row
-								h3.title-style #{usuario.nombres} #{usuario.apellidos}
-								.col.l6.s12
+								h3.title-style.hide-on-small-only #{usuario.nombres} #{usuario.apellidos}
+								.col.s6
 									span.grey-text Nombre usuarios 
 									p#nomuserval.descripcion.km #{usuario.nombreUsuario}
 									br
 									span.grey-text Numero de documento 
 									p.descripcion.km #{usuario.tipoDocumento}: #{usuario.numeroDocumento}
-								.col.l6.s12
+								.col.s6
 									span.grey-text Correo Electronico 
 									p.descripcion.km #{usuario.email}
 									br
@@ -35,7 +36,6 @@ block contenido
 						li.tab.col.s3
 							a(href="#Configuracion") Configurar mi perfil
 						
-
 				div#misCursos
 					.spacer
 					- var n = 0;
@@ -44,16 +44,15 @@ block contenido
 					- var arrayGrupos = new Array();
 					if misGrupos.length == 0
 						.card-panel
-							if user.nombreUsuario == usuario.nombreUsuario
-								.center
+							.center
+								if user.nombreUsuario == usuario.nombreUsuario
 									h2.title-style Aun no están en ningún grupo
 									p Recuerda que puede unirte a un grupo en calquier momento
 									.row.km
 										a.btn.waves-effect.waves-light.cyan.sbt(href="/escuelas") ver escuelas
 										a.btn.waves-effect.waves-light.cyan.sbt(href="/areas") ver areas
 										a.btn.waves-effect.waves-light.cyan.sbt(href="/grupos") ver grupos
-							else
-								.center
+								else
 									h2.title-style #{ usuario.nombreUsuario} aun no esta en ningún grupo.
 
 					each grupo in misGrupos
@@ -62,10 +61,10 @@ block contenido
 					-var aLength = arrayGrupos.length
 					-for (var i = 0; i < aLength; i++) {
 						.row
-							.col.s6
+							.col.l6.m6.s12
 								.card.ligth-green
 									.card-content
-										a.card-title.mini-header(href="/" ) #{arrayGrupos[i].nombre} 
+										a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
 										.row.km
 											.col.s6
 												br
@@ -78,14 +77,16 @@ block contenido
 												br
 												span #{arrayGrupos[i].estudiantes.length}
 									.card-action.center-align
-										form(method="POST" action="/grupos/del/#{arrayGrupos[i].id}/#{usuario.id}?_method=DELETE")
-											button.btn.red.white-text(type="submit") Salir del grupo
+										a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[i].id}") ver grupo
+										if usuario.nombreUsuario == user.nombreUsuario
+											form(method="POST" action="/grupos/del/#{arrayGrupos[i].id}/#{usuario.id}?_method=DELETE")
+												button.btn.red.white-text(type="submit") Salir del grupo
 							-j=i+1;
 							-if (j < aLength ) {
-								.col.s6
+								.col.l6.m6.s12
 									.card.ligth-green
 										.card-content
-											a.card-title.mini-header(href="/" ) #{arrayGrupos[j].nombre} 
+											a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}" ) #{arrayGrupos[j].nombre} 
 											.row.km
 												.col.s6
 													br
@@ -98,8 +99,10 @@ block contenido
 													br
 													span #{arrayGrupos[i].estudiantes.length}
 										.card-action.center-align
-											form(method="POST" action="/grupos/del/#{arrayGrupos[j].id}/#{usuario.id}?_method=DELETE")
-											button.btn.red.white-text(type="submit") Salir del grupo
+											a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[j].id}") ver grupo
+											if usuario.nombreUsuario == user.nombreUsuario
+												form(method="POST" action="/grupos/del/#{arrayGrupos[j].id}/#{usuario.id}?_method=DELETE")
+													button.btn.red.white-text(type="submit") Salir del grupo
 							-}
 							-i=i+1
 					- }
@@ -256,3 +259,6 @@ block contenido
 	include ../Ext/tarjetas-mensajes.jade
 block epecialjs
 	include ../Ext/profile-scripts.jade
+
+
+

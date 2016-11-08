@@ -23,6 +23,7 @@ module.exports = function (app) {
 	router.route("/:nombreUsuario")
 		.get(session.user, function (sol, res) {
 			locals={
+
 				title: "Perfil de "+sol.params.nombreUsuario
 			}
 

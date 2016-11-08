@@ -6,54 +6,12 @@ block contenido
 				.col.l8.s12
 					.card(style="margin-top: 5rem; margin-bottom: 5rem;")
 						.card-content
-							span.card-title(style="font-size: 35px;") Iniciar Sesion 
-							p.descripcion.gbrd Hola de nuevo, Te estabamos esperando
+							span.card-title(style="font-size: 35px;") Iniciar sesión 
+							p.descripcion.gbrd ¡Hola de nuevo, Te estábamos esperando!
 							include ../Home/Ext/form-login 
-
-							//form#nuevo-usuario.s12.km.gbrd(
-								method="POST"
-								action="/login")
-								.row
-									.input-field.col.s12
-										i.material-icons.prefix.grey-icons account_box
-										input#nombreUsuario.nombreUsuario(
-											name="nombreUsuario"
-											type="text"
-											data-error=".errorTxt5")
-										label(for="nombreUsuario") Nombre de usuario
-										.errorTxt5
-								.row
-									.input-field.col.s12
-										i.material-icons.prefix.grey-icons lock
-										input(
-											id="contraseña"
-											name="contraseña"
-											type="password"
-											data-error=".errorTxt7")
-										label(for="contraseña") Contraseña
-										.errorTxt7
-								.divider
-								.row.km
-									.col.s12.center-align
-										a.waves-effect.waves-light.btn.sbt.white.grey-icons(
-											href="/") regresar
-											i.material-icons.left close
-										button.waves-effect.waves-light.btn.sbt.cyan(
-										type="submit"
-										name="estado") Inisiar sesion
-										br
-										br
-										a(href="/registro").center-align No tengo cuenta
-
-
-						//Rowkiller
+						//rowKiller
 						.row.km
 
 	include ../Ext/tarjetas-mensajes.jade
 block footer
-	footer.page-footer.light-green.fixfoo
-		.container
-			h5.center-align.white-text texto del footer en desarrollo
-		.footer-copyright
-			.container
-				| © 2016 Copyright Text
+	include ../Ext/pre-footer.jade
