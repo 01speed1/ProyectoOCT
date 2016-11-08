@@ -1,7 +1,7 @@
 var crypto = require("./crypto.js")
 
 //inicar la crear del super admin
-var superAdmin = require("../App/models/usuarios");
+var superAdmin = require("../App/models/usuarios.js");
 
 module.exports = function (sol, res, next) {
 
