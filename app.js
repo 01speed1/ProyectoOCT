@@ -13,8 +13,6 @@ require("./config/express.js")(app,express,config);
 
 app.get("/", function (sol, res) {
 
-	if (true) {}
-
 	locals.title = "Bienvenido";
 
 	if (sol.session.usuario_id) {
