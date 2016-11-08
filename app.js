@@ -1,7 +1,7 @@
 var express = require("express"), 
 	config		= require("./config/config.js");
 
-//var letStart	= require("./config/letsStart.js");
+var letStart	= require("./config/letsStart.js");
 
 
 var app = express();
@@ -20,7 +20,7 @@ app.get("/", function (sol, res) {
 		locals.user = sol.session.user
 	}
 
-	res.render("Home/index", locals);
+	res.render("Home/index.jade", locals);
 });
 
 app.get("*", function (sol, res) {
