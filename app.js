@@ -11,7 +11,7 @@ require("./config/express.js")(app,express,config);
 
 
 
-app.get("/",letStart, function (sol, res) {
+app.get("/", function (sol, res) {
 
 	if (true) {}
 
