@@ -33,6 +33,9 @@ block contenido
 									//p.descripcion #{arrayEscuelas[i].descripcion}
 								.card-action
 									a.btn.sbt.cyan(
+									href="/admin/areas/escuela/#{arrayEscuelas[i].id}") ver areas
+										i.material-icons.right 
+									a.btn.sbt.cyan(
 									href="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}") editar
 										i.material-icons.right edit
 									form.btn-borrar(
@@ -52,6 +55,9 @@ block contenido
 									.card-content 
 										//p.descripcion #{arrayEscuelas[j].descripcion}
 									.card-action
+										a.btn.sbt.cyan(
+											href="/admin/areas/escuela/#{arrayEscuelas[j].id}") ver areas
+											i.material-icons.right
 										a.btn.sbt.cyan(
 										href="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}") editar
 											i.material-icons.right edit

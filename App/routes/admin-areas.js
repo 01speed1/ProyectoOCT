@@ -58,6 +58,47 @@ module.exports = function (app) {
 			})
 		})
 
+	//ver areas de una escuela
+	router.route("/escuela/:escuelaId")
+		.get(session.admin, function (sol, res) {
+
+			locals={
+				tipoDeUsuairo: "Areas",
+				usuario: sol.session.user,
+				paginate: "areas",
+				title: "Areas",
+				page_title: "Panel de Areas"};
+
+			var paginate_option = {
+				populate: "escuela",
+				page: sol.query.page, 
+				limit: 10,
+				offset: (sol.query.page-1)*10,
+				sort: {nombres:1}
+				}
+			var promise = Area.paginate({escuela:sol.params.escuelaId}, paginate_option);
+			promise
+			.then(function (areas) {
+				
+				locals.areas=areas.docs;
+				locals.page = sol.query.page;
+				locals.limit = areas.limit;
+				locals.total = areas.total;
+			  locals.limit = areas.limit;
+			  locals.offset= areas.offset;
+			  var i = (areas.total/areas.limit);
+			  if(areas.total%areas.limit == 0){
+			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+			  }
+			  else{locals.pages = parseInt(i)+1;}
+
+				res.render("Admin/Areas/byEscuela",locals)
+			})
+			.error(function (err) {
+				console.log(err);
+				res.json(err);
+			})
+		})
 	//Agregar un nueva area
 	router.route("/nuevo")
 		.get(session.admin, function (sol, res) {

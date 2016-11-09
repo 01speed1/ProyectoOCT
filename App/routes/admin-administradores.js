@@ -150,6 +150,23 @@ module.exports = function (app) {
 			});
 		})
 
+	//convertir en super admin 
+	router.route("/sa/:id")
+		.get(session.admin, function (sol, res) {
+			var promise = Administrador.findById(sol.params.id).exec();
+			promise
+				.then(function (admin) {
+					admin.superAdmin = true;
+					admin.contraseñaValidar = admin.contraseña;
+					admin.estado = "MODIFICADO"
+					return admin.save();
+				})
+				.then(function (admin) {
+					sol.flash("toast", "ahora "+admin.nombre+" es super administrador");
+					res.redirect("/admin/administradores");
+				})
+		})
+
 //solicitudes Ajax
 	//verificar el registro de la cedula
 		router.route("/validarCc")

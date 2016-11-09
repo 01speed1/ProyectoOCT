@@ -14,10 +14,10 @@ $().ready(function () {
 		});
 
 //deplegar mensaje espera creando y actualizando escuela
-	$(".creando").click(function (event) {
+	/*$(".creando").click(function () {
 		MensajeDeEspera("creando", "escuela" );
 		
-	})
+	})*/
 
 	$(".modificando").click(function () {
 		var tipoUsuario = $("div.tipoUsuario.hide").text();

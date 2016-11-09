@@ -22,6 +22,9 @@ block contenido
 									if admin.estado == "NUEVO"
 										span.new.badge.cyan(
 										data-badge-caption="Nuevo")
+									if admin.superAdmin 
+										span.new.badge.green(
+										data-badge-caption="S.A")
 									img.circle(src="#{admin.avatar}")
 									span.title #{admin.nombres} #{admin.apellidos}
 									p.grey-icons #{admin.nombreUsuario}
@@ -63,12 +66,19 @@ block contenido
 									a.btn.sbt.cyan(
 										href="/admin/administradores/editar/#{admin.id}") modificar
 										i.material-icons.right edit
-									form.btn-borrar(
-										style="display: inline-block;"
-										action="/admin/administradores/editar/#{admin.id}?_method=DELETE"
-										method="POST")
-										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
-											i.material-icons.right delete
+									if usuario.superAdmin
+										form.btn-borrar(
+											style="display: inline-block;"
+											action="/admin/administradores/editar/#{admin.id}?_method=DELETE"
+											method="POST")
+											button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+												i.material-icons.right delete
+										unless admin.superAdmin
+											a.btn.sbt.cyan(
+											href="/admin/administradores/sa/#{admin.id}") convertir en S.A.
+												i.material-icons.right grade
+									
+										
 						.divider
 
 				include ../Ext/paginate.jade			

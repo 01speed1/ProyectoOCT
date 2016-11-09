@@ -1,7 +1,7 @@
 var express = require("express"), 
 	config		= require("./config/config.js");
 
-//var letStart	= require("./config/letsStart.js");
+var letStart	= require("./config/letsStart.js");
 
 
 var app = express();
@@ -12,7 +12,7 @@ require("./config/express.js")(app,express,config);
 
 
 
-app.get("/", function (sol, res) {
+app.get("/",letStart, function (sol, res) {
 
 	locals.title = "Bienvenido";
 

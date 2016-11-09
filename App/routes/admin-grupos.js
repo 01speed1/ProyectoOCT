@@ -63,6 +63,51 @@ module.exports = function (app) {
 				})
 		})
 
+	//ver grupos por area
+	router.route("/area/:areaId")
+		.get(session.admin, function (sol, res) {
+
+			locals={
+				usuario: sol.session.user,
+				tipoDeUsuairo: "Grupos",
+				paginate: "grupos",
+				title: "Grupos",
+				page_title: "Panel de Grupos"
+			};
+
+			var paginate_option = {
+			populate: ["profesor","area"],
+			page: sol.query.page,
+			limit: 10,
+			offset: (sol.query.page-1)*10,
+			sort: {nombres:1}
+			}
+
+			var promise = Grupo.paginate({area:sol.params.areaId},paginate_option)
+			promise
+				.then(function (grupos) {
+
+					locals.grupos=grupos.docs;
+					locals.page = sol.query.page;
+					locals.limit = grupos.limit;
+					locals.total = grupos.total;
+				  locals.limit = grupos.limit;
+				  locals.offset= grupos.offset;
+				  var i = (grupos.total/grupos.limit);
+				  if(grupos.total%grupos.limit == 0){
+				  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+				  }
+				  else{locals.pages = parseInt(i)+1;}
+
+				})
+				.then(function () {
+					res.render("Admin/Grupos/index", locals);
+				})
+				.error(function (err) {
+					console.log(err);
+					res.json(err);
+				})
+		})
 
 	//crear grupo
 	router.route("/nuevo")
