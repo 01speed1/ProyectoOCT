@@ -21,8 +21,8 @@ module.exports = function (app) {
 				usuario: sol.session.user,
 				tipoDeUsuairo: "Administrador",
 				paginate: "administradores",
-				title: "Administradores",
-				page_title: "Panel de administradores"};
+				title: "Coordinadores",
+				page_title: "Panel de Coordinadores"};
 
 			var paginate_option = {
 				page: sol.query.page, 

@@ -25,7 +25,10 @@ block contenido
 									p.descripcion.km #{usuario.email}
 									br
 									span.grey-text Tipo de usuario
-									p.descripcion.km #{usuario.tipo}
+									if usuario.tipo == "ADMINISTRADOR"
+										p.descripcion.km COORDINADOR
+									else
+										p.descripcion.km #{usuario.tipo}
 				ul.tabs
 					li.tab.col.s3
 						if user.nombreUsuario == usuario.nombreUsuario
