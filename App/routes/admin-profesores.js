@@ -81,6 +81,8 @@ module.exports = function (app) {
 				}};
 
 			//informacion fuera del sol.body
+			nuevoProfesor.contraseña = crypto.encrypt(sol.body.contraseña);
+			nuevoProfesor.contraseñaValidar = crypto.encrypt(sol.body.contraseñaValidar);
 			nuevoProfesor.fechaNacimiento = moment(sol.body.fechaNacimiento_submit);
 			nuevoProfesor.tipo = "PROFESOR";
 

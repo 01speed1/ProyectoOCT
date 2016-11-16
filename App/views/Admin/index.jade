@@ -4,6 +4,7 @@ block contenido
 		include ./Ext/menu-lateral-admin.jade
 	main
 		include ./Ext/page-title.jade
+		include ./Ext/donuts-menus.jade
 		.container
 			p.descripcion
 				| Opten desde esta interfaz información rápida y acceso a la gestión de la información y creación de usuarios y contenido.
@@ -13,9 +14,10 @@ block contenido
 				.card-panel.km
 					.row.km
 						.col.s10
-							h5.km Administradores
+							h5.km Coordinadores
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_admins')
+								i.material-icons.grey-icons.right more_vert
 					.row.km
 						.col.s6
 							canvas#AdminsChrt.sbt(
@@ -33,7 +35,8 @@ block contenido
 						.col.s10
 							h5.km Profesores
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_profes')
+								i.material-icons.grey-icons.right more_vert
 					.row.km
 						.col.s6
 							canvas#ProfesChrt.sbt(
@@ -51,7 +54,8 @@ block contenido
 						.col.s10
 							h5.km Estudiantes
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_estus')
+								i.material-icons.grey-icons.right more_vert
 					.row.km
 						.col.s6
 							canvas#EstudiantesChrt.sbt(
@@ -71,7 +75,8 @@ block contenido
 						.col.s10
 							h5.km Escuelas  
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_escuelas')
+								i.material-icons.grey-icons.right more_vert
 					.row.km 
 						.col.s6
 							canvas#EscuelaChrt.sbt(
@@ -88,7 +93,8 @@ block contenido
 						.col.s10
 							h5.km Areas
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_areas')
+								i.material-icons.grey-icons.right more_vert
 					.row.km 
 						.col.s6
 							canvas#AreasChrt.sbt(
@@ -105,7 +111,8 @@ block contenido
 						.col.s10
 							h5.km Grupos
 						.col.s2
-							i.material-icons.grey-icons.right more_vert
+							a.dropdown-button(data-activates='menu_grupos')
+								i.material-icons.grey-icons.right more_vert
 					.row.km 
 						.col.s6
 							canvas#GruposChrt.sbt(

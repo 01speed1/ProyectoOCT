@@ -190,8 +190,11 @@ block contenido
 								name="profesor"
 								data-error=".errorTxt13")
 									optgroup(label="Profesor Actual")
-										option(
-										value="#{grupo.profesor.id}") #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
+										if !grupo.profesor 
+											option(value="" disabled) Debes seleccionar un profesor 
+										else
+											option(
+											value="#{grupo.profesor.id}") #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
 									optgroup(label="Profesores Disponibles") 
 										each profesor in profesores
 											if grupo.profesor.id != profesor.id

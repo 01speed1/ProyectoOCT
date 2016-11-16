@@ -19,7 +19,7 @@ module.exports = function (app) {
 		.get(session.admin, function (sol, res) {
 			locals={
 				usuario: sol.session.user,
-				tipoDeUsuairo: "Administrador",
+				tipoDeUsuairo: "Coordinador",
 				paginate: "administradores",
 				title: "Coordinadores",
 				page_title: "Panel de Coordinadores"};
@@ -64,8 +64,8 @@ module.exports = function (app) {
 		.get(session.admin, function (sol, res) {
 			locals={
 				usuario: sol.session.user,
-				title: "Nuevo administrador",
-				page_title: "Crear administrador"
+				title: "Nuevo coordinador",
+				page_title: "Crear coordinador"
 			}
 			res.render("Admin/Administradores/nuevo", locals);
 		})
@@ -90,7 +90,7 @@ module.exports = function (app) {
 
 			nuevoAdministrador.save(function (err) {
 				if (!err) {
-					sol.flash("toast", "Se registro a "+sol.body.nombres+" "+sol.body.apellidos+" como administrador");
+					sol.flash("toast", "Se registro a "+sol.body.nombres+" "+sol.body.apellidos+" como coordinador");
 					res.redirect("/admin/administradores");
 				} else {
 					res.json(err);
@@ -107,8 +107,8 @@ module.exports = function (app) {
 				locals={
 					admin:admin,
 					usuario: sol.session.user,
-					page_title:"Modificar administrador",
-					title: "Modificar administrador"
+					page_title:"Modificar coordinador",
+					title: "Modificar coordinador"
 				}
 				res.render("Admin/Administradores/editar", locals);
 			})
@@ -128,7 +128,7 @@ module.exports = function (app) {
 				return admin.save();
 			})
 			.then(function (admin) {
-				sol.flash("toast", "Administrador modificado");
+				sol.flash("toast", "Coordinador modificado");
 				res.redirect("/admin/administradores");
 			})
 			.catch(function (err) {
@@ -142,7 +142,7 @@ module.exports = function (app) {
 				return admin.remove();
 			})
 			.then(function () {
-				sol.flash('toast', "Administrador "+res.locals.nombre+" eliminado(a).");
+				sol.flash('toast', "Coordinador "+res.locals.nombre+" eliminado(a).");
 				res.send("/admin/administradores");
 			})
 			.error(function (err) {

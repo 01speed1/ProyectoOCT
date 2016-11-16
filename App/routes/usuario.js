@@ -17,7 +17,14 @@ var locals={};
 module.exports = function (app) {
 	router.route("/")
 		.get(function (sol, res) {
-			res.redirect("/login");
+
+			if (sol.session.usuario_id) {
+				res.redirect("/usuario/"+sol.session.user.nombreUsuario);
+			} else{
+				res.redirect("/login");
+			}
+
+			
 		})
 
 	router.route("/:nombreUsuario")
@@ -65,7 +72,20 @@ module.exports = function (app) {
 						}	
 					}
 
-					res.render("Usuario/perfil", locals)
+					if (locals.usuario.tipo =="PROFESOR") {
+						Grupos.find({profesor:locals.usuario.id}, function (err, grupos) {
+
+							locals.profeGrupos = grupos;
+							res.render("Usuario/perfil", locals)
+														
+
+						})
+					} else{
+						locals.profeGrupos = [];
+						res.render("Usuario/perfil", locals)
+					}
+
+					
 				})
 
 		})
@@ -129,6 +149,7 @@ module.exports = function (app) {
 				usuario.avatar = res.locals.nuevoAvatar.url
 				usuario.avatar_id = res.locals.nuevoAvatar.id
 				usuario.contraseñaValidar = usuario.contraseña
+				usuario.estado = sol.body.estado
 				return usuario.save();
 
 			})

@@ -29,15 +29,22 @@ block contenido
 										p.descripcion.km COORDINADOR
 									else
 										p.descripcion.km #{usuario.tipo}
+
+
 				ul.tabs
 					li.tab.col.s3
 						if user.nombreUsuario == usuario.nombreUsuario
-							a(href="#misCursos") Mis Cursos
+							a(href="#misCursos") Estudiante
 						else
 							a(href="#misCursos") cursos de #{usuario.nombres}
+						if usuario.tipo =="PROFESOR"
+							li.tab.col.s3
+								a(href="#profeEn") Profesor
 					if user.nombreUsuario == usuario.nombreUsuario
 						li.tab.col.s3
 							a(href="#Configuracion") Configurar mi perfil
+					
+
 						
 				div#misCursos
 					.spacer
@@ -57,7 +64,7 @@ block contenido
 										a.btn.waves-effect.waves-light.cyan.sbt(href="/grupos") ver grupos
 								else
 									h2.title-style #{ usuario.nombreUsuario} aun no esta en ningún grupo.
-
+			
 					each grupo in misGrupos
 						- arrayGrupos[n] = grupo
 						-n++;
@@ -251,6 +258,66 @@ block contenido
 											type="submit"
 											name="estado"
 											value="MODIFICADO") Actualizar contraseña
+
+				if user.tipo == "PROFESOR"
+					div#profeEn
+						.spacer
+						- var n = 0;
+						- var j = 0;
+						- var t = 0;
+						- var arrayGrupos = new Array();
+						if profeGrupos.length == 0
+							.card-panel
+								.center
+									if user.nombreUsuario == usuario.nombreUsuario
+										h2.title-style Aun no eres profesor de ningun grupo
+										p Recuerda que puede unirte a un grupo en calquier momento
+										.row.km
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/escuelas") ver escuelas
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/areas") ver areas
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/grupos") ver grupos
+									else
+										h2.title-style #{ usuario.nombreUsuario} aun no esta en ningún grupo.
+									
+				
+						each grupo in profeGrupos
+							- arrayGrupos[n] = grupo
+							-n++;
+						-var aLength = arrayGrupos.length
+						-for (var i = 0; i < aLength; i++) {
+							.row
+								.col.l6.m6.s12
+									.card.ligth-green
+										.card-content
+											a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
+											.row.km
+												.col.s12
+													br
+													span.grey-text Estudiantes
+													br
+													span #{arrayGrupos[i].estudiantes.length}
+										.card-action.center-align
+											a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[i].id}") ver grupo
+
+								-j=i+1;
+								-if (j < aLength ) {
+									.col.l6.m6.s12
+										.card.ligth-green
+											.card-content
+												a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}" ) #{arrayGrupos[j].nombre} 
+												.row.km
+													.col.s12
+														br
+														span.grey-text Estudiantes
+														br
+														span #{arrayGrupos[i].estudiantes.length}
+											.card-action.center-align
+												a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[j].id}") ver grupo
+
+								-}
+								-i=i+1
+						- }
+
 
 				//rowkiller
 				.row

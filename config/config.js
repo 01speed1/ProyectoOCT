@@ -8,7 +8,7 @@ module.exports = config = {
 	port: 	process.env.PORT || 8080,
 	secret: "YourSecretIsMySecret",
 	db: 	"mongodb://localhost/OCT_DB",
-	online_db: "mongodb://01speed1:speed13speed13@ds147377.mlab.com:47377/oct_db",
+	//online_db: "mongodb://01speed1:speed13speed13@ds147377.mlab.com:47377/oct_db",
 	algorithm: 'aes-256-ctr',
 	cryptoPass: "your_secret_is_my_secret"
 }
