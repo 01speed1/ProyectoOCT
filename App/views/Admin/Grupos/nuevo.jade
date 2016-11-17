@@ -30,9 +30,13 @@ block contenido
 								select#area(
 									name="area"
 									data-error=".errorTxt2")
-									each area in areas
+									if areas.length == 0
 										option(
-											value="#{area.id}") #{area.nombre} - #{area.escuela.nombre}
+												disabled selected) Aun no hay Areas
+									else
+										each area in areas
+											option(
+												value="#{area.id}") #{area.nombre} - #{area.escuela.nombre}
 								.errorTxt2
 						.row
 							.input-field.col.s3
@@ -160,8 +164,12 @@ block contenido
 								select#profesor(
 								name="profesor"
 								data-error=".errorTxt13")
-									each profesor in profesores
-										option(value="#{profesor.id}") #{profesor.nombres} #{profesor.apellidos}
+									if profesores == 0
+										option(
+											disabled selected) Aun no hay Profesores
+									else
+										each profesor in profesores
+											option(value="#{profesor.id}") #{profesor.nombres} #{profesor.apellidos}
 								.errorTxt13
 							.input-field.col.s5
 								label.active(for="limiteEstudiantes") Limite de estudiantes

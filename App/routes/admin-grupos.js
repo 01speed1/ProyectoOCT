@@ -121,13 +121,23 @@ module.exports = function (app) {
 			var promiseAreas = Area.find().populate('escuela').exec();
 			promiseAreas
 				.then(function (areas) {
-					locals.areas= areas;
-
+					if (areas.length == 0) {
+						sol.flash("toast", "no hay Areas, crea una")
+						res.redirect("/admin/areas/nuevo") }
+					else {locals.areas= areas;}
+					
 				})
 				.then(function () {
 					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
 					promiseProfesores.then(function (profesores) {
-						locals.profesores = profesores;
+
+						if (profesores.length == 0) {
+							sol.flash("toast", "No hay profesores, primero crea uno");
+							res.redirect("/admin/profesores/nuevo")
+						} else {
+							locals.profesores = profesores;
+						}
+						
 					})
 					.then(function () {
 						res.render("Admin/Grupos/nuevo",locals);

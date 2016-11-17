@@ -45,9 +45,9 @@ module.exports = function (app, express, config) {
 	//configuracion de cloudinary
 	var cloudinary = require('cloudinary');
 	cloudinary.config({ 
-	  cloud_name: 'dcdrggs9p', 
-	  api_key: '822244176372834', 
-	  api_secret: 'MeLcmR9mNtWo2Qo8rLU2pY1Eaa8' 
+	  cloud_name: 'dpzzzde6u', 
+	  api_key: '919145793589126', 
+	  api_secret: 'Y7E7hiu1cDH-eyP3yXmYvy02tmI' 
 	});
 
 	//configuracion de la capeta public 

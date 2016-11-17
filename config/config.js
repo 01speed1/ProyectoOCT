@@ -5,10 +5,10 @@ module.exports = config = {
 	root: 	rootPath, 
 	hostname: "hostname temporal",
 	app: 	{name: "Proyecto_OCT"},
-	port: 	process.env.PORT || 8080,
+	port: 	process.env.PORT || 8081,
 	secret: "YourSecretIsMySecret",
-	db: 	"mongodb://localhost/OCT_DB",
-	//online_db: "mongodb://01speed1:speed13speed13@ds147377.mlab.com:47377/oct_db",
+	db: 	"mongodb://devoct01:Proyecto001@ds153677.mlab.com:53677/devoctdb",
+	//online_db: "mongodb://devoct01:Proyecto001@ds153677.mlab.com:53677/devoctdb",
 	algorithm: 'aes-256-ctr',
 	cryptoPass: "your_secret_is_my_secret"
 }

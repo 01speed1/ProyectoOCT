@@ -123,6 +123,7 @@ module.exports = function (app) {
 				 		admin[key] = sol.body[key];
 				}};
 
+				admin.contraseñaValidar = admin.contraseña
 				admin.fechaModificado = moment();
 
 				return admin.save();

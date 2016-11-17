@@ -125,6 +125,10 @@ module.exports = function (app) {
 			})
 				.then(function (array) {
 					locals.escuelas = array;
+					if (locals.escuelas.length == 0) {
+						sol.flash("toast", "No hay escuelas, primero crea una")
+						res.redirect("/admin/escuelas/nuevo")
+					}
 					res.render("Admin/Areas/nuevo", locals);
 				})	
 		})

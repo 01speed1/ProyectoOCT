@@ -2,6 +2,7 @@ extends ../../layout
 block contenido
 	header
 		include ../Ext/menu-lateral-admin.jade
+		include ../Ext/tarjetas-mensajes.jade	
 	main
 		include ../Ext/page-title.jade
 		.container
@@ -17,6 +18,7 @@ block contenido
 							.input-field.col.s6
 								i.material-icons.prefix.grey-icons class
 								input#nombre(
+									required
 									name="nombre"
 									type="text"
 									data-error=".errorTxt1")
@@ -26,10 +28,14 @@ block contenido
 								i.material-icons.prefix.grey-icons library_books
 								label.active(for="escuela") Escuela 
 								select#escuela(
-									name="escuela")
-									each escuela in escuelas
+									name="escuela" required)
+									if escuelas.length == 0
 										option.left.circle(
-											value="#{escuela.id}") #{escuela.nombre}
+											disabled selected) Aun no hay Escuelas
+									else
+										each escuela in escuelas
+											option.left.circle(
+												value="#{escuela.id}") #{escuela.nombre}
 						.row
 							.input-field.col.s12
 								i.material-icons.prefix.grey-icons reorder
