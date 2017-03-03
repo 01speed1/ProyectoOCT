@@ -1,0 +1,44 @@
+{
+  "name": "proyecto_oct_0.2",
+  "version": "0.2.1",
+  "description": "Proyecto para la gestion de usuarios de la Oficina de Cultura recreacion y deporte ",
+  "main": "app.js",
+  "scripts": {
+    "hero": "git add . && git commit -m 'test heroku' && git push heroku master",
+    "start": "hotnode app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/01speed1/ProyectoOCT.git"
+  },
+  "author": "Oscar Guzman / @01speed1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/01speed1/ProyectoOCT/issues"
+  },
+  "homepage": "https://github.com/01speed1/ProyectoOCT#readme",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.14.2",
+    "cloudinary": "^1.3.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "express-flash": "0.0.2",
+    "express-formidable": "^0.1.3",
+    "express-paginate": "^0.2.1",
+    "express-session": "^1.13.0",
+    "glob": "^7.0.0",
+    "hotnode": "0.0.8",
+    "jade": "~1.11.0",
+    "method-override": "^2.3.5",
+    "moment": "^2.14.1",
+    "mongoose": "^4.4.5",
+    "mongoose-paginate": "^5.0.0",
+    "morgan": "^1.7.0",
+    "mpath": "^0.2.1",
+    "underscore": "^1.5.2"
+  },
+  "devDependencies": {
+    "hotnode": "~version"
+  }
+}
