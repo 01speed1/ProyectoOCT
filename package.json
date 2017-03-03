@@ -4,7 +4,7 @@
   "description": "Proyecto para la gestion de usuarios de la Oficina de Cultura recreacion y deporte ",
   "main": "app.js",
   "scripts": {
-    "hero": "git add . && git commit -m 'test heroku' && git push heroku master",
+    "hero": "git add . && git commit -m \"test heroku\" && git push heroku master",
     "start": "hotnode app"
   },
   "repository": {
