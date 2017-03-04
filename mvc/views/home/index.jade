@@ -1,7 +1,7 @@
 extend ../layout
 block contenido
-	include ./Ext/welcome-div.jade
-	include ./Ext/tarjetas-mensajes.jade
+	include ./ext/welcome-div.jade
+	include ./ext/tarjetas-mensajes.jade
 	.spacer
 	.divider
 	.spacer
@@ -13,7 +13,7 @@ block contenido
 				div.divider-line
 					h3.title-style Soy usuario frecuente
 					p.index-text Iniciar sesión 
-					include ./Ext/form-login
+					include ./ext/form-login
 			.col.s6
 				h3.title-style Quiero registrarme
 				p.index-text ¿Que estas esperando?
@@ -57,4 +57,4 @@ block contenido
 
 
 block epecialjs
-	include ../Ext/front-scripts.jade
+	include ../ext/front-scripts.jade
