@@ -1,0 +1,79 @@
+extends ../../layout
+block contenido
+	.div-escuelas
+		include ../Ext/nav-bar-home.jade
+		.spacer
+		.spacer
+		.container
+			.row.section
+				h3.title-style.white-text.stroke Escuelas de formacion
+				p.index-text.white-text.stroke 
+	.spacer
+	.divider
+	.spacer
+	.container
+		.row.section
+			if escuelas.length == 0 
+					//include ../Ext/mensaje-no-hay-elementos.jade
+						a.waves-effet.waves-light.btn.cyan.sbt(href="/admin/Escuelas/nuevo") Nuevo
+			else
+				include ../Ext/paginate.jade
+				- //var count = 0;
+				- var n = 0;
+				- var j = 0;
+				- var t = 0;
+				- var arrayEscuelas = new Array();
+				each escuela in escuelas
+					- arrayEscuelas[n]= escuela;
+					- n++;
+				- for (var i = 0; i < arrayEscuelas.length; i++) {
+					.row 
+						.col.l4.m6.s12
+							.card.small
+								.card-image
+									img(
+									src="#{arrayEscuelas[i].background}")
+									span.card-title.stroke #{arrayEscuelas[i].nombre}
+								//.card-content
+									//p.descripcion #{arrayEscuelas[i].descripcion}
+								.card-action
+									a.btn.sbt.cyan(
+									href="/areas/#{arrayEscuelas[i].id}") ver areas
+										i.material-icons.right forward
+									
+						-j=i+1;
+						-if (j < arrayEscuelas.length) {
+							.col.l4.m6.s12
+								.card.small
+									.card-image
+										img(
+										src="#{arrayEscuelas[j].background}")
+										span.card-title.stroke #{arrayEscuelas[j].nombre}
+									//.card-content
+										//p.descripcion #{arrayEscuelas[j].descripcion}
+									.card-action
+										a.btn.sbt.cyan(
+										href="/areas/#{arrayEscuelas[j].id}") ver areas
+											i.material-icons.right forward
+												
+						- }
+						-t=j+1
+						-if (t < arrayEscuelas.length) {
+							.col.l4.m6.s12
+								.card.small
+									.card-image
+										img(
+										src="#{arrayEscuelas[t].background}")
+										span.card-title.stroke #{arrayEscuelas[t].nombre}
+									//.card-content
+										//p.descripcion #{arrayEscuelas[t].descripcion}
+									.card-action
+										a.btn.sbt.cyan(
+										href="/areas/#{arrayEscuelas[t].id}") ver areas
+											i.material-icons.right forward
+												
+						- }
+						-i=i+2;						
+				-}
+				include ../Ext/paginate.jade	
+				include ../Ext/tarjetas-mensajes.jade

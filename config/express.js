@@ -60,7 +60,7 @@ module.exports = function (app, express, config) {
 	app.set("view engine", "jade");
 
 	//configurar ruta para las vistas config.root+
-	app.set("views", config.root+"/app/views");
+	app.set("views", config.root+"/mvc/views");
 
 	//Configuracion de body-parer
 	bodyParser 	= require('body-parser');
@@ -69,7 +69,7 @@ module.exports = function (app, express, config) {
 
 	//configruacion de glob
 	var glob = require("glob");
-	var routes = glob.sync(config.root + '/App/routes/*.js');
+	var routes = glob.sync(config.root + '/mvc/routes/*.js');
 		routes.forEach(function (routes) {
 			require(routes)(app);  //parametro "routes es la direccion de las rutas" y app es express 
 		});

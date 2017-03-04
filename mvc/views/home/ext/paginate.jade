@@ -1,0 +1,26 @@
+ul.pagination
+	if page <= 1
+		li.disabled
+			a(href="#!")
+				i.material-icons chevron_left
+	else
+		li.waves-effect
+			a(href="/admin/#{paginate}?page=#{page-1}")
+				i.material-icons chevron_left
+	- for(var x = 1; x <= pages; x++){
+		- if (page == x) {
+			li.active.cyan
+				a(href="#!") #{x}
+		-}else{
+			li.waves-effect
+				a(href="/#{paginate}?page=#{x}") #{x}
+		-}				
+	-}
+	if page == pages
+		li.disabled.flecha
+			a(href="#!")
+				i.material-icons chevron_right
+	else
+		li.waves-effect
+			a(href="/admin/#{paginate}?page=#{page+1}")
+				i.material-icons chevron_right
