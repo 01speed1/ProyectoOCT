@@ -51,7 +51,7 @@ module.exports = function (app, express, config) {
 	});
 
 	//configuracion de la capeta public 
-	app.use(express.static("Public"));
+	app.use(express.static("public"));
 
 	//configurar la base datos 
 	require("./mongoose")(config);
