@@ -178,7 +178,7 @@ module.exports = function (app) {
 				  }
 				  else{locals.pages = parseInt(i)+1;}
 
-				  	res.render("Home/Grupos/byArea", locals);
+				  	res.render("home/grupos/byArea", locals);
 						//res.json(grupos.docs)
 				})
 				.error(function (err) {
