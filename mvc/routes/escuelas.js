@@ -45,7 +45,7 @@ module.exports = function (app) {
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Home/Escuelas/index",locals)
+				res.render("home/escuelas/index",locals)
 			})
 			.catch(function (err) {
 				console.log(err);
