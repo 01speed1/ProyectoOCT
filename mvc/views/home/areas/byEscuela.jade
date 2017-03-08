@@ -1,7 +1,7 @@
 extends ../../layout
 block contenido
 	.div-escuelas
-		include ../Ext/nav-bar-home.jade
+		include ../ext/nav-bar-home.jade
 		.spacer
 		.spacer
 		.container
@@ -17,7 +17,7 @@ block contenido
 				//include ../Ext/mensaje-no-hay-elementos.jade
 					a.waves-effet.waves-light.btn.cyan.sbt(href="/admin/areas/nuevo") Nuevo
 			else
-				include ../Ext/paginate.jade
+				include ../ext/paginate.jade
 				- var count = 0;
 				- var n = 0;
 				- var j = 0;
@@ -72,5 +72,5 @@ block contenido
 						- }
 						-i=i+2;						
 				-}
-				include ../Ext/paginate.jade
-				include ../Ext/tarjetas-mensajes.jade
+				include ../ext/paginate.jade
+				include ../ext/tarjetas-mensajes.jade
