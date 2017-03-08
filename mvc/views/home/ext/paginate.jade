@@ -5,7 +5,7 @@ ul.pagination
 				i.material-icons chevron_left
 	else
 		li.waves-effect
-			a(href="/admin/#{paginate}?page=#{page-1}")
+			a(href="/#{paginate}?page=#{page-1}")
 				i.material-icons chevron_left
 	- for(var x = 1; x <= pages; x++){
 		- if (page == x) {
@@ -22,5 +22,5 @@ ul.pagination
 				i.material-icons chevron_right
 	else
 		li.waves-effect
-			a(href="/admin/#{paginate}?page=#{page+1}")
+			a(href="/#{paginate}?page=#{page+1}")
 				i.material-icons chevron_right
