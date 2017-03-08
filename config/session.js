@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var Usuario = require("../App/models/usuarios.js"); //modificado por heroku 
+var Usuario = require("../mvc/models/usuarios.js"); //modificado por heroku 
 
 module.exports.user = function  (sol, res, next) {
 	if (!sol.session.usuario_id) {
