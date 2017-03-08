@@ -112,7 +112,7 @@ module.exports = function (app) {
 			})
 			.then(function (area) {
 
-				res.render("homegrupos/one", locals)
+				res.render("home/grupos/one", locals)
 			})
 			.error(function (err) {
 				res.json(err)
