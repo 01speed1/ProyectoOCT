@@ -15,7 +15,7 @@ module.exports = function (app) {
 
 			locals.title = "Iniciar sesion"
 
-			res.render("Session/login", locals);
+			res.render("session/login", locals);
 		})
 		.post(function (sol, res) { 
 
