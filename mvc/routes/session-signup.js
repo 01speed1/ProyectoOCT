@@ -17,7 +17,7 @@ module.exports = function (app) {
 
 			locals.title = "Nuevo registro"
 
-			res.render("Session/signup", locals);
+			res.render("session/signup", locals);
 		})
 		.post(function (sol, res) {
 
