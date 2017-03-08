@@ -99,7 +99,7 @@ p.index-text{
 /*div de bienvenida*/
 .welcome{
   background: #757575 ;
-  background-image: url('/Img/cubes.png');
+  background-image: url('/img/cubes.png');
   background-size: 1536px 1536px;
   height: 100%;
   width: 100%;
@@ -110,7 +110,7 @@ p.index-text{
 /*div de presentacion de escuelas de formacimacio*/
 .div-escuelas{
   background: #757575 ;
-  background-image: url('/Img/escuelas-prllx.jpg');
+  background-image: url('/img/escuelas-prllx.jpg');
   background-size: 1536px 1536px;
   background-position: 50% 15%;
   height: 10%;
