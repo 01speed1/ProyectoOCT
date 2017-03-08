@@ -76,13 +76,13 @@ module.exports = function (app) {
 						Grupos.find({profesor:locals.usuario.id}, function (err, grupos) {
 
 							locals.profeGrupos = grupos;
-							res.render("Usuario/perfil", locals)
+							res.render("usuario/perfil", locals)
 														
 
 						})
 					} else{
 						locals.profeGrupos = [];
-						res.render("Usuario/perfil", locals)
+						res.render("usuario/perfil", locals)
 					}
 
 					
