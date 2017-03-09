@@ -51,7 +51,7 @@ module.exports = function (app) {
 				if (sol.query.page > locals.pages || sol.query.page <=0 ){
 			  	res.redirect("/admin/administradores?page="+locals.pages)
 			  }else{
-			  	res.render("Admin/Administradores/index",locals)
+			  	res.render("admin/administradores/index",locals)
 			  }			  
 			})
 			.error(function (err) {
