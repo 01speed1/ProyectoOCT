@@ -65,7 +65,7 @@ module.exports = function (app) {
 				usuario: sol.session.user,
 				page_title: "Crear Escuela"
 			}
-			res.render("Admin/Escuelas/nuevo", locals);
+			res.render("admin/escuelas/nuevo", locals);
 		})
 		.post(session.admin, uploader.cargarNuevoBackground, function (sol, res) {
 
