@@ -50,7 +50,7 @@ module.exports = function (app) {
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Admin/Areas/index",locals)
+				res.render("admin/areas/index",locals)
 			})
 			.error(function (err) {
 				console.log(err);
