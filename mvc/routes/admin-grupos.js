@@ -218,7 +218,7 @@ module.exports = function (app) {
 					promiseProfesores
 					.then(function (profesores) {
 						locals.profesores = profesores;
-						res.render("Admin/Grupos/editar", locals);
+						res.render("admin/grupos/editar", locals);
 					})
 					.error(function (err) {
 						res.json(err);
