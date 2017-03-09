@@ -51,7 +51,7 @@ module.exports = function (app) {
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Admin/Mensajes/index", locals)
+				res.render("admin/mensajes/index", locals)
 			})
 			.error(function (err) {
 				console.log(err);

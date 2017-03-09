@@ -67,7 +67,7 @@ module.exports = function (app) {
 				title: "Nuevo coordinador",
 				page_title: "Crear coordinador"
 			}
-			res.render("Admin/Administradores/nuevo", locals);
+			res.render("admin/administradores/nuevo", locals);
 		})
 		.post(session.admin, function (sol, res) {
 			locals={};
@@ -110,7 +110,7 @@ module.exports = function (app) {
 					page_title:"Modificar coordinador",
 					title: "Modificar coordinador"
 				}
-				res.render("Admin/Administradores/editar", locals);
+				res.render("admin/administradores/editar", locals);
 			})
 		})
 		.put(session.admin, function (sol, res) {

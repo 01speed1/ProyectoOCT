@@ -131,7 +131,7 @@ module.exports = function (app) {
 				}
 			})
 			.then(function () {
-				res.render("Admin/index", locals);
+				res.render("admin/index", locals);
 			})
 		});
 

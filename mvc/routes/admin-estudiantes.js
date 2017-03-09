@@ -51,7 +51,7 @@ module.exports = function (app) {
 				if (sol.query.page > locals.pages || sol.query.page <=0){
 			  	res.redirect("/admin/estudiantes?page="+locals.pages)
 			  }else{
-			  	res.render("Admin/estudiantes/index",locals)
+			  	res.render("admin/estudiantes/index",locals)
 			  }
 			})
 			.error(function (err) {
@@ -75,7 +75,7 @@ module.exports = function (app) {
 					page_title:"Modificar estudiante",
 					title: "Modificar Estudiante"
 				}
-				res.render("Admin/Estudiantes/editar", locals);
+				res.render("admin/estudiantes/editar", locals);
 			})
 		})
 		.put(session.admin, function (sol, res) {

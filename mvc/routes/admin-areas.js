@@ -92,7 +92,7 @@ module.exports = function (app) {
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Admin/Areas/byEscuela",locals)
+				res.render("admin/areas/byEscuela",locals)
 			})
 			.error(function (err) {
 				console.log(err);
@@ -129,7 +129,7 @@ module.exports = function (app) {
 						sol.flash("toast", "No hay escuelas, primero crea una")
 						res.redirect("/admin/escuelas/nuevo")
 					}
-					res.render("Admin/Areas/nuevo", locals);
+					res.render("admin/areas/nuevo", locals);
 				})	
 		})
 		.post(session.admin, uploader.cargarNuevoBackground, function (sol, res) {
@@ -186,7 +186,7 @@ module.exports = function (app) {
 								title: "Modificar Escuela",
 								arrayEscuelas:arrayEscuelas
 							}
-							res.render("Admin/Areas/editar", locals);
+							res.render("admin/areas/editar", locals);
 						})
 				})
 		})

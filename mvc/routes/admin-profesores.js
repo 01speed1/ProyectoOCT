@@ -52,7 +52,7 @@ module.exports = function (app) {
 				if (sol.query.page > locals.pages || sol.query.page <=0){
 			  	res.redirect("/admin/profesores?page="+locals.pages)
 			  }else{
-			  	res.render("Admin/profesores/index",locals)
+			  	res.render("admin/profesores/index",locals)
 			  }
 			})
 			.error(function (err) {
@@ -68,7 +68,7 @@ module.exports = function (app) {
 				title: "Nuevo profesor",
 				page_title: "Crear profesor"
 			}
-			res.render("Admin/profesores/nuevo", locals);
+			res.render("admin/profesores/nuevo", locals);
 		})
 		.post(session.admin, function (sol, res) {
 			locals={};
@@ -109,7 +109,7 @@ module.exports = function (app) {
 					page_title:"Modificar profesor",
 					title: "Modificar Profesor"
 				}
-				res.render("Admin/Profesores/editar", locals);
+				res.render("admin/profesores/editar", locals);
 			})
 		})
 		.put(session.admin, function (sol, res) {

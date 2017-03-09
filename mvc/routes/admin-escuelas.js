@@ -49,7 +49,7 @@ module.exports = function (app) {
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Admin/Escuelas/index",locals)
+				res.render("admin/escuelas/index",locals)
 			})
 			.catch(function (err) {
 				console.log(err);
@@ -101,7 +101,7 @@ module.exports = function (app) {
 					page_title:"Modificar Escuela "+escuela.nombre,
 					title: "Modificar Escuela"
 				}
-				res.render("Admin/Escuelas/editar", locals);
+				res.render("admin/escuelas/editar", locals);
 			})
 		})
 		.put(session.admin, uploader.cargarNuevoBackground, function (sol, res, next) {
