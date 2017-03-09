@@ -1,0 +1,78 @@
+extends ../../layout
+block contenido
+	header
+		include ../ext/menu-lateral-admin.jade
+	main
+		include ../ext/page-title.jade
+		.container
+			include ../ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/grupos/nuevo") Nuevo
+			if grupos.length == 0 
+				include ../ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/grupos/nuevo") Nuevo
+			else	
+				include ../ext/paginate.jade
+				ul.collection.hoverable
+					each grupo in grupos
+						.elemento
+							.info
+								li
+									if grupo.estado == "NUEVO"
+										span.new.badge.cyan.gbrd(
+										data-badge-caption="Nuevo")
+									if grupo.estado == "SIN PROFESOR"
+										span.new.badge.red.gbrd(
+										data-badge-caption="Sin profesor")
+									a.collection-item #{grupo.nombre}
+								.mas-info.grey.lighten-4
+									if grupo.estado == "SIN PROFESOR"
+										p.red-text.center Este grupo nesecita ser modificado ya que el perfil del profesor fue borrado
+									.divider
+									table.responsive-table.centered
+										thead
+											tr
+												th Profesor
+												th Area
+
+												th Numero de estudiantes
+												th limite de estudiantes
+										tbody
+											tr
+												if grupo.estado == "SIN PROFESOR"
+													td.red-text DESCONOCIDO 
+												else
+													td 
+														a(href="/usuario/#{grupo.profesor.nombreUsuario}") #{grupo.profesor.nombres} #{grupo.profesor.apellidos}
+												td #{grupo.area.nombre}
+												td #{grupo.estudiantes.length}
+												if grupo.limiteEstudiantes == 0
+													td sin limite
+												else 
+													td #{grupo.limiteEstudiantes}
+									table.responsive-table.centered
+										thead
+											tr
+												th Fecha de inicio
+												th Fecha de finalizacion
+												th Horario
+										tbody
+												td #{grupo.fechaInicioPretty}
+												td #{grupo.fechaFinPretty}
+												td #{grupo.horario}
+									.divider
+									.center-align.white
+										a.btn.sbt.cyan(href="/grupos/ver/#{grupo.id}") ver detalles
+										a.btn.sbt.cyan(
+										href="/admin/grupos/editar/#{grupo.id}") modificar
+											i.material-icons.right edit
+										form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/grupos/editar/#{grupo.id}?_method=DELETE"
+										method="POST")
+											button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+												i.material-icons.right delete
+						.divider
+block footer
+	include ../ext/admin-footer.jade

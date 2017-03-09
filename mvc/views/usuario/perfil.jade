@@ -1,0 +1,334 @@
+extends ../layout
+block contenido
+	include ../Home/Ext/nav-bar-home.jade
+
+	.container
+		.row.km
+			.col.s12
+				.card-panel
+					.row
+						.col.l4.m4.s12
+							.center-align
+								h3.title-style.hide-on-med-and-up.km #{usuario.nombres} #{usuario.apellidos}
+								img.circle.circle-border(src="#{usuario.avatar}" style="margin-top: 2rem;" )
+						.col.l8.m8.s12
+							.row
+								h3.title-style.hide-on-small-only #{usuario.nombres} #{usuario.apellidos}
+								.col.s6
+									span.grey-text Nombre usuarios 
+									p#nomuserval.descripcion.km #{usuario.nombreUsuario}
+									br
+									span.grey-text Numero de documento 
+									p.descripcion.km #{usuario.tipoDocumento}: #{usuario.numeroDocumento}
+								.col.s6
+									span.grey-text Correo Electronico 
+									p.descripcion.km #{usuario.email}
+									br
+									span.grey-text Tipo de usuario
+									if usuario.tipo == "ADMINISTRADOR"
+										p.descripcion.km COORDINADOR
+									else
+										p.descripcion.km #{usuario.tipo}
+
+
+				ul.tabs
+					li.tab.col.s3
+						if user.nombreUsuario == usuario.nombreUsuario
+							a(href="#misCursos") Estudiante
+						else
+							a(href="#misCursos") cursos de #{usuario.nombres}
+						if usuario.tipo =="PROFESOR"
+							li.tab.col.s3
+								a(href="#profeEn") Profesor
+					if user.nombreUsuario == usuario.nombreUsuario
+						li.tab.col.s3
+							a(href="#Configuracion") Configurar mi perfil
+					
+
+						
+				div#misCursos
+					.spacer
+					- var n = 0;
+					- var j = 0;
+					- var t = 0;
+					- var arrayGrupos = new Array();
+					if misGrupos.length == 0
+						.card-panel
+							.center
+								if user.nombreUsuario == usuario.nombreUsuario
+									h2.title-style Aun no están en ningún grupo
+									p Recuerda que puede unirte a un grupo en calquier momento
+									.row.km
+										a.btn.waves-effect.waves-light.cyan.sbt(href="/escuelas") ver escuelas
+										a.btn.waves-effect.waves-light.cyan.sbt(href="/areas") ver areas
+										a.btn.waves-effect.waves-light.cyan.sbt(href="/grupos") ver grupos
+								else
+									h2.title-style #{ usuario.nombreUsuario} aun no esta en ningún grupo.
+			
+					each grupo in misGrupos
+						- arrayGrupos[n] = grupo
+						-n++;
+					-var aLength = arrayGrupos.length
+					-for (var i = 0; i < aLength; i++) {
+						.row
+							.col.l6.m6.s12
+								.card.ligth-green
+									.card-content
+										a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
+										.row.km
+											.col.s6
+												br
+												span.grey-text Profesor
+												br
+												span #{arrayGrupos[i].profesor.nombres} #{arrayGrupos[i].profesor.apellidos} 
+											.col.s6
+												br
+												span.grey-text Estudiantes
+												br
+												span #{arrayGrupos[i].estudiantes.length}
+									.card-action.center-align
+										a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[i].id}") ver grupo
+										if usuario.nombreUsuario == user.nombreUsuario
+											form(method="POST" action="/grupos/del/#{arrayGrupos[i].id}/#{usuario.id}?_method=DELETE")
+												button.btn.red.white-text(type="submit") Salir del grupo
+							-j=i+1;
+							-if (j < aLength ) {
+								.col.l6.m6.s12
+									.card.ligth-green
+										.card-content
+											a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}" ) #{arrayGrupos[j].nombre} 
+											.row.km
+												.col.s6
+													br
+													span.grey-text Profesor
+													br
+													span #{arrayGrupos[j].profesor.nombres} #{arrayGrupos[j].profesor.apellidos} 
+												.col.s6
+													br
+													span.grey-text Estudiantes
+													br
+													span #{arrayGrupos[i].estudiantes.length}
+										.card-action.center-align
+											a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[j].id}") ver grupo
+											if usuario.nombreUsuario == user.nombreUsuario
+												form(method="POST" action="/grupos/del/#{arrayGrupos[j].id}/#{usuario.id}?_method=DELETE")
+													button.btn.red.white-text(type="submit") Salir del grupo
+							-}
+							-i=i+1
+					- }
+
+				if user.nombreUsuario == usuario.nombreUsuario
+					div#Configuracion
+						.spacer
+						.card(style="margin-top: 0.5rem; margin-bottom: 5rem;")
+							.card-content 
+								span.card-title(style="font-size: 35px;") Datos personales
+
+								//informacion personal 
+								form#editar-perfil.s12.km.gbrd.editarPerfil(
+									method="POST"
+									action="/usuario/#{usuario.nombreUsuario}/edit?_method=PUT")
+									.row
+										.input-field.col.s6
+											i.material-icons.prefix.grey-icons face
+											input#nombres(
+												name="nombres"
+												type="text"
+												value="#{usuario.nombres}"
+												data-error=".errorTxt1")
+											label.active(for="nombres") Nombre(s)
+											.errorTxt1
+										.input-field.col.s6
+											input#apellidos(
+												name="apellidos"
+												type="text"
+												value="#{usuario.apellidos}"
+												data-error=".errorTxt2") 
+											label.active(for="apellidos") Apellidos
+											.errorTxt2
+									.row
+										.input-field.col.s9
+											i.material-icons.prefix.grey-icons credit_card
+											input#numeroDocumento.formater(
+												name="numeroDocumento"
+												type="text"
+												value="#{usuario.numeroDocumento}"
+												data-error=".errorTxt3")
+											label.active(for="numeroDocumento") Numero de documento
+											.errorTxt3
+										.input-field.col.s3 
+											select#tipoDocumento(
+												name="tipoDocumento"
+												data-error=".errorTxt4")
+												- var arrayTipos = ["CC","TI","CE"];
+												- for (var i = 0; i < arrayTipos.length; i++) {
+													if arrayTipos[i] == usuario.tipoDocumento
+														option(value="#{arrayTipos[i]}" selected) #{arrayTipos[i]}
+													else
+														option(value="#{arrayTipos[i]}") #{arrayTipos[i]}
+												-}
+											label(for="tipoDocumento") Tipo de documento
+											.errorTxt4
+									.row
+										.input-field.col.s12
+											i.material-icons.prefix.grey-icons account_box
+											input#nombreUsuario.nombreUsuario(
+												name="nombreUsuario"
+												type="text"
+												value="#{usuario.nombreUsuario}"
+												data-error=".errorTxt5")
+											label.active(for="nombreUsuario") Nombre de usuario 
+											.errorTxt5
+									.row
+										.input-field.col.s12
+											i.material-icons.prefix.grey-icons email
+											input#email(
+												name="email"
+												type="email"
+												value="#{usuario.email}"
+												data-error=".errorTxt6")
+											label.active(for="email") Correo Electrónico
+											.errorTxt6
+									.row.km
+										.col.s12.center-align
+											button.waves-effect.waves-light.btn.sbt.cyan(
+											type="submit"
+											name="estado"
+											value="MODIFICADO") Actualizar informacion
+								br
+								.divider
+								//cambiar avatar
+								span.card-title(style="font-size: 35px;") Cambiar mi foto
+								form#avatar-form.s12.km.gbrd(
+									method="POST"
+									action="/usuario/#{usuario.nombreUsuario}/avatar?_method=PUT"
+									enctype="multipart/form-data")
+									.row
+										.col.l7.s12
+											label(for="avatar") Selecciona una imagen 
+											.file-field.input-field
+												.btn.cyan.center
+													span imagen
+													input#avatar(
+													type="file"
+													name="avatar")
+												.file-path-wrapper
+													input.file-path(type="text" data-error=".errorTxt1")
+													.errorTxt1
+											.center
+												button.waves-effect.waves-light.btn.sbt.cyan.center(
+												type="submit"
+												name="estado"
+												value="MODIFICADO") Actualizar imagen de perfil
+												
+										.col.l5.s12
+											.center-align
+												img.circle.circle-border(src="#{usuario.avatar}" style="margin-top: 2rem;" )
+
+								.divider
+
+								//Cambiar contraseña
+								span.card-title(style="font-size: 35px;") Cambiar la contraseña
+								form#passform.s12.km.gbrd(
+								method="POST" 
+								action="/usuario/#{usuario.nombreUsuario}/pass?_method=PUT")
+									.row
+										.input-field.col.s12
+											input(
+												id="oldContraseña"
+												name="oldContraseña"
+												type="password")
+											label(for="oldContraseña") Antigua Contraseña
+									.row
+										.input-field.col.s12.l6 
+											input(
+												id="contraseña"
+												name="contraseña"
+												type="password")
+											label(for="contraseña") Contraseña
+										.input-field.col.s12.l6
+											input(
+												id="contraseñaValidar"
+												name="contraseñaValidar"
+												type="password")
+											label(for="contraseña-validar") Repita la Contraseña
+									.row.km
+										.col.s12.center-align
+											button.waves-effect.waves-light.btn.sbt.cyan(
+											type="submit"
+											name="estado"
+											value="MODIFICADO") Actualizar contraseña
+
+				if user.tipo == "PROFESOR"
+					div#profeEn
+						.spacer
+						- var n = 0;
+						- var j = 0;
+						- var t = 0;
+						- var arrayGrupos = new Array();
+						if profeGrupos.length == 0
+							.card-panel
+								.center
+									if user.nombreUsuario == usuario.nombreUsuario
+										h2.title-style Aun no eres profesor de ningun grupo
+										p Recuerda que puede unirte a un grupo en calquier momento
+										.row.km
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/escuelas") ver escuelas
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/areas") ver areas
+											a.btn.waves-effect.waves-light.cyan.sbt(href="/grupos") ver grupos
+									else
+										h2.title-style #{ usuario.nombreUsuario} aun no esta en ningún grupo.
+									
+				
+						each grupo in profeGrupos
+							- arrayGrupos[n] = grupo
+							-n++;
+						-var aLength = arrayGrupos.length
+						-for (var i = 0; i < aLength; i++) {
+							.row
+								.col.l6.m6.s12
+									.card.ligth-green
+										.card-content
+											a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[i].id}") #{arrayGrupos[i].nombre} 
+											.row.km
+												.col.s12
+													br
+													span.grey-text Estudiantes
+													br
+													span #{arrayGrupos[i].estudiantes.length}
+										.card-action.center-align
+											a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[i].id}") ver grupo
+
+								-j=i+1;
+								-if (j < aLength ) {
+									.col.l6.m6.s12
+										.card.ligth-green
+											.card-content
+												a.card-title.mini-header(href="/grupos/ver/#{arrayGrupos[j].id}" ) #{arrayGrupos[j].nombre} 
+												.row.km
+													.col.s12
+														br
+														span.grey-text Estudiantes
+														br
+														span #{arrayGrupos[i].estudiantes.length}
+											.card-action.center-align
+												a.btn.cyan.sbt(href="/grupos/ver/#{arrayGrupos[j].id}") ver grupo
+
+								-}
+								-i=i+1
+						- }
+
+
+				//rowkiller
+				.row
+
+		
+			
+		
+			
+	include ../Ext/tarjetas-mensajes.jade
+block epecialjs
+	include ../Ext/profile-scripts.jade
+
+
+

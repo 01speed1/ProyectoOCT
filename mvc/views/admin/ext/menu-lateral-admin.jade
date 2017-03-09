@@ -1,0 +1,61 @@
+ul#mobile-nav-bar-admin.side-nav.fixed
+			//vista para el perfil
+			li
+				.userView
+					img.background(
+					src="#{usuario.background}"
+					width="100%" height="auto")
+					a(href="/usuario/#{usuario.nombreUsuario}")
+						img.circle(
+						src="#{usuario.avatar}")
+					a(href="/usuario/#{usuario.nombreUsuario}")
+						span.white-text.name #{usuario.nombres} #{usuario.apellidos}
+					a
+						span.white-text.email #{usuario.email}
+			//lista de enlaces
+			li
+				a(href="/Admin") Panel
+					i.material-icons.left dashboard
+			//usuarios
+			li.no-padding
+				ul.collapsible.collapsible-accordion
+					li
+						a.collapsible-header Usuarios
+							i.material-icons.left account_circle         
+						.collapsible-body
+							ul
+								li
+									a.waves-effect(href='/admin/administradores') Coordinadores                 
+								li
+									a.waves-effect(href='/admin/profesores') Profesores
+								li
+									a.waves-effect(href='/admin/estudiantes') Estudiantes 
+			//Escuelas
+			li.no-padding
+				ul.collapsible.collapsible-accordion
+					li
+						a.collapsible-header Escuelas de formación
+							i.material-icons.left assignment
+						.collapsible-body
+							ul
+								li
+									a.waves-effect(href='/admin/escuelas') Escuelas
+								li
+									a.waves-effect(href='/admin/areas') Areas
+			// grupos
+			li.no-padding
+				a.waves-effect(href="/admin/grupos") Grupos
+					i.material-icons.left group
+			//mensajes
+			li.no-padding
+				a.waves-effect(href="/admin/mensajes") Mensajes
+					i.material-icons.left message
+			//home
+			li.no-padding
+				a.waves-effect(href="/") Pagina Principal
+					i.material-icons.left home
+			//cerarr session 
+			li.no-padding
+				a.waves-effect(href="/logout") Cerrar Sesión 
+					i.material-icons.left exit_to_app
+

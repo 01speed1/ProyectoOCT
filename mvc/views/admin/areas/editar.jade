@@ -1,0 +1,82 @@
+extends ../../layout
+block contenido
+	header
+		include ../ext/menu-lateral-admin.jade
+	main
+		include ../ext/page-title.jade
+		.container
+			p.descripcion Aquí puedes modificar el area #{area.nombre}
+			//formulario
+			.row
+				.card-panel.km
+					form#nueva-area.col.s12(
+						method="POST"
+						action="/admin/areas/editar/#{area.id}?_method=PUT"
+						enctype="multipart/form-data")
+						.row
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons class
+								input#nombre(
+									name="nombre"
+									type="text"
+									value="#{area.nombre}"
+									data-error=".errorTxt1")
+								label(for="nombre") Nombre de la area
+								.errorTxt1
+							.input-field.col.s6
+								i.material-icons.prefix.grey-icons library_books
+								label.active(for="escuela") Escuela 
+								select#escuela(
+									name="escuela")
+									optgroup(label="Escuela Actual")
+										option(
+										value="#{area.escuela.id}") #{area.escuela.nombre}
+									optgroup(label="Escuelas disponibles") 
+										each escuela in arrayEscuelas
+											if area.escuela.id != escuela.id
+												option(
+													value="#{escuela.id}") #{escuela.nombre}
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons reorder
+								textarea#descripcion.materialize-textarea(
+									name="descripcion"
+									data-error=".errorTxt2") #{area.descripcion}
+								label(for="descripcion") Descripción
+								.errorTxt2 							 
+						.row
+							label(for="background") Selecciona una imagen 
+							.file-field.input-field
+								.btn.waves-effect-waves-light.cyan
+										span Agregar imagen
+										input#background(
+										type="file"
+										name="background"
+										data-error=".errorTxt3")
+								.file-path-wrapper
+									input.file-path(type="text")
+								.errorTxt3
+						.row
+							input#background_id(type="hidden" value="#{area.background_id}" name="background_id")
+						.row
+							.col.s6
+								.card
+									.card-image
+										img(src="#{area.background}")
+										span.card-title.stroke Imagen actual
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/areas") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan.creando(
+								type="submit"
+								name="estado"
+								value="MODIFICADO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer
+	include ../ext/admin-footer.jade

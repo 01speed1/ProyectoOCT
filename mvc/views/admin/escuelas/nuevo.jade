@@ -1,0 +1,61 @@
+extends ../../layout
+block contenido
+	header
+		include ../ext/menu-lateral-admin.jade
+		include ../ext/tarjetas-mensajes.jade	
+	main
+		include ../ext/page-title.jade
+		.container
+			p.descripcion Aquí puedes agregar un nuevo Escuela
+			//formulario
+			.row
+				.card-panel.km
+					form#nueva-escuela.col.s12(
+						method="POST"
+						action="/admin/escuelas/nuevo"
+						enctype="multipart/form-data")
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons class
+								input#nombre(
+									name="nombre"
+									type="text"
+									data-error=".errorTxt1")
+								label(for="nombre") Nombre de la escuela
+								.errorTxt1
+						.row
+							.input-field.col.s12
+								i.material-icons.prefix.grey-icons reorder
+								textarea#descripcion.materialize-textarea(
+									name="descripcion"
+									data-error=".errorTxt2")
+								label(for="descripcion") Descripción
+								.errorTxt2 
+						.row
+							label(for="background") Selecciona una imagen 
+							.file-field.input-field
+								.btn.waves-effect-waves-light.cyan
+										span Agregar imagen
+										input#background(
+										type="file"
+										name="background"
+										data-error=".errorTxt3")
+								.file-path-wrapper
+									input.file-path(type="text")
+								.errorTxt3
+						.divider
+						.row
+							.col.s12.center-align
+								a.waves-effect.waves-light.btn.sbt.white.grey-icons(
+									href="/admin/escuelas") regresar
+									i.material-icons.left close
+								button.waves-effect.waves-light.btn.sbt.cyan.creando(
+								type="submit"
+								name="estado"
+								value="NUEVO") Guardar
+									i.material-icons.right save
+
+					//row killer card panel 
+					.row.km
+block footer
+	include ../ext/admin-footer.jade

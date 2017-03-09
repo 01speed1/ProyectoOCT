@@ -1,0 +1,22 @@
+.row 
+	.col.s6
+		.card.medium
+			.card-image
+				img(
+				src="#{arrayEscuelas[i].background}")
+				span.card-title #{arrayEscuelas[i].nombre}
+			.card-content
+				p #{arrayEscuelas[i].descripcion}
+			.card-action
+				a(href="#!") enlace
+	if j < arrayEscuelas.length
+	.col.s6
+		.card.medium
+			.card-image
+				img(
+				src="#{arrayEscuelas[j].background}")
+				span.card-title #{arrayEscuelas[j].nombre}
+			.card-content
+				p #{arrayEscuelas[j].descripcion}
+			.card-action
+				a(href="#!") enlace

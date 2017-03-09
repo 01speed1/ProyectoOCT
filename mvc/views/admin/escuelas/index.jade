@@ -1,0 +1,76 @@
+extends ../../layout
+block contenido
+	header
+		include ../ext/menu-lateral-admin.jade
+	main
+		include ../ext/page-title.jade
+		.container
+			include ../ext/tarjetas-mensajes.jade
+			a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/Escuelas/nuevo") Nuevo
+			if escuelas.length == 0 
+				include ../Ext/mensaje-no-hay-elementos.jade
+					a.waves-effet.waves-light.btn.cyan.sbt(
+				href="/admin/Escuelas/nuevo") Nuevo
+			else
+				include ../ext/paginate.jade
+				- var count = 0;
+				- var n = 0;
+				-var j = 0;
+				- var arrayEscuelas = new Array();
+				each escuela in escuelas
+					- arrayEscuelas[n]= escuela;
+					- n++;
+				- for (var i = 0; i < arrayEscuelas.length; i++) {
+					.row 
+						.col.l6.m6.s12
+							.card.large
+								.card-image
+									img(
+									src="#{arrayEscuelas[i].background}")
+									span.card-title.stroke #{arrayEscuelas[i].nombre}
+								.card-content 
+									//p.descripcion #{arrayEscuelas[i].descripcion}
+								.card-action
+									a.btn.sbt.cyan(
+									href="/admin/areas/escuela/#{arrayEscuelas[i].id}") ver areas
+										i.material-icons.right 
+									a.btn.sbt.cyan(
+									href="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}") editar
+										i.material-icons.right edit
+									form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayEscuelas[i].id}?_method=DELETE"
+										method="POST")
+										button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+											i.material-icons.right delete
+						-j=i+1;
+						-if (j < arrayEscuelas.length) {
+							.col.l6.m6.s12
+								.card.large
+									.card-image
+										img(
+										src="#{arrayEscuelas[j].background}")
+										span.card-title.stroke #{arrayEscuelas[j].nombre}
+									.card-content 
+										//p.descripcion #{arrayEscuelas[j].descripcion}
+									.card-action
+										a.btn.sbt.cyan(
+											href="/admin/areas/escuela/#{arrayEscuelas[j].id}") ver areas
+											i.material-icons.right
+										a.btn.sbt.cyan(
+										href="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}") editar
+											i.material-icons.right edit
+										form.btn-borrar(
+										style="display: inline-block;"
+										action="/admin/#{paginate}/editar/#{arrayEscuelas[j].id}?_method=DELETE"
+										method="POST")
+											button.btn.sbt.red.prevenirBorarr(type="submit") borrar
+												i.material-icons.right delete			
+						- }
+						-i=i+1;						
+				-}
+				include ../ext/paginate.jade
+						
+block footer
+	include ../ext/admin-footer.jade
