@@ -93,7 +93,7 @@ p.index-text{
 /*ajuste de la imagen logo*/
 .glogo{
   height: 65px;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 /*div de bienvenida*/
