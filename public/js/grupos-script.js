@@ -9,10 +9,13 @@ $().ready(function () {
 
   //lanzar datepicker para fecha final
 
+
 		$(".dateGroupStart").change(function () {
 			var fechaDeInicio = $(this).val();
 
+
   		var fechaMin = fechaDeInicio.split("-");
+  		console.log(fechaMin)
 
   		$(".dateGroupEnd").pickadate({
 	  		selectMonths: true,
@@ -26,18 +29,24 @@ $().ready(function () {
 
 		});
 
-		if ($(".dateGroupStart").val()) {} else {
+
+		
 			$(".dateGroupEnd").click(function () {
-		  	swal({
+				if (!$(".dateGroupStart").val()) {
+					swal({
 		  		title:"Ups!",
 		  		text:"Debes seleccionar primero una fecha de inicio",
 		  		type:"error"
 		  	});
+				}
+
+		  	
   		});
+
 		  $(".dateGroupEnd").keyup(function () {
 	  		$(this).val("");
 	  	})
-		}
+		
 
 	//habilitar la edicion del nombre
 		$("#sendBotton").hide();
