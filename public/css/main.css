@@ -93,21 +93,16 @@ p.index-text{
 /*ajuste de la imagen logo*/
 .glogo{
   height: 65px;
-<<<<<<< HEAD
+
   /*width: 100%;*/
-=======
-  width: 100%;
->>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
+
 }
 
 /*div de bienvenida*/
 .welcome{
   background: #757575 ;
-<<<<<<< HEAD
   background-image: url('/img/cubes.png');
-=======
-  background-image: url('/Img/cubes.png');
->>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
+
   background-size: 1536px 1536px;
   height: 100%;
   width: 100%;
@@ -118,11 +113,9 @@ p.index-text{
 /*div de presentacion de escuelas de formacimacio*/
 .div-escuelas{
   background: #757575 ;
-<<<<<<< HEAD
+
   background-image: url('/img/escuelas-prllx.jpg');
-=======
-  background-image: url('/Img/escuelas-prllx.jpg');
->>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
+
   background-size: 1536px 1536px;
   background-position: 50% 15%;
   height: 10%;

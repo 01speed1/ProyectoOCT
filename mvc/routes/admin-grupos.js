@@ -125,33 +125,24 @@ module.exports = function (app) {
 						sol.flash("toast", "no hay Areas, crea una")
 						res.redirect("/admin/areas/nuevo") }
 					else {locals.areas= areas;}
+
+					return Profesor.find({tipo:"PROFESOR"}).exec();
 					
 				})
-				.then(function () {
-					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
-					promiseProfesores
-					.then(function (profesores) {
+				.then(function (profesores) {
 
-						var numProfesor;
+					console.log(profesores.length)
 
-						if (profesores.length == 0) {
-							//sol.flash("toast", "No hay profesores, primero crea uno");
-							//res.redirect("/admin/profesores/nuevo")
+					if (profesores.length == 0) {
+							sol.flash("toast", "No hay profesores, primero crea uno");
+							res.redirect("/admin/profesores/nuevo");
 
 						} else {
 							locals.profesores = profesores;
+							res.render("admin/grupos/nuevo",locals);
 						}
+				
 
-						 //numProfesor = profesores.length;
-
-						
-					})
-					.then(function () {
-						res.render("admin/grupos/nuevo",locals);
-					})
-					.error(function (err) {
-						res.json(err);
-					})
 				})
 				.error(function (err) {
 					res.json(err);
