@@ -129,14 +129,21 @@ module.exports = function (app) {
 				})
 				.then(function () {
 					var promiseProfesores = Profesor.find({tipo:"PROFESOR"}).exec();
-					promiseProfesores.then(function (profesores) {
+					promiseProfesores
+					.then(function (profesores) {
+
+						var numProfesor;
 
 						if (profesores.length == 0) {
-							sol.flash("toast", "No hay profesores, primero crea uno");
-							res.redirect("/admin/profesores/nuevo")
+							//sol.flash("toast", "No hay profesores, primero crea uno");
+							//res.redirect("/admin/profesores/nuevo")
+
 						} else {
 							locals.profesores = profesores;
 						}
+
+						 //numProfesor = profesores.length;
+
 						
 					})
 					.then(function () {

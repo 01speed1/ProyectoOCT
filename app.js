@@ -10,5 +10,9 @@ const locals = {}
 app.get("/", (sol, res)=>{
 	locals.title = "Bienvenido";
 
+	if (sol.session.usuario_id) {
+		locals.user = sol.session.user
+	} else {locals.user = null}
+
 	res.render('home/index.jade', locals)
 })

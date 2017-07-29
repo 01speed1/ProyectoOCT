@@ -7,28 +7,29 @@ block contenido
 	.spacer
 	.spacer
 	//block login y registro
-	.container
-		.row.section
-			.col.s6
-				div.divider-line
-					h3.title-style Soy usuario frecuente
-					p.index-text Iniciar sesión 
-					include ./ext/form-login
-			.col.s6
-				h3.title-style Quiero registrarme
-				p.index-text ¿Que estas esperando?
-				.spacer
-				.spacer
-				.spacer
-				.row
-						.col.s12.center-align
-							a(href="/registro").waves-effet-waves-light.btn-large.cyan.sbt Registrarse
-				.spacer
-				.spacer
-				.spacer
-	.spacer
-	.divider
-	.spacer
+	if user == null
+		.container
+			.row.section
+				.col.s6
+					div.divider-line
+						h3.title-style Soy usuario frecuente
+						p.index-text Iniciar sesión 
+						include ./ext/form-login
+				.col.s6
+					h3.title-style Quiero registrarme
+					p.index-text ¿Que estas esperando?
+					.spacer
+					.spacer
+					.spacer
+					.row
+							.col.s12.center-align
+								a(href="/registro").waves-effet-waves-light.btn-large.cyan.sbt Registrarse
+					.spacer
+					.spacer
+					.spacer
+		.spacer
+		.divider
+		.spacer
 	//block ver ecuelas de formacion
 	.parallax-container#arrowPoint
 		.parallax
