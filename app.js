@@ -16,7 +16,6 @@ require("./config/express.js")(app,express,config);
 
 app.get("/", letStart, function (sol, res) {
 
-//>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
 	locals.title = "Bienvenido";
 
 	if (sol.session.usuario_id) {
@@ -26,11 +25,10 @@ app.get("/", letStart, function (sol, res) {
 
 
 
-	res.render("Home/index.jade", locals);
+	res.render("home/index.jade", locals);
 });
 
 app.get("*", function (sol, res) {
 	res.status(404).send("Pagina no encontrada");
 });
 
-//>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
