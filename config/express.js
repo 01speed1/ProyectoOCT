@@ -51,7 +51,11 @@ module.exports = function (app, express, config) {
 	});
 
 	//configuracion de la capeta public 
+<<<<<<< HEAD
 	app.use(express.static("public"));
+=======
+	app.use(express.static("Public"));
+>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
 
 	//configurar la base datos 
 	require("./mongoose")(config);
@@ -60,7 +64,11 @@ module.exports = function (app, express, config) {
 	app.set("view engine", "jade");
 
 	//configurar ruta para las vistas config.root+
+<<<<<<< HEAD
 	app.set("views", config.root+"/mvc/views");
+=======
+	app.set("views", config.root+"/App/views");
+>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
 
 	//Configuracion de body-parer
 	bodyParser 	= require('body-parser');
@@ -69,7 +77,11 @@ module.exports = function (app, express, config) {
 
 	//configruacion de glob
 	var glob = require("glob");
+<<<<<<< HEAD
 	var routes = glob.sync(config.root + '/mvc/routes/*.js');
+=======
+	var routes = glob.sync(config.root + '/App/routes/*.js');
+>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
 		routes.forEach(function (routes) {
 			require(routes)(app);  //parametro "routes es la direccion de las rutas" y app es express 
 		});

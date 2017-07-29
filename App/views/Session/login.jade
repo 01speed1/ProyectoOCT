@@ -1,0 +1,17 @@
+extends ../layout
+block contenido
+	div(height="100rem" width="100%" style="background-color: #aed581;") 
+		.container
+			.row.km
+				.col.l8.s12
+					.card(style="margin-top: 5rem; margin-bottom: 5rem;")
+						.card-content
+							span.card-title(style="font-size: 35px;") Iniciar sesión 
+							p.descripcion.gbrd ¡Hola de nuevo, Te estábamos esperando!
+							include ../Home/Ext/form-login 
+						//rowKiller
+						.row.km
+
+	include ../Ext/tarjetas-mensajes.jade
+block footer
+	include ../Ext/pre-footer.jade

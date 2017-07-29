@@ -1,10 +1,18 @@
 {
   "name": "proyecto_oct_0.2",
+<<<<<<< HEAD
   "version": "0.2.1",
   "description": "Proyecto para la gestion de usuarios de la Oficina de Cultura recreacion y deporte ",
   "main": "app.js",
   "scripts": {
     "hero": "git add . && git commit -m \"test heroku\" && git push heroku master",
+=======
+  "version": "0.2.0",
+  "description": "Proyecto para la gestion de usuarios de la Oficina de Cultura recreacion y deporte ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+>>>>>>> 61e6907ab66902c521df8d20bf4a0ef28a1873df
     "start": "hotnode app"
   },
   "repository": {

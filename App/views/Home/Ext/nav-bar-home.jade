@@ -1,0 +1,60 @@
+nav.light-green.black-text.animated.slideInDown
+	.nav-wrapper
+		a.brand-logo(href="/").hide-on-med-and-down 
+			img.glogo(src="/Img/glogo.png")
+		a.button-collapse(data-activates="resposiveNav-home" href="#")
+			i.material-icons menu
+		//version desktop
+		ul#nav-home.right.hide-on-med-and-down
+			li
+				a(href="/") Inicio
+			li
+				a(href="/escuelas") Escuelas de formación
+			li
+				a(href="/areas") Áreas
+			if user
+				- profileUrl = "/usuario/"+user.nombreUsuario;
+				li
+					a.tooltipped(href="#{profileUrl}" 
+					data-position="bottom" 
+					data-delay="150" 
+					data-tooltip="#{user.nombreUsuario}") Mi Perfil
+				if user.tipo == "ADMINISTRADOR"
+					li
+						a(href="/admin") Panel de control
+
+				li
+					a(href="/logout") Cerrar sesion
+			else
+				li
+					a(href="/login") Iniciar Sesión
+				li
+					a(href="/registro") Registrarse
+				
+//version mobil
+ul#resposiveNav-home.side-nav
+	li
+		a(href="/escuelas") Escuelas de formacion
+	li
+		a(href="/areas") Areas
+	if user
+		- profileUrl = "/usuario/"+user.nombreUsuario;
+		li
+			a.tooltipped(href="#{profileUrl}" 
+			data-position="right" 
+			data-delay="150" 
+			data-tooltip="#{user.nombreUsuario}") Mi Perfil
+		if user.tipo == "ADMINISTRADOR"
+			li
+				a(href="/admin") Panel de control
+
+		li
+			a(href="/logout") Cerrar sesion
+	else
+		li
+			a(href="/login") Iniciar Sesión
+		li
+			a(href="/registro") Registrarse
+	li
+		a(href="/") Inicio
+			
