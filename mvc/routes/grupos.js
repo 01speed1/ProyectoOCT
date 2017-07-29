@@ -41,9 +41,15 @@ module.exports = function (app) {
 			promise
 			.then(function (grupos) {
 
-				var gruposConProfesores = []
+				if (grupos.docs.length == 0) {
+					sol.flash("toast", "Aún no hay grupos, vuelve mas tarde")
+					res.redirect("/escuelas");
+				} else {
+					// en el caso de haber grupos
 
-				for (var i = 0; i < grupos.docs.length; i++) {
+					var gruposConProfesores = []
+
+					for (var i = 0; i < grupos.docs.length; i++) {
 					if (grupos.docs[i].estado != "SIN PROFESOR") {
 						gruposConProfesores.push(grupos.docs[i]);
 
@@ -63,12 +69,16 @@ module.exports = function (app) {
 			  locals.limit = grupos.limit;
 			  locals.offset= grupos.offset;
 			  var i = (grupos.total/grupos.limit);
+			  
 			  if(grupos.total%grupos.limit == 0){
 			  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
 			  }
 			  else{locals.pages = parseInt(i)+1;}
 
-				res.render("Home/Grupos/index", locals)
+			  res.render("Home/Grupos/index", locals)
+
+				}
+				
 			})
 			.error(function (err) {
 				console.log(err);
