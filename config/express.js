@@ -38,6 +38,7 @@ module.exports = function (app, express, config) {
 		resave: false,
   		saveUninitialized: true
 	}));
+
 	//mensajes flash
 	 var flash = require('express-flash');
 	app.use(flash());
@@ -62,10 +63,8 @@ module.exports = function (app, express, config) {
 	app.set("view engine", "jade");
 
 	//configurar ruta para las vistas config.root+
-
 	app.set("views", config.root+"/mvc/views");
-
-
+	
 	//Configuracion de body-parer
 	bodyParser 	= require('body-parser');
 	app.use(bodyParser.json());
