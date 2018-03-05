@@ -158,38 +158,43 @@ module.exports = function (app) {
 					if (grupos.docs.length==0) {
 						sol.flash("toast", "Esta area no tiene grupos, veras todos los grupos")
 						res.redirect("/grupos")
-					}
-
-					var gruposConProfesores = []
-
-					for (var i = 0; i < grupos.docs.length; i++) {
-						if (grupos.docs[i].estado != "SIN PROFESOR") {
-							gruposConProfesores.push(grupos.docs[i]);
-
-						}	
-					}
-
-					if (gruposConProfesores.length==0) {
-						locals.grupos=grupos.docs
 					} else {
-						locals.grupos = gruposConProfesores
+						var gruposConProfesores = []
+
+						for (var i = 0; i < grupos.docs.length; i++) {
+							if (grupos.docs[i].estado != "SIN PROFESOR") {
+								gruposConProfesores.push(grupos.docs[i]);
+
+							}	
+						}
+
+						if (gruposConProfesores.length==0) {
+							locals.grupos=grupos.docs
+						} else {
+							locals.grupos = gruposConProfesores
+						}
+
+						if (grupos.docs[0] != undefined) {
+							locals.title = grupos.docs[0].area.nombre;
+						} else {
+							locals.title = "Sin Nombre";
+						}
+
+						locals.page = sol.query.page;
+						locals.limit = grupos.limit;
+						locals.total = grupos.total;
+					  locals.limit = grupos.limit;
+					  locals.offset= grupos.offset;
+					  var i = (grupos.total/grupos.limit);
+					  if(grupos.total%grupos.limit == 0){
+					  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
+					  }
+					  else{locals.pages = parseInt(i)+1;}
+
+					  res.render("home/grupos/byArea", locals);
+
 					}
-
-					
-					locals.title = grupos.docs[0].area.nombre;
-					locals.page = sol.query.page;
-					locals.limit = grupos.limit;
-					locals.total = grupos.total;
-				  locals.limit = grupos.limit;
-				  locals.offset= grupos.offset;
-				  var i = (grupos.total/grupos.limit);
-				  if(grupos.total%grupos.limit == 0){
-				  	if (i===0) {locals.pages=1;} else {locals.pages = parseInt(i);}
-				  }
-				  else{locals.pages = parseInt(i)+1;}
-
-				  	res.render("home/grupos/byArea", locals);
-						//res.json(grupos.docs)
+						
 				})
 				.error(function (err) {
 					res.json(err)

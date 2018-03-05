@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "hero": "git add . && git commit -m \"test heroku\" && git push heroku master",
+    "hub": "git add . && git commit -m \"test heroku\" && git push origin master",
     "start": "hotnode app"
   },
   "repository": {
@@ -31,7 +32,7 @@
     "hotnode": "0.0.8",
     "jade": "~1.11.0",
     "method-override": "2.3.5",
-    "moment": "2.14.1",
+    "moment": "^2.21.0",
     "mongoose": "4.4.5",
     "mongoose-paginate": "5.0.0",
     "morgan": "1.7.0",
